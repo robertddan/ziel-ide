@@ -1,11 +1,11 @@
 <?php
 
 #-event
-#--user interaction agile
+#--user
 #-session
-#-router GET/POST
-#--CRUD model
-#-scheduling
+#-router
+#--model
+#-agile
 #----
 #
 
