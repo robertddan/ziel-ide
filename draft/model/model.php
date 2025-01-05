@@ -2,7 +2,7 @@
 
 
 
-function router_init()
+function model_init()
 {
     return true;
 }

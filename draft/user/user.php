@@ -2,7 +2,7 @@
 
 
 
-function router_init()
+function user_init()
 {
     return true;
 }
