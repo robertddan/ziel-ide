@@ -27,7 +27,7 @@ function router_redirect()
 {
 	global $aRouter;
 	if (!router_setup()) error_throw('router_setup()');
-	header('Location: /?'. http_build_query($aRouter));
+	header('Location: /index.php?'. http_build_query($aRouter));
 	exit();
 }
 

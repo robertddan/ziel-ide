@@ -1,6 +1,5 @@
 <?php
 
-
 function session_init()
 {
     if (isset($_SESSION['draft'])) return true;

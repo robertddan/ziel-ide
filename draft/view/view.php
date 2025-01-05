@@ -1,6 +1,6 @@
 <?php
 
-function model_init()
+function view_init()
 {
     return true;
 }
