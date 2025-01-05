@@ -6,7 +6,7 @@ class Event {
         return die('Error: '. $sMsg);
     }
     
-    public static function user_init()
+    public static function event_init()
     {
         return true;
     }    

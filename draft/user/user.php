@@ -1,6 +1,9 @@
 <?php
 
-function user_init()
-{
-    return true;
+class User {
+    
+    public static function User_init()
+    {
+        return true;
+    }
 }

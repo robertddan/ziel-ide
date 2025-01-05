@@ -1,7 +1,7 @@
 <?php
 include(__DIR__ .'/config/bootstrap.php');
 
-function error_throw($sMsg = 'Error: (empty message)') return die('Error: '. $sMsg);
+#if (!Autoload::autoload_files()) return print('autoload_files()');
+if (!dispatcher_dispatch()) return Event::error_throw('dispatcher_dispatch()');
 
-if (!dispatcher_dispatch()) error_throw('dispatcher_dispatch()');
 ?>

@@ -1,6 +1,9 @@
 <?php
 
-function view_init()
-{
-    return true;
+class View {
+    
+    public static function View_init()
+    {
+        return true;
+    }
 }
