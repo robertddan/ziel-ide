@@ -1,0 +1,17 @@
+{
+    "name": "root/ziel-ide",
+    "description": "Ziel IDE",
+    "type": "project",
+    "autoload": {
+        "files": ["draft"]
+    },
+    "authors": [
+        {
+            "name": "Robert-Dan",
+            "email": "danrobert445@gmail.com"
+        }
+    ],
+    "require": {
+        "": ""
+    }
+}
