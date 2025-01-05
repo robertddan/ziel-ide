@@ -2,5 +2,5 @@
 
 function model_init()
 {
-    return true;
+    return false;
 }
