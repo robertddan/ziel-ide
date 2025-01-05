@@ -7,14 +7,14 @@ class Route {
     public static function router_init()
     {
         if (empty($_GET)) return self::router_redirect();
-        if (!self::router_setup()) error_throw('router_setup()');
+        if (!self::router_setup()) Event::error_throw('router_setup()');
         self::$aRouter = array_merge(self::$aRouter, $_GET);
         return true;
     }
     
     public static function router_redirect()
     {
-        if (!self::router_setup()) error_throw('router_setup()');
+        if (!self::router_setup()) Event::error_throw('router_setup()');
         header('Location: /index.php?'. http_build_query(self::$aRouter));
         exit();
     }
