@@ -1,5 +1,4 @@
 <?php
-
 class Autoload {
 
     public static $sJsonName = "ziel.json";
@@ -43,5 +42,4 @@ class Autoload {
 if (!Autoload::autoload_files()) return print('autoload_files()');
 if (!Autoload::autoload_vendors()) return print('autoload_vendors()');
 if (!Autoload::autoload_custom()) return print('autoload_custom()');
-
 ?>

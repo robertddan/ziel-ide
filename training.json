@@ -1,0 +1,16 @@
+{
+	"name": "root/ziel_ide",
+	"description": "Ziel IDE",
+	"autoload": {
+		"files": [
+			"draft/controller/dispatcher.php"
+		]
+	},
+	"authors": [
+		{
+			"name": "Robert-Dan Dumitrascu",
+			"e-mail": "danrobert445@gmail.com"
+		}
+	]
+}
+
