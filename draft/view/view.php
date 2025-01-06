@@ -2,7 +2,7 @@
 
 class View {
     
-    public static function View_init()
+    public static function view_render()
     {
         return true;
     }

@@ -8,7 +8,7 @@
 #--model
 #----
 class Dispatcher {
-    function _dispatch()
+    public static function dispatch()
     {
         if (!Session::session_init()) Event::error_throw('session_init()');
         if (!Route::router_init()) Event::error_throw('router_init()');
