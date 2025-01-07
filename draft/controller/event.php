@@ -1,13 +1,20 @@
 <?php
 
+namespace Ziel\Controller;
+
 class Event {
-    public static function error_throw($sMsg = 'Error: (empty message)')
+    
+    public function error_throw($sMsg = 'Error: (empty message)')
     {
         return die('Error: '. $sMsg);
     }
     
-    public static function event_init()
+    public function event_init()
     {
+        #$_SESSION['event']
+        print '<pre>';
+        #var_dump($GLOBALS);
+        print '</pre>';
         return true;
     }    
 }

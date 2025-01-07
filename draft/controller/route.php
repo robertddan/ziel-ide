@@ -1,5 +1,7 @@
 <?php
 
+namespace Ziel\Controller;
+
 class Route {
     
     public static $aRouter = array();

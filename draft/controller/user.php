@@ -1,8 +1,10 @@
 <?php
 
+namespace Ziel\Controller;
+
 class User {
     
-    public static function User_init()
+    public static function user_init()
     {
         return true;
     }

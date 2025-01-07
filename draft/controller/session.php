@@ -1,11 +1,19 @@
 <?php
 
+namespace Ziel\Controller;
+
 class Session {
-    
-    public static function session_init()
+
+    public function session_init()
     {
-        if (isset($_SESSION['draft'])) return true;
-        else session_start();
+        if (!$this->session_globals()) return false;
+        return true;
+    }
+    
+    public function session_globals()
+    {
+        if (!session_start()) return false;
+        $_SESSION['draft'] = $GLOBALS;
         return true;
     }
 }
