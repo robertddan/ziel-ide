@@ -12,7 +12,6 @@ class Autoload {
 
     public static function autoload_files()
     {
-        define("ROOT", __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
         $sComposer = file_get_contents(ROOT . self::$sJsonName);
         $aComposer = json_decode($sComposer);
         foreach($aComposer->autoload->files as $sFile) self::autoload_vendors(ROOT . trim($sFile));    
