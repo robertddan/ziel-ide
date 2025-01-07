@@ -58,13 +58,14 @@ class Dispatcher {
         if (!self::$oEvent->event_init()) self::$oEvent->error_throw('event_init()');
         
         if (!self::$oRoute->router_init()) self::$oEvent->error_throw('router_init()');
-        if (!self::$oUser::user_init()) self::$oEvent->error_throw('user_init()');
+        #if (!self::$oUser::user_init()) self::$oEvent->error_throw('user_init()');
         
-        if (!self::$oModel::model_init()) self::$oEvent->error_throw('model_init()');
+        #if (!self::$oModel::model_init()) self::$oEvent->error_throw('model_init()');
         if (!self::$oView->view_render()) self::$oEvent->error_throw('view_render()');
         
         return true;
     }
+
 }
 
 ?>

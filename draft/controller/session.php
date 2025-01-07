@@ -12,7 +12,7 @@ class Session {
     
     public function session_globals()
     {
-        if (!session_start()) return false;
+        if (!session_start()) die('session_globals()');
         $_SESSION['draft'] = $GLOBALS;
         return true;
     }
