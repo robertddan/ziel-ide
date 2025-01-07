@@ -20,7 +20,7 @@ $aPage['content'] .= '
 
 function dashboard_init()
 {
-	global $aRouter;
+	#global $aRouter;
 	return true;
 }
 

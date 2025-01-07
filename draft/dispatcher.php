@@ -12,14 +12,7 @@
 #$GLOBALS variable
 
 /*
-The Dispatcher maintains a prioritized queue of work items for a specific thread. 
-When a Dispatcher is created on a thread, it becomes the only Dispatcher that can 
-be associated with the thread, even if the Dispatcher is shut down.
-
-Dispatchers define the context in which a coroutine runs. They control the 
-threading and scheduling of coroutines, allowing you to run tasks on different 
-threads based on the type of work being done. This enables efficient handling 
-of I/O-intensive, CPU-intensive tasks and tasks that run on the main UI thread.
+-exclude every time to include files instead use cache
 */
 
 use Ziel\Controller\Event;
@@ -54,7 +47,7 @@ class Dispatcher {
     
     public static function dispatch()
     {
-        if (!self::$oSession->session_init()) self::$oEvent->error_throw('session_init()');
+        #if (!self::$oSession->session_init()) self::$oEvent->error_throw('session_init()');
         if (!self::$oEvent->event_init()) self::$oEvent->error_throw('event_init()');
         
         if (!self::$oRoute->router_init()) self::$oEvent->error_throw('router_init()');

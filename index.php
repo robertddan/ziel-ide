@@ -1,12 +1,13 @@
 <?php
-include(__DIR__ .'/config/bootstrap.php');
+
+define("DS", DIRECTORY_SEPARATOR);
+define("ROOT", __DIR__ . DS);
+define("CONFIG", __DIR__ . DS . "config" . DS);
+define("DRAFT", __DIR__ . DS . "draft" . DS);
+define("VENDOR", __DIR__ . DS . "vendor" . DS);
+
+include(CONFIG . DS . 'bootstrap.php');
 
 if (!Dispatcher::threads()) die('dispatcher_threads()');
 
-print '<pre>';
-var_dump([
-    isset($_SESSION['draft']),
-    $_SESSION['draft']
-]);
-print '</pre>';
 ?>
