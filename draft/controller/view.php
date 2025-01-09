@@ -163,10 +163,10 @@ $aRouterNav = array(
     public function widget_html()
     {
         global $aRouter, $aPage, $aWidget;
-        require(DRAFT .'view' . DS . $aRouter['page'] .'.php');
+        #require(DRAFT .'view' . DS . $aRouter['page'] .'.php');
         #call_user_func($aRouter['page'] .'_init');
         #include(DRAFT .'view' . DS . $aRouter['page'] .'.php');
-            
+        
 print '<pre>';
 var_dump([
     get_included_files(),
@@ -178,6 +178,9 @@ var_dump([
     file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')
 ]);
 print '</pre>';
+
+        call_user_func(array('Ziel\\View\\Home', 'home_init'));
+        #Ziel\View\Home
         
         if (!file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')) {
             $aRouter['page'] = 'home';
