@@ -47,14 +47,14 @@ class Dispatcher {
     
     public static function dispatch()
     {
-        #if (!self::$oSession->session_init()) self::$oEvent->error_throw('session_init()');
-        if (!self::$oEvent->event_init()) self::$oEvent->error_throw('event_init()');
+        #if (!self::$oSession->session_init()) die('session_init()');
+        if (!self::$oEvent->event_init()) die('event_init()');
         
-        if (!self::$oRoute->router_init()) self::$oEvent->error_throw('router_init()');
-        #if (!self::$oUser::user_init()) self::$oEvent->error_throw('user_init()');
+        if (!self::$oRoute->router_init()) die('router_init()');
+        #if (!self::$oUser::user_init()) die('user_init()');
         
-        #if (!self::$oModel::model_init()) self::$oEvent->error_throw('model_init()');
-        if (!self::$oView->view_render()) self::$oEvent->error_throw('view_render()');
+        #if (!self::$oModel::model_init()) die('model_init()');
+        if (!self::$oView->widget_init()) die('widget_init()');
         
         return true;
     }

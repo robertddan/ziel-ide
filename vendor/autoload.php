@@ -6,9 +6,12 @@ class Autoload {
     
     public static function autoload_custom()
     {
-        foreach (self::$aClasses as $sClass) if(!include($sClass)) continue;
+        #print '<pre>';
+        #var_dump([self::$aClasses]);
+        #print '</pre>';
+        foreach(self::$aClasses as $sClass) if(!include($sClass)) continue;
         return true;
-    }
+    } 
 
     public static function autoload_files()
     {
@@ -20,9 +23,9 @@ class Autoload {
     
     public static function autoload_vendors($sVendors = null)
     {
-        if ($sVendors == null) $sVendors = __DIR__;
+        if($sVendors == null) $sVendors = __DIR__;
         $aVendors = array_diff(scandir($sVendors), array('.', '..', 'autoload.php'));
-        foreach ($aVendors as $sVendor)
+        foreach($aVendors as $sVendor)
         {
             $sClassPath = $sVendors . DIRECTORY_SEPARATOR . $sVendor;
             if (is_dir($sClassPath))

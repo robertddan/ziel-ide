@@ -2,6 +2,8 @@
 
 global $aPage;
 $aPage = array();
+#var_dump($aPage);
+
 $aPage['content'] = $aPage['script'] = $aPage['projekt'] = '';
 $aPage['title'] = '🔆 Dashboard';
 $aPage['projekt'] = <<<END

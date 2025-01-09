@@ -6,10 +6,8 @@ class Route {
     
     public function router_init()
     {
-        global $aRouter;
         if (empty($_GET)) return $this->router_redirect();
         if (!$this->router_setup()) die('router_setup()');
-        $aRouter = array_merge($aRouter, $_GET);
         return true;
     }
     
@@ -30,6 +28,7 @@ class Route {
         $aRouter = array_merge($aRouter, $_GET);
         return true;
     }
+    
 }
 
 /*
