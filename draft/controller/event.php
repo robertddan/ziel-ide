@@ -15,9 +15,9 @@ class Event {
         $aRouter = $aPage = array();
         
         #$_SESSION['event']
-        print '<pre>';
-        var_dump($GLOBALS);
-        print '</pre>';
+        #print '<pre>';
+        #var_dump($GLOBALS);
+        #print '</pre>';
         return true;
     }
 

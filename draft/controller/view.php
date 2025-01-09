@@ -166,7 +166,7 @@ $aRouterNav = array(
         #require(DRAFT .'view' . DS . $aRouter['page'] .'.php');
         #call_user_func($aRouter['page'] .'_init');
         #include(DRAFT .'view' . DS . $aRouter['page'] .'.php');
-        
+/*        
 print '<pre>';
 var_dump([
     get_included_files(),
@@ -178,18 +178,18 @@ var_dump([
     file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')
 ]);
 print '</pre>';
-
-        call_user_func(array('Ziel\\View\\Home', 'home_init'));
+*/
+        call_user_func(array('Ziel\\View\\'. $aRouter['page'], $aRouter['page'] .'_init'));
         #Ziel\View\Home
         
-        if (!file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')) {
-            $aRouter['page'] = 'home';
+        #if (!file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')) {
+            #$aRouter['page'] = 'home';
             #return router_redirect();
-        }
-        else {
+        #}
+        #else {
             #include(DRAFT .'view' . DS . $aRouter['page'] .'.php');
             #call_user_func($aRouter['page'] .'_init');
-        }
+        #}
         
         $aWidget['html'] = '';
         
@@ -212,7 +212,7 @@ print '</pre>';
         
         $aWidget['html'] .= '<main><div class="container">';
         #$aWidget['html'] .= $aWidget['events'];
-        #$aWidget['html'] .= $aPage['content'];
+        $aWidget['html'] .= $aPage['content'];
         $aWidget['html'] .= '</div></main>';
         
         #$aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);

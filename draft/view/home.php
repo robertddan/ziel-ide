@@ -11,7 +11,6 @@ class Home {
 
     public static function home_init()
     {
-    
         global $aPage;
         $aPage = array();
         $aPage['content'] = $aPage['projekt'] = '';
@@ -96,22 +95,22 @@ class Home {
         		'. $aPage['projekt'] .'
         	</div>
         ';
-    
-    	print '<pre>';
-    	#var_dump([
-    	    #'home_init()',
-    	    #$aPage
-    	#]);
-    	print '</pre>';
-    
-    
-    	print '<pre>';
-    	var_dump([
-    	    'home_init()',
-    	    $aPage
-    	]);
-    	print '</pre>';
-    	return true;
+        
+        #print '<pre>';
+        #var_dump([
+            #'home_init()',
+            #$aPage
+        #]);
+        #print '</pre>';
+        
+        
+        #print '<pre>';
+        #var_dump([
+        #    'home_init()',
+        #    $aPage
+        #]);
+        #print '</pre>';
+        return true;
     }
 
 }
