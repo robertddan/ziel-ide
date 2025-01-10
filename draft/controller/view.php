@@ -21,14 +21,6 @@ class View {
         $this->aPage = $aPage;
         $this->aWidget = $aWidget;
         
-        if (!$this->widget_setup()) die('widget_setup()');
-        
-        return true;
-    }
-        
-    public function widget_setup()
-    {
-        
         #if (!$this->widget_js()) die('widget_js()');
         #if (!$this->widget_css()) die('widget_css()');
         #if (!$this->widget_nav()) die('widget_nav()');
