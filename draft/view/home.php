@@ -2,18 +2,15 @@
 
 namespace Ziel\View;
 
-#set html content variable
-#set data variable for javascript if needed
-#
-
 class Home {
 
     public static function home_init()
     {
-        global $aPage;
+        global $aPage, $aRouter;
         $aPage = array();
-        $aPage['content'] = $aPage['projekt'] = '';
-        $aPage['title'] = 'Home';
+        $aRouter['page'] = 'dashboard';
+        $aPage['content'] = $aPage['script'] = $aPage['projekt'] = '';
+        $aPage['title'] = '🔆 Home';
         $aPage['projekt'] = '<br/>🩹Projekt: Terminplaner';
         $aPage['content'] .= '
             <div id="sidebar">
@@ -21,14 +18,13 @@ class Home {
             <div id="content">
                 <h3>🔆 Home</h3>
                 <hr></br>
-                '. $aPage['projekt'] .'
+                <label for="project">'. $aPage['projekt'] .'</label>
+                <label for="w3review">Review of W3Schools:</label>
+                <textarea id="w3review" name="w3review" rows="4" cols="50">
+                    At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                </textarea>
+                </br>
             </div>
-            <label for="w3review">Review of W3Schools:</label>
-            
-            <textarea id="w3review" name="w3review" rows="4" cols="50">
-                At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
-            </textarea>
-            </br>
         ';
         
         #print '<pre>';
