@@ -22,6 +22,8 @@ class Dashboard {
                 '. $aPage['projekt'] .'
             </div>
         ';
+        
+        return true;
     }
 }
 

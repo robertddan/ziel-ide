@@ -13,14 +13,15 @@
 
 /*
 -exclude every time to include files instead use cache
+-
 */
 
-use Ziel\Controller\Event;
-use Ziel\Controller\Model;
-use Ziel\Controller\Route;
-use Ziel\Controller\Session;
-use Ziel\Controller\User;
-use Ziel\Controller\View;
+use Ziel\Thread\Event;
+use Ziel\Thread\Model;
+use Ziel\Thread\Route;
+use Ziel\Thread\Session;
+use Ziel\Thread\User;
+use Ziel\Thread\View;
 
 class Dispatcher {
     
@@ -47,13 +48,11 @@ class Dispatcher {
     
     public static function dispatch()
     {
-        #if (!self::$oSession->session_init()) die('session_init()');
         if (!self::$oEvent->event_init()) die('event_init()');
-        
         if (!self::$oRoute->router_init()) die('router_init()');
-        #if (!self::$oUser::user_init()) die('user_init()');
-        
+        if (!self::$oUser->user_init()) die('user_init()');
         #if (!self::$oModel::model_init()) die('model_init()');
+        #if (!self::$oSession->session_init()) die('session_init()');
         if (!self::$oView->widget_init()) die('widget_init()');
         
         return true;

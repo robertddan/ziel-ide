@@ -1,6 +1,6 @@
 <?php
 
-namespace Ziel\Controller;
+namespace Ziel\Thread;
 
 class Route {
     

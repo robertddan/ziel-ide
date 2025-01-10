@@ -27,21 +27,6 @@ class Home {
             </div>
         ';
         
-        #print '<pre>';
-        #var_dump([
-            #'home_init()',
-            #$aPage
-        #]);
-        #print '</pre>';
-        
-        
-        #print '<pre>';
-        #var_dump([
-        #    'home_init()',
-        #    $aPage
-        #]);
-        #print '</pre>';
-        
         return true;
     }
 
