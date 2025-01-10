@@ -1,5 +1,4 @@
 <?php
-<?php
 
 namespace Ziel\Controller;
 
@@ -14,7 +13,22 @@ class View {
     
     public function widget_init()
     {
-        global $aWidget;
+        global $aWidget, $aRouter, $aPage;
+        $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
+        call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
+        
+        $this->aRouter = $aRouter;
+        $this->aPage = $aPage;
+        $this->aWidget = $aWidget;
+        
+        if (!$this->widget_setup()) die('widget_setup()');
+        
+        return true;
+    }
+        
+    public function widget_setup()
+    {
+        
         #if (!$this->widget_js()) die('widget_js()');
         #if (!$this->widget_css()) die('widget_css()');
         #if (!$this->widget_nav()) die('widget_nav()');
@@ -26,15 +40,15 @@ class View {
     
     public function widget_render()
     {
-        global $aWidget, $aRouter;
+        #global $aWidget, $aRouter;
         if (!headers_sent()) {
             header('Content-Type: text/html; charset=utf-8');
             print PHP_EOL;
-            print $aWidget['html'];
+            print $this->aWidget['html'];
             exit;
         }
         else {
-            print $aWidget['html'];
+            print $this->aWidget['html'];
             exit;
         }
     }
@@ -159,31 +173,18 @@ $aRouterNav = array(
     
     public function widget_html()
     {
-        global $aRouter, $aPage, $aWidget;
-        $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
-        call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
-        #Ziel\View\Home
-        
-        #if (!file_exists(DRAFT .'view' . DS . $aRouter['page'] .'.php')) {
-            #$aRouter['page'] = 'home';
-            #return router_redirect();
-        #}
-        #else {
-            #include(DRAFT .'view' . DS . $aRouter['page'] .'.php');
-            #call_user_func($aRouter['page'] .'_init');
-        #}
         
         $aWidget['html'] = '';
-        
+        #return true;
         $aWidget['html'] .= '<!--- doctype -->';
         $aWidget['html'] .= '<!doctype html>';
         $aWidget['html'] .= '<!--- html -->';
-        $aWidget['html'] .= '<html class="" lang="'. $aRouter['lang'] .'">';
+        $aWidget['html'] .= '<html class="" lang="'. $this->aRouter['lang'] .'">';
         
         $aWidget['html'] .= '<!--- head -->';
         $aWidget['html'] .= '<head>';
         $aWidget['html'] .= '<meta charset="utf-8">';
-        $aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
+        $aWidget['html'] .= '<title>'. $this->aPage['title'] .'</title>';
         #$aWidget['html'] .= implode(PHP_EOL, $aWidget['style']);
         $aWidget['html'] .= '</head>';
         $aWidget['html'] .= '<!--- /head -->';
@@ -194,7 +195,7 @@ $aRouterNav = array(
         
         $aWidget['html'] .= '<main><div class="container">';
         #$aWidget['html'] .= $aWidget['events'];
-        $aWidget['html'] .= $aPage['content'];
+        $aWidget['html'] .= $this->aPage['content'];
         $aWidget['html'] .= '</div></main>';
         
         #$aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
@@ -203,6 +204,8 @@ $aRouterNav = array(
         
         $aWidget['html'] .= '<!--- /html -->';
         $aWidget['html'] .= '</html>';
+        
+        $this->aWidget = $aWidget;
         
         return true;
     }

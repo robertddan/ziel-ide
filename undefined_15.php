@@ -1,5 +1,4 @@
 <?php
-<?php
 
 namespace Ziel\Controller;
 
@@ -10,7 +9,7 @@ namespace Ziel\Controller;
 # call {widget_name}.on.load() function inside js tags
 # 
 
-class View {
+class Viewe {
     
     public function widget_init()
     {

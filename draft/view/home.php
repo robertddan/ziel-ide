@@ -14,10 +14,7 @@ class Home {
         $aPage = array();
         $aPage['content'] = $aPage['projekt'] = '';
         $aPage['title'] = 'Home';
-/*
-        $aPage['projekt'] = <<<END
-END;
-*/
+        $aPage['projekt'] = '<br/>🩹Projekt: Terminplaner';
         $aPage['content'] .= '
             <div id="sidebar">
             </div>
@@ -31,6 +28,7 @@ END;
             <textarea id="w3review" name="w3review" rows="4" cols="50">
                 At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
             </textarea>
+            </br>
         ';
         
         #print '<pre>';
@@ -47,9 +45,11 @@ END;
         #    $aPage
         #]);
         #print '</pre>';
+        
         return true;
     }
 
 }
+
 
 ?>
