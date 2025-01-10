@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Ziel\View;
 
 #set html content variable
