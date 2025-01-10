@@ -117,7 +117,6 @@ class View {
     
     private function widget_nav_menu()
     {
-        #global $aRouter, $aWidget, $aRouterNav;
         $this->aWidget['nav_menu'] = array();
         
 $aRouterNav = array(
