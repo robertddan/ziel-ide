@@ -13,13 +13,6 @@ class Route {
         else
         $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
         
-        print '<pre>';    
-        var_dump([
-            'router_init',
-            $aRequest
-        ]);
-        print '</pre>';
-        
         switch ($aRequest[0]) {
             case '/index.php':
                 $this->router_get();
@@ -27,30 +20,16 @@ class Route {
             case 'script':
                 $this->router_uri();
             break;
+            default:
+                $this->router_default();
         }
         
         return true;
     }
     
-    public function router_get()
+    public function router_default()
     {
         global $aRouter, $aRequest;
-        $aRouter = array_merge($aRouter, $_GET);
-        
-        print '<pre>';    
-        var_dump([
-            'router_get',
-            $aRequest[0]
-        ]);
-        print '</pre>';
-        
-        return true;
-    }
-    
-    public function router_uri()
-    {
-        global $aRouter, $aRequest;
-        $aRouter['uri'] = $aRequest;
         
         print '<pre>';    
         var_dump([
@@ -59,6 +38,20 @@ class Route {
         ]);
         print '</pre>';
         
+        return true;
+    }
+    
+    public function router_get()
+    {
+        global $aRouter, $aRequest;
+        $aRouter = array_merge($aRouter, $_GET);
+        return true;
+    }
+    
+    public function router_uri()
+    {
+        global $aRouter, $aRequest;
+        $aRouter['uri'] = $aRequest;
         return true;
     }
     
