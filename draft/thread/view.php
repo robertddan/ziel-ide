@@ -7,6 +7,9 @@ class View {
     public function widget_init()
     {
         global $aWidget, $aRouter, $aPage;
+        
+        if (isset($aRouter['uri'])) return $this->widget_uri();
+        
         $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
         call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
         
@@ -15,14 +18,48 @@ class View {
         $this->aWidget = $aWidget;
         
         if (!$this->widget_css()) die('widget_css()');
-        if (!$this->widget_html()) die('widget_html()');
-        
         if (!$this->debug()) die('debug()');
+        if (!$this->widget_html()) die('widget_html()');
         if (!$this->widget_render()) die('widget_render()');
         
         return true;
     }
-
+        
+    function widget_uri()
+    {
+        global $aWidget, $aRouter, $aPage;
+/*
+        print '<pre>';    
+        var_dump([
+            $aWidget,
+            $aRouter,
+            $aPage
+        ]);
+        print '</pre>';
+*/      
+        switch ($aRouter['uri'][0]) {
+            case 'favicon.ico':
+                if (!$this->widget_favicon()) die('widget_favicon()');
+            break;
+            case 'static':
+                if (!$this->widget_js()) die('widget_js()');
+            break;
+            case 'style':
+                if (!$this->widget_css()) die('widget_css()');
+            break;
+            default:
+                $this->router_uri();
+            break;
+        }
+    }
+        
+    function widget_favicon()
+    {
+		header('Content-Type: text/x-icon');
+		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
+		exit();
+    }
+    
     function debug()
     {
         global $aWidget, $aRouter, $aPage;
@@ -45,9 +82,16 @@ class View {
 
     function widget_css()
     {
-        if (file_exists(DRAFT .'static'. DS . $this->aRouter['page'] .'.css'))
-        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/static' . DS . $this->aRouter['page'] .'.css">';
-        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/static' . DS .'water.css">';
+        global $aWidget, $aRouter, $aPage;
+        if (isset($aRouter['uri'])) {
+            header('Content-Type: text/x-icon');
+            print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
+            exit();
+        }
+        
+        if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
+        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $this->aRouter['page'] .'.css">';
+        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
         $this->aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
         return true;
     }
