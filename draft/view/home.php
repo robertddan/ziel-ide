@@ -8,11 +8,32 @@ class Home {
     {
         global $aPage, $aRouter;
         $aPage = array();
-        $aRouter['page'] = 'dashboard';
         $aPage['content'] = $aPage['script'] = $aPage['projekt'] = '';
         $aPage['title'] = '🔆 Home';
         $aPage['projekt'] = '<br/>🩹Projekt: Ziel-IDE';
         $aPage['content'] .= '
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Points</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>Adam</td>
+    <td>Johnson</td>
+    <td>67</td>
+  </tr>
+</table>
             <label for="project">'. $aPage['projekt'] .'</label>
             <div id="sidebar">
             </div>
@@ -31,6 +52,5 @@ class Home {
     }
 
 }
-
 
 ?>

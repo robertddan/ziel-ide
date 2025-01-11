@@ -6,46 +6,71 @@ class Route {
     
     public function router_init()
     {
-        if (empty($_GET)) return $this->router_redirect();
-        if (!$this->router_setup()) die('router_setup()');
+        global $aRouter, $aRequest;
+        if ($_SERVER['REQUEST_URI'] == '/') $this->router_redirect();
+        if (empty($_GET))
+        $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+        else
+        $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
+        
+        print '<pre>';    
+        var_dump([
+            'router_init',
+            $aRequest
+        ]);
+        print '</pre>';
+        
+        switch ($aRequest[0]) {
+            case '/index.php':
+                $this->router_get();
+            break;
+            case 'script':
+                $this->router_uri();
+            break;
+        }
+        
+        return true;
+    }
+    
+    public function router_get()
+    {
+        global $aRouter, $aRequest;
+        $aRouter = array_merge($aRouter, $_GET);
+        
+        print '<pre>';    
+        var_dump([
+            'router_get',
+            $aRequest[0]
+        ]);
+        print '</pre>';
+        
+        return true;
+    }
+    
+    public function router_uri()
+    {
+        global $aRouter, $aRequest;
+        $aRouter['uri'] = $aRequest;
+        
+        print '<pre>';    
+        var_dump([
+            'router_uri',
+            $aRequest[0]
+        ]);
+        print '</pre>';
+        
         return true;
     }
     
     public function router_redirect()
     {
         global $aRouter;
-        if (!$this->router_setup()) die('router_setup()');
+        if (empty($aRouter['page'])) $aRouter['page'] = 'home';
+        if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
         header('Location: /index.php?'. http_build_query($aRouter));
         exit();
     }
     
-    public function router_setup()
-    {
-        global $aRouter;
-        if (empty($aRouter['page'])) $aRouter['page'] = 'home';
-        if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
-        if (empty($aRouter['theme'])) $aRouter['theme'] = 'light';
-        $aRouter = array_merge($aRouter, $_GET);
-        return true;
-    }
-    
 }
-
-/*
-global $aRouter, $aEvent, $aRouterNav;
-$aRouter = $aEvent = array();
-
-$aRouterNav = array(
-	'home' => 'Startseite',
-	'dashboard' => 'Dashboard',
-	'planer' => 'Planer',
-	'login' => 'Login',
-	'register' => 'Register',
-	'suche' => 'Suche',
-	'scheduler' => 'Scheduler',
-	'logout' => 'Logout'
-);
-*/
-
 
 ?>

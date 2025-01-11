@@ -9,3 +9,5 @@ class Model {
         return true;
     }
 }
+
+?>

@@ -6,7 +6,9 @@ class User {
     
     public function user_init()
     {
-        var_dump('user');
+        #var_dump('user');
         return true;
     }
 }
+
+?>

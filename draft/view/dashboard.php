@@ -8,7 +8,6 @@ class Dashboard {
     {
         global $aPage, $aRouter;
         $aPage = array();
-        $aRouter['page'] = 'dashboard';
         $aPage['content'] = $aPage['script'] = $aPage['projekt'] = '';
         $aPage['title'] = '🔆 Dashboard';
         $aPage['projekt'] = '<br/>🩹Projekt: Ziel-IDE';

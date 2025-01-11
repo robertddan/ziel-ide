@@ -17,3 +17,5 @@ class Session {
         #return true;
     }
 }
+
+?>

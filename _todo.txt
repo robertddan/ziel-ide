@@ -1,0 +1,14 @@
+
+#-view
+#--session
+#-router
+#--event
+#--user
+#--model
+#-scheduler
+#----
+
+/*
+-exclude every time to include files instead use cache
+-
+*/

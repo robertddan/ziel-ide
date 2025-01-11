@@ -14,12 +14,44 @@ class View {
         $this->aPage = $aPage;
         $this->aWidget = $aWidget;
         
+        if (!$this->widget_css()) die('widget_css()');
         if (!$this->widget_html()) die('widget_html()');
+        
+        if (!$this->debug()) die('debug()');
         if (!$this->widget_render()) die('widget_render()');
         
         return true;
     }
-    
+
+    function debug()
+    {
+        global $aWidget, $aRouter, $aPage;
+        print '<pre>';    
+        var_dump([
+            #$_SERVER,
+            #$aRouter,
+            $_SERVER['REQUEST_URI']
+        ]);
+        print '</pre>';
+        return true;
+        
+        $aRequest = array_filter(explode('/', $_SERVER['REQUEST_URI']));
+        if (empty($aRequest)) return die($aRequest);
+        
+        $aWidget['uri'] = $aRequest;
+        
+        return true;
+    }
+
+    function widget_css()
+    {
+        if (file_exists(DRAFT .'static'. DS . $this->aRouter['page'] .'.css'))
+        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/static' . DS . $this->aRouter['page'] .'.css">';
+        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/static' . DS .'water.css">';
+        $this->aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
+        return true;
+    }
+
     public function widget_render()
     {
         if (!headers_sent()) {
@@ -47,7 +79,7 @@ class View {
         $aWidget['html'] .= '<head>';
         $aWidget['html'] .= '<meta charset="utf-8">';
         $aWidget['html'] .= '<title>'. $this->aPage['title'] .'</title>';
-        #$aWidget['html'] .= implode(PHP_EOL, $aWidget['style']);
+        $aWidget['html'] .= implode(PHP_EOL, $this->aWidget['style']);
         $aWidget['html'] .= '</head>';
         $aWidget['html'] .= '<!--- /head -->';
         
