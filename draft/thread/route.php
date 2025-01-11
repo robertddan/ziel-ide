@@ -7,21 +7,20 @@ class Route {
     public function router_init()
     {
         global $aRouter, $aRequest;
-        if ($_SERVER['REQUEST_URI'] == '/') $this->router_redirect();
-        if (empty($_GET))
-        $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-        else
-        $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
+        if (empty($_GET)) $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+        else $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
+        if (empty($aRequest)) $this->router_redirect();
         
         switch ($aRequest[0]) {
             case '/index.php':
                 $this->router_get();
             break;
-            case 'script':
+            #case 'script':
+            default:
                 $this->router_uri();
             break;
-            default:
-                $this->router_default();
+            #default:
+                #$this->router_default();
         }
         
         return true;
@@ -29,16 +28,8 @@ class Route {
     
     public function router_default()
     {
-        global $aRouter, $aRequest;
-        
-        print '<pre>';    
-        var_dump([
-            'router_uri',
-            $aRequest[0]
-        ]);
-        print '</pre>';
-        
-        return true;
+        #global $aRouter, $aRequest;
+        #return true;
     }
     
     public function router_get()
