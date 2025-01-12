@@ -57,9 +57,10 @@ class View {
     {
         global $aRouter, $aWidget;
         $aWidget['style'] = array();
+        
+        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';
-        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
         $aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
         return true;
     }
@@ -97,10 +98,10 @@ class View {
         $aWidget['html'] .= '<body>';
         #$aWidget['html'] .= $aWidget['nav'];
         
-        $aWidget['html'] .= '<main>';
+        #$aWidget['html'] .= '<main>';
         #$aWidget['html'] .= $aWidget['events'];
         $aWidget['html'] .= $aPage['content'];
-        $aWidget['html'] .= '</main>';
+        #$aWidget['html'] .= '</main>';
         
         $aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
         $aWidget['html'] .= '</body>';

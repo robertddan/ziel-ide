@@ -1,18 +1,17 @@
 body {
-    min-width: fit-content;
+    max-width: 100%;
 }
 
 table {
     /*background-color: #6495ED;*/
-    
 }
 
-#canvas {
-    width: 100%;
-    height: 100%;
+.stripe {
+    background-color: lavender;
+    padding: 2rem 0;
 }
-
-#container table {
-    width: 100%;
-    height: 100%;
+.stripe__content {
+    width: 90vw;
+    max-width: 1200px;
+    margin: auto;
 }
