@@ -6,17 +6,11 @@ class View {
     
     public function widget_init()
     {
-        global $aWidget, $aRouter, $aPage;
+        global $aRouter;
         
         if (isset($aRouter['uri'])) return $this->widget_uri();
         
-        $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
-        call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
-        
-        $this->aRouter = $aRouter;
-        $this->aPage = $aPage;
-        $this->aWidget = $aWidget;
-        
+        if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
         if (!$this->debug()) die('debug()');
         if (!$this->widget_html()) die('widget_html()');
@@ -27,7 +21,7 @@ class View {
         
     function widget_uri()
     {
-        global $aWidget, $aRouter, $aPage;
+        global $aRouter;
 /*
         print '<pre>';    
         var_dump([
@@ -39,20 +33,17 @@ class View {
 */      
         switch ($aRouter['uri'][0]) {
             case 'favicon.ico':
-                #if (!$this->widget_favicon()) die('widget_favicon()');
-        		header('Content-Type: text/x-icon');
+        		header('Content-Type: text/x-icon; charset=utf-8');
         		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
         		exit();
             break;
             case 'script':
-                #if (!$this->widget_js()) die('widget_js()');
-                header('Content-Type: text/css');
+                header('Content-Type: text/css; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
                 exit();
             break;
             case 'style':
-                #if (!$this->widget_css()) die('widget_css()');
-                header('Content-Type: text/javascript');
+                header('Content-Type: text/javascript; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
                 exit();
             break;
@@ -61,17 +52,10 @@ class View {
             break;
         }
     }
-        
-    function widget_favicon()
-    {
-		header('Content-Type: text/x-icon');
-		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
-		exit();
-    }
     
     function debug()
     {
-        global $aWidget, $aRouter, $aPage;
+        global $aRouter, $aPage;
         print '<pre>';    
         var_dump([
             #$_SERVER,
@@ -91,48 +75,56 @@ class View {
 
     function widget_css()
     {
-        global $aWidget, $aRouter, $aPage;
-        if (isset($aRouter['uri'])) {
-            header('Content-Type: text/css');
-            print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
-            exit();
-        }
-        
+        global $aRouter, $aWidget;
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
-        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $this->aRouter['page'] .'.css">';
-        $this->aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
-        $this->aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
+        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';
+        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
+        $aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
+        return true;
+    }
+
+    function widget_js()
+    {
+        global $aRouter, $aWidget;
+        if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
+        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
         return true;
     }
 
     public function widget_render()
     {
+        global $aWidget;
         if (!headers_sent()) {
             header('Content-Type: text/html; charset=utf-8');
             print PHP_EOL;
-            print $this->aWidget['html'];
+            print $aWidget['html'];
             exit;
         }
         else {
-            print $this->aWidget['html'];
+            print $aWidget['html'];
             exit;
         }
     }
     
     public function widget_html()
     {
+        global $aWidget, $aRouter, $aPage;
+        
+        $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
+        call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
+        
         $aWidget['html'] = '';
         
         $aWidget['html'] .= '<!--- doctype -->';
         $aWidget['html'] .= '<!doctype html>';
         $aWidget['html'] .= '<!--- html -->';
-        $aWidget['html'] .= '<html class="" lang="'. $this->aRouter['lang'] .'">';
+        $aWidget['html'] .= '<html class="" lang="'. $aRouter['lang'] .'">';
         
         $aWidget['html'] .= '<!--- head -->';
         $aWidget['html'] .= '<head>';
         $aWidget['html'] .= '<meta charset="utf-8">';
-        $aWidget['html'] .= '<title>'. $this->aPage['title'] .'</title>';
-        $aWidget['html'] .= implode(PHP_EOL, $this->aWidget['style']);
+        $aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
+        $aWidget['html'] .= implode(PHP_EOL, $aWidget['style']);
         $aWidget['html'] .= '</head>';
         $aWidget['html'] .= '<!--- /head -->';
         
@@ -142,17 +134,15 @@ class View {
         
         $aWidget['html'] .= '<main><div class="container">';
         #$aWidget['html'] .= $aWidget['events'];
-        $aWidget['html'] .= $this->aPage['content'];
+        $aWidget['html'] .= $aPage['content'];
         $aWidget['html'] .= '</div></main>';
         
-        #$aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
+        $aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
         $aWidget['html'] .= '</body>';
         $aWidget['html'] .= '<!--- /body -->';
         
         $aWidget['html'] .= '<!--- /html -->';
         $aWidget['html'] .= '</html>';
-        
-        $this->aWidget = $aWidget;
         
         return true;
     }
