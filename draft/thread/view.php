@@ -39,13 +39,22 @@ class View {
 */      
         switch ($aRouter['uri'][0]) {
             case 'favicon.ico':
-                if (!$this->widget_favicon()) die('widget_favicon()');
+                #if (!$this->widget_favicon()) die('widget_favicon()');
+        		header('Content-Type: text/x-icon');
+        		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
+        		exit();
             break;
-            case 'static':
-                if (!$this->widget_js()) die('widget_js()');
+            case 'script':
+                #if (!$this->widget_js()) die('widget_js()');
+                header('Content-Type: text/css');
+                print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
+                exit();
             break;
             case 'style':
-                if (!$this->widget_css()) die('widget_css()');
+                #if (!$this->widget_css()) die('widget_css()');
+                header('Content-Type: text/javascript');
+                print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
+                exit();
             break;
             default:
                 $this->router_uri();
@@ -84,7 +93,7 @@ class View {
     {
         global $aWidget, $aRouter, $aPage;
         if (isset($aRouter['uri'])) {
-            header('Content-Type: text/x-icon');
+            header('Content-Type: text/css');
             print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
             exit();
         }
