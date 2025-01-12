@@ -8,8 +8,7 @@ class View {
     {
         global $aRouter;
         
-        if (isset($aRouter['uri'])) return $this->widget_uri();
-        
+        if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
         if (!$this->debug()) die('debug()');
@@ -22,18 +21,12 @@ class View {
     function widget_uri()
     {
         global $aRouter;
-/*
-        print '<pre>';    
-        var_dump([
-            $aWidget,
-            $aRouter,
-            $aPage
-        ]);
-        print '</pre>';
-*/      
+        
+        if (!isset($aRouter['uri'])) return true;
+
         switch ($aRouter['uri'][0]) {
             case 'favicon.ico':
-        		header('Content-Type: text/x-icon; charset=utf-8');
+        		header('Content-Type: text/x-icon');
         		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
         		exit();
             break;
@@ -47,30 +40,36 @@ class View {
                 print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
                 exit();
             break;
-            default:
-                $this->router_uri();
-            break;
         }
     }
-    
+
+    public function widget_render()
+    {
+        global $aWidget;
+        if (!headers_sent()) {
+            header('Content-Type: text/html; charset=utf-8');
+            print PHP_EOL;
+            print $aWidget['html'];
+            exit;
+        }
+        else {
+            print $aWidget['html'];
+            exit;
+        }
+    }
     function debug()
     {
         global $aRouter, $aPage;
-        print '<pre>';    
-        var_dump([
+        #print '</br>';    
+        #print '<pre>';    
+        #var_dump([
             #$_SERVER,
             #$aRouter,
-            $_SERVER['REQUEST_URI']
-        ]);
-        print '</pre>';
+            #$_SERVER['REQUEST_URI']
+        #]);
+        #print '</pre>';
         return true;
         
-        $aRequest = array_filter(explode('/', $_SERVER['REQUEST_URI']));
-        if (empty($aRequest)) return die($aRequest);
-        
-        $aWidget['uri'] = $aRequest;
-        
-        return true;
     }
 
     function widget_css()
@@ -89,21 +88,6 @@ class View {
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
         $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
         return true;
-    }
-
-    public function widget_render()
-    {
-        global $aWidget;
-        if (!headers_sent()) {
-            header('Content-Type: text/html; charset=utf-8');
-            print PHP_EOL;
-            print $aWidget['html'];
-            exit;
-        }
-        else {
-            print $aWidget['html'];
-            exit;
-        }
     }
     
     public function widget_html()
