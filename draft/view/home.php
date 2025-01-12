@@ -16,18 +16,14 @@ class Home {
             <table style="width:100%">
                 <tr>
                     <th style="width:22%">
-                        🔆 Home
-                    </th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th colspan="2">
+                        🔆 Home xx
                         File  
                         Edit  
                         View  
                         Editor  
                         Help  
                     </th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th colspan="2">
@@ -39,10 +35,17 @@ class Home {
                     </th>
                 </tr>
                 <tr style="height:100%">
-                    <th>null</th>
+                    <th style="width:22%">null</th>
                     <th>
                     <label for="canvas"></label>
-                    <textarea id="canvas" name="canvas">
+                    <textarea id="canvas" 
+                        name="canvas" 
+                        placeholder="Enter HTML Source Code" 
+                        spellcheck="false" 
+                        oninput="update(this.value); 
+                        sync_scroll(this);" 
+                        onscroll="sync_scroll(this);" 
+                        onkeydown="check_tab(this, event);">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin accumsan tortor non fringilla tempor.
