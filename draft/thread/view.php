@@ -11,7 +11,7 @@ class View {
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
-        if (!$this->debug()) die('debug()');
+        #if (!$this->debug()) die('debug()');
         if (!$this->widget_html()) die('widget_html()');
         if (!$this->widget_render()) die('widget_render()');
         
@@ -48,7 +48,7 @@ class View {
         global $aWidget;
         if (!headers_sent()) {
             header('Content-Type: text/html; charset=utf-8');
-            print PHP_EOL;
+            #print PHP_EOL;
             print $aWidget['html'];
             exit;
         }
