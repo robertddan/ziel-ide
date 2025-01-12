@@ -76,12 +76,10 @@ class View {
     public function widget_html()
     {
         global $aWidget, $aRouter, $aPage;
-        
         $sNamespace = 'Ziel\\View\\'. $aRouter['page'];
         call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
         
         $aWidget['html'] = '';
-        
         #$aWidget['html'] .= '<!--- doctype -->';
         #$aWidget['html'] .= '<!doctype html>';
         $aWidget['html'] .= '<!--- html -->';
@@ -99,10 +97,10 @@ class View {
         $aWidget['html'] .= '<body>';
         #$aWidget['html'] .= $aWidget['nav'];
         
-        $aWidget['html'] .= '<main><div class="container">';
+        $aWidget['html'] .= '<main>';
         #$aWidget['html'] .= $aWidget['events'];
         $aWidget['html'] .= $aPage['content'];
-        $aWidget['html'] .= '</div></main>';
+        $aWidget['html'] .= '</main>';
         
         $aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
         $aWidget['html'] .= '</body>';
