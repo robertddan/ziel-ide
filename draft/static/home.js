@@ -8,4 +8,4 @@ var home = {
 	}
 };
 
-console.log('Hello world!');
+document.addEventListener('DOMContentLoaded', () => home.on.load());
