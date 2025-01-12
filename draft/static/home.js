@@ -7,3 +7,5 @@ var home = {
 		}
 	}
 };
+
+console.log('Hello world!');

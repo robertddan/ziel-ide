@@ -7,28 +7,23 @@ class View {
     public function widget_init()
     {
         global $aRouter;
-        
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
-        #if (!$this->debug()) die('debug()');
         if (!$this->widget_html()) die('widget_html()');
         if (!$this->widget_render()) die('widget_render()');
-        
         return true;
     }
         
     function widget_uri()
     {
         global $aRouter;
-        
         if (!isset($aRouter['uri'])) return true;
-
         switch ($aRouter['uri'][0]) {
             case 'favicon.ico':
-        		header('Content-Type: text/x-icon');
-        		print file_get_contents(ROOT .'www'. DS .'favicon.ico');
-        		exit();
+                header('Content-Type: text/x-icon');
+                print file_get_contents(ROOT .'www'. DS .'favicon.ico');
+                exit();
             break;
             case 'script':
                 header('Content-Type: text/css; charset=utf-8');
@@ -50,31 +45,18 @@ class View {
             header('Content-Type: text/html; charset=utf-8');
             #print PHP_EOL;
             print $aWidget['html'];
-            exit;
+            exit();
         }
         else {
             print $aWidget['html'];
             exit;
         }
     }
-    function debug()
-    {
-        global $aRouter, $aPage;
-        #print '</br>';    
-        #print '<pre>';    
-        #var_dump([
-            #$_SERVER,
-            #$aRouter,
-            #$_SERVER['REQUEST_URI']
-        #]);
-        #print '</pre>';
-        return true;
-        
-    }
 
     function widget_css()
     {
         global $aRouter, $aWidget;
+        $aWidget['style'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
@@ -85,6 +67,7 @@ class View {
     function widget_js()
     {
         global $aRouter, $aWidget;
+        $aWidget['script'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
         $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
         return true;
@@ -99,8 +82,8 @@ class View {
         
         $aWidget['html'] = '';
         
-        $aWidget['html'] .= '<!--- doctype -->';
-        $aWidget['html'] .= '<!doctype html>';
+        #$aWidget['html'] .= '<!--- doctype -->';
+        #$aWidget['html'] .= '<!doctype html>';
         $aWidget['html'] .= '<!--- html -->';
         $aWidget['html'] .= '<html class="" lang="'. $aRouter['lang'] .'">';
         
