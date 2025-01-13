@@ -124,90 +124,86 @@ fimg {
 
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Calibri;
-  margin: 0;
-  padding: 0;
+    font-family: Calibri;
+    margin: 0;
+    padding: 0;
 }
 
 .article {
     display: flex;
     flex-flow: column nowrap;
+    height: 100%;
 }
 
 .navbar {
-  display: flex;
-  background-color: #333;
+    display: flex;
+    background-color: #333;
+    color: white;
 }
 
 .navbar a {
-  color: white;
-  padding: 7px 10px;
-  text-decoration: none;
-  text-align: center;
+    padding: 7px 10px;
+    text-decoration: none;
+    text-align: center;
 }
 
 .navbar a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
 .row {  
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    height: inherit;
 }
 
 .side {
-  flex: 20%;
-  background-color: #f1f1f1;
-  padding: 20px;
+    flex: 20%;
+    background-color: #f1f1f1;
+    padding: 20px;
 }
 
 .main {
-  flex: 80%;
-  background-color: white;
-  padding: 20px;
-  textarea {
-      height: 100%;
-  }
+    flex: 80%;
+    background-color: white;
+    padding: 20px;
+    textarea {
+        height: 100%;
+    }
 }
 
 .footer {
-  padding: 5px;
-  text-align: center;
-  background: #ddd;
+    padding: 5px;
+    text-align: center;
+    background: #ddd;
 }
 
 </style>
 
 <div class="article">
 
-<div class="navbar">
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
+<div class="navbar">a
 </div>
 <div class="row">
+    <div class="side">
+        <h3>More Text</h3>
+        <p>Lorem ipsum dolor sit ame.</p>
+        <div class="fimg" style="height:60px;">Image</div><br>
+        <div class="fimg" style="height:60px;">Image</div><br>
+        <div class="fimg" style="height:60px;">Image</div>
 
-  <div class="side">
-    <h3>More Text</h3>
-    <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fimg" style="height:60px;">Image</div><br>
-    <div class="fimg" style="height:60px;">Image</div><br>
-    <div class="fimg" style="height:60px;">Image</div>
-  </div>
-  <div class="main">
-    <textarea></textarea>
-  </div>
-
+    </div>
+    <div class="main">
+        <textarea></textarea>
+    </div>
 </div>
 
 <div class="footer">
-  <span>Footer</span>
+  <span>d</span>
 </div>
 
 </div>
