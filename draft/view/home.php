@@ -65,7 +65,7 @@ body {
 }
 
 /* Fake image, just for this example */
-.fakeimg {
+.fimg {
   background-color: #aaa;
   width: 100%;
   padding: 20px;
@@ -99,17 +99,15 @@ body {
   <div class="side">
     <h3>More Text</h3>
     <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div>
+    <div class="fimg" style="height:60px;">Image</div><br>
+    <div class="fimg" style="height:60px;">Image</div><br>
+    <div class="fimg" style="height:60px;">Image</div>
   </div>
   <div class="main">
     <h2>TITLE HEADING</h2>
     <h5>Title description, Dec 7, 2024</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
+    <div class="fimg" style="height:200px;">Image</div>
     <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    <br>
   </div>
 </div>
 
