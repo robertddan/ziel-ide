@@ -2,8 +2,8 @@
 
 #git init
 
-git config --global user.email "danrobert445@gmail.com"
-git config --global user.name "Robert-Dan"
+#git config --global user.email "danrobert445@gmail.com"
+#git config --global user.name "Robert-Dan"
 
 git add .
 git status

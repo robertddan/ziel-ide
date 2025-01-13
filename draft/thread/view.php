@@ -57,7 +57,6 @@ class View {
     {
         global $aRouter, $aWidget;
         $aWidget['style'] = array();
-        
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';

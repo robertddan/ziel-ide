@@ -15,6 +15,9 @@ class Route {
             case '/index.php':
                 $this->router_get();
             break;
+            case '/ide.php':
+                $this->router_ide();
+            break;
             #case 'script':
             default:
                 $this->router_uri();
