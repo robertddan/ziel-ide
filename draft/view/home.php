@@ -12,6 +12,7 @@ class Home {
         $aPage['title'] = '🔆 Home';
         $aPage['projekt'] = '<br/>🩹Projekt: Ziel-IDE';
         $aPage['content'] .= <<<EOD
+<!--
 <style>
 * {
   box-sizing: border-box;
@@ -19,8 +20,9 @@ class Home {
 
 /* Style the body */
 body {
-  font-family: Arial;
+  font-family: Calibri;
   margin: 0;
+  padding: 0;
 }
 
 /* Style the top navigation bar */
@@ -62,6 +64,10 @@ body {
   flex: 80%;
   background-color: white;
   padding: 20px;
+  
+  textarea {
+      height: 100%;
+  }
 }
 
 /* Fake image, just for this example */
@@ -78,6 +84,8 @@ body {
   background: #ddd;
 }
 
+
+
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 700px) {
   .row, .navbar {   
@@ -86,7 +94,9 @@ body {
 }
 </style>
 
-<!-- Navigation Bar -->
+
+<div class="article">
+
 <div class="navbar">
   <a href="#">Link</a>
   <a href="#">Link</a>
@@ -94,7 +104,6 @@ body {
   <a href="#">Link</a>
 </div>
 
-<!-- The flexible grid (content) -->
 <div class="row">
   <div class="side">
     <h3>More Text</h3>
@@ -104,17 +113,65 @@ body {
     <div class="fimg" style="height:60px;">Image</div>
   </div>
   <div class="main">
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2024</h5>
-    <div class="fimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
+    <textarea></textarea>
   </div>
 </div>
 
-<!-- Footer -->
 <div class="footer">
   <span>Footer</span>
 </div>
+
+</div>
+-->
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Calibri;
+  margin: 0;
+  padding: 0;
+}
+
+.article {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+</style>
+
+<div class="article">
+
+<div class="navbar">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+</div>
+<div class="row">
+
+Bring the frogs home one last time by using the CSS properties you've learned:
+
+justify-content
+align-items
+flex-direction
+order
+align-self
+flex-wrap
+flex-flow
+align-content
+**https://flexboxfroggy.com/
+
+</div>
+
+<div class="footer">
+  <span>Footer</span>
+</div>
+
+</div>
+
 EOD;
 
         return true;
