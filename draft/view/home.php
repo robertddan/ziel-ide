@@ -70,14 +70,12 @@ body {
   }
 }
 
-/* Fake image, just for this example */
-.fimg {
+fimg {
   background-color: #aaa;
   width: 100%;
   padding: 20px;
 }
 
-/* Footer */
 .footer {
   padding: 5px;
   text-align: center;
@@ -140,6 +138,49 @@ body {
     flex-flow: column nowrap;
 }
 
+.navbar {
+  display: flex;
+  background-color: #333;
+}
+
+.navbar a {
+  color: white;
+  padding: 7px 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.side {
+  flex: 20%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.main {
+  flex: 80%;
+  background-color: white;
+  padding: 20px;
+  textarea {
+      height: 100%;
+  }
+}
+
+.footer {
+  padding: 5px;
+  text-align: center;
+  background: #ddd;
+}
+
 </style>
 
 <div class="article">
@@ -152,17 +193,16 @@ body {
 </div>
 <div class="row">
 
-Bring the frogs home one last time by using the CSS properties you've learned:
-
-justify-content
-align-items
-flex-direction
-order
-align-self
-flex-wrap
-flex-flow
-align-content
-**https://flexboxfroggy.com/
+  <div class="side">
+    <h3>More Text</h3>
+    <p>Lorem ipsum dolor sit ame.</p>
+    <div class="fimg" style="height:60px;">Image</div><br>
+    <div class="fimg" style="height:60px;">Image</div><br>
+    <div class="fimg" style="height:60px;">Image</div>
+  </div>
+  <div class="main">
+    <textarea></textarea>
+  </div>
 
 </div>
 
