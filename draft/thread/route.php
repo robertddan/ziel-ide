@@ -8,12 +8,13 @@ class Route {
     {
         global $aUri;
         $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
-        
         switch ($aUri["host"]) {
             case 'index':
                 $this->router_get();
             break;
+            case 'style':
             case 'script':
+            case 'favicon.ico':
                 $this->router_uri();
             break;
             case 'ide':

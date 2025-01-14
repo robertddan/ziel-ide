@@ -6,7 +6,6 @@ class View {
     
     public function widget_init()
     {
-        global $aRouter;
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');

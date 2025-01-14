@@ -133,6 +133,7 @@ fimg {
 body {
     margin: 0;
     padding: 0;
+    max-width: initial;
 }
 
 .article {
@@ -160,7 +161,7 @@ body {
         height: 100%;
     }
 }
-
+    
 .footer {
     padding: 5px;
     text-align: center;
@@ -177,11 +178,11 @@ body {
 
 .menu ul
 {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  list-style-type: none;
-  padding: 7px 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    list-style-type: none;
+    padding: 7px 10px;
 }
 
 .menu ul li
@@ -214,7 +215,6 @@ body {
     flex-direction: column;
     background-color: #303030;
 }
-
 
 </style>
 
@@ -262,7 +262,7 @@ body {
 </div>
 
 <div class="footer">
-  <span>d</span>
+    <span>d</span>
 </div>
 
 </div>
