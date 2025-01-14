@@ -12,10 +12,10 @@ class Route {
         if (empty($aRequest)) $this->router_redirect();
         
         switch ($aRequest[0]) {
-            case '/index.php':
+            case '/index':
                 $this->router_get();
             break;
-            case '/ide.php':
+            case '/ide':
                 $this->router_ide();
             break;
             default:
@@ -54,7 +54,7 @@ class Route {
         global $aRouter;
         if (empty($aRouter['page'])) $aRouter['page'] = 'home';
         if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
-        header('Location: /index.php?'. http_build_query($aRouter));
+        header('Location: /index?'. http_build_query($aRouter));
         exit();
     }
     
