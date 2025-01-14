@@ -126,6 +126,8 @@ fimg {
 * {
     box-sizing: border-box;
     font-family: 'Calibri', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -180,7 +182,6 @@ body {
   align-items: flex-start;
   list-style-type: none;
   padding: 7px 10px;
-  margin: 0;
 }
 
 .menu ul li
@@ -203,12 +204,15 @@ body {
 
 .menu ul li ul
 {
-  display: none;
+    display: none;
 }
 
 .menu ul li:hover ul
 {
-
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    background-color: #333;
 }
 
 </style>
