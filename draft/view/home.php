@@ -173,13 +173,14 @@ body {
     color: white;
 }
 
-
 .menu ul
 {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
   list-style-type: none;
+  padding: 7px 10px;
+  margin: 0;
 }
 
 .menu ul li
