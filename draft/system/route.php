@@ -1,6 +1,6 @@
 <?php
 
-namespace Ziel\Thread;
+namespace Ziel\System;
 
 class Route {
     
@@ -17,21 +17,11 @@ class Route {
             case 'favicon.ico':
                 $this->router_uri();
             break;
-            case 'ide':
-                $this->router_post();
-            break;
             default:
                 if (empty($_GET)) $this->router_redirect();
             break;
         }
         
-        return true;
-    }
-    
-    public function router_post()
-    {
-        global $aRouter;
-        $aRouter = array_merge($aRouter, $_POST);
         return true;
     }
     

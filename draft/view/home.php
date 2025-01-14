@@ -159,6 +159,7 @@ body {
     padding: 20px;
     textarea {
         height: 100%;
+        resize: none;
     }
 }
     
@@ -226,8 +227,8 @@ body {
         <li>
             <a href="#">Files</a>
             <ul>
-                <li><a href="#">New</a></li>
-                <li><a href="#">Save</a></li>
+                <li><a id="ide-files-new" href="#new">New</a></li>
+                <li><a href="#save">Save</a></li>
                 <li><a href="#">Save all</a></li>
                 <li><a href="#">Open file</a></li>
                 <li><a href="#">Open project</a></li>

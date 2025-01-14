@@ -1,10 +1,10 @@
 <?php
 
-namespace Ziel\Thread;
+namespace Ziel\System;
 
-class View {
+class Model {
     
-    public function widget_init()
+    public function model_init()
     {
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
@@ -60,7 +60,7 @@ class View {
         $aWidget['style'] = array();
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
-        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';
+        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page']. '.css">';
         $aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
         return true;
     }
@@ -70,7 +70,7 @@ class View {
         global $aRouter, $aWidget;
         $aWidget['script'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
-        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
+        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . 'home.js"></script>';
         return true;
     }
     
