@@ -2,21 +2,19 @@
 
 var dom = {
 	xhr: {},
-	load: function(page) {
+	load: function() {
 		try {
-            console.log('load.home')
-            page = JSON.stringify(page);
 			if (!this.dom_xhr()) throw 'dom_xhr';
-			if (!this.get(page)) throw 'dom_get';
+			if (!this.dom_get()) throw 'dom_get';
 			return true;
 		} catch (e) {
 			console.error(e);
 		}
     },
-	get: function(data = null) {
+	dom_get: function() {
 		this.xhr.open('POST', 'ide', true);
 		this.xhr.responseType = 'json';
-		this.xhr.send(data);
+		this.xhr.send();
 		this.xhr.addEventListener('load', this.prices_load);
 		this.xhr.addEventListener('progress', this.prices_progress);
 		this.xhr.addEventListener('error', this.prices_error);
@@ -34,8 +32,8 @@ var dom = {
 		return true;
 	}
 };
-const cars = new Array("Saab", "Volvo", "BMW");
-document.addEventListener('DOMContentLoaded', () => dom.load(cars));
+
+document.addEventListener('DOMContentLoaded', () => dom.load());
 
 
 
