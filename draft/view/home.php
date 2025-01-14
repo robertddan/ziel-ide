@@ -171,7 +171,7 @@ body {
 
 .menu {
     display: flex;
-    background-color: #333;
+    background-color: #303030;
     color: white;
 }
 
@@ -194,12 +194,12 @@ body {
     padding: 7px 10px;
     text-decoration: none;
     text-align: center;
+    color: #808080;
 }
 
 .menu ul li a:hover
 {
-    background-color: #ddd;
-    color: black;
+    color: white;
 }
 
 .menu ul li ul
@@ -212,8 +212,9 @@ body {
     display: flex;
     position: absolute;
     flex-direction: column;
-    background-color: #333;
+    background-color: #303030;
 }
+
 
 </style>
 
@@ -253,9 +254,7 @@ body {
     <div class="side">
         <h3>More Text</h3>
         <p>Lorem ipsum dolor sit ame.</p>
-        <div class="fimg" style="height:60px;">Image</div><br>
-        <div class="fimg" style="height:60px;">Image</div><br>
-        <div class="fimg" style="height:60px;">Image</div>
+        
     </div>
     <div class="main">
         <textarea></textarea>

@@ -7,6 +7,15 @@ class View {
     public function widget_init()
     {
         global $aRouter;
+        echo '<pre>';
+        var_dump([
+            #$aRouter,
+            #!isset($aRouter['uri']) or !isset($aRouter['page']),
+            !isset($aRouter['uri']),
+            !isset($aRouter['page'])
+        ]);
+        echo '</pre>';
+        #if (!isset($aRouter['uri']) or !isset($aRouter['page'])) return true;
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');

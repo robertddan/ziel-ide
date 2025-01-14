@@ -7,8 +7,8 @@ class Route {
     public function router_init()
     {
         global $aRouter, $aRequest;
-        if (empty($_GET)) $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-        else $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
+        if (!empty($_GET) or !empty($_POST)) $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
+        else $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
         if (empty($aRequest)) $this->router_redirect();
         
         switch ($aRequest[0]) {
@@ -18,7 +18,6 @@ class Route {
             case '/ide.php':
                 $this->router_ide();
             break;
-            #case 'script':
             default:
                 $this->router_uri();
             break;
@@ -29,10 +28,11 @@ class Route {
         return true;
     }
     
-    public function router_default()
+    public function router_ide()
     {
-        #global $aRouter, $aRequest;
-        #return true;
+        global $aRouter, $aRequest;
+        $aRouter = array_merge($aRouter, $_POST);
+        return true;
     }
     
     public function router_get()
