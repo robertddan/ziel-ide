@@ -57,21 +57,21 @@ class View {
 
     function widget_css()
     {
-        global $aRouter, $aWidget;
+        global $aUri, $aWidget;
         $aWidget['style'] = array();
         $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
-        if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.css'))
-        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aRouter['page'] .'.css">';
+        if (file_exists(DRAFT .'static'. DS . $aUri['path']))
+        $aWidget['style'][] = '<link rel="stylesheet" type="text/css" href="/style' . DS . $aUri['path']. '">';
         $aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
         return true;
     }
 
     function widget_js()
     {
-        global $aRouter, $aWidget;
+        global $aUri, $aWidget;
         $aWidget['script'] = array();
-        if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
-        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
+        if (file_exists(DRAFT .'static'. DS . $aUri['path']))
+        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aUri['path'] .'"></script>';
         return true;
     }
     
