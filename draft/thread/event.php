@@ -6,8 +6,8 @@ class Event {
 
     public function event_init()
     {
-        global $aRouter, $aPage, $aRequest;
-        $aRouter = $aPage = $aRequest = array();
+        global $aRouter, $aPage, $aRequest, $aUri;
+        $aRouter = $aPage = $aRequest = $aUri = array();
         return true;
     }
     

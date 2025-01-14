@@ -6,46 +6,45 @@ class Route {
     
     public function router_init()
     {
-        global $aRouter, $aRequest;
-        if (!empty($_GET) or !empty($_POST)) $aRequest = array_values(array_filter(explode('?', $_SERVER['REQUEST_URI'])));
-        else $aRequest = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-        if (empty($aRequest)) $this->router_redirect();
+        global $aUri;
+        $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
         
-        switch ($aRequest[0]) {
-            case '/index':
+        switch ($aUri["host"]) {
+            case 'index':
                 $this->router_get();
             break;
-            case '/ide':
-                $this->router_ide();
-            break;
-            default:
+            case 'script':
                 $this->router_uri();
             break;
-            #default:
-                #$this->router_default();
+            case 'ide':
+                $this->router_post();
+            break;
+            default:
+                if (empty($_GET)) $this->router_redirect();
+            break;
         }
         
         return true;
     }
     
-    public function router_ide()
+    public function router_post()
     {
-        global $aRouter, $aRequest;
+        global $aRouter;
         $aRouter = array_merge($aRouter, $_POST);
         return true;
     }
     
     public function router_get()
     {
-        global $aRouter, $aRequest;
+        global $aRouter;
         $aRouter = array_merge($aRouter, $_GET);
         return true;
     }
     
     public function router_uri()
     {
-        global $aRouter, $aRequest;
-        $aRouter['uri'] = $aRequest;
+        global $aUri;
+        $aUri['path'] = trim($aUri['path'], '/');
         return true;
     }
     

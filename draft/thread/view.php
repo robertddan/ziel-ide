@@ -7,15 +7,6 @@ class View {
     public function widget_init()
     {
         global $aRouter;
-        echo '<pre>';
-        var_dump([
-            #$aRouter,
-            #!isset($aRouter['uri']) or !isset($aRouter['page']),
-            !isset($aRouter['uri']),
-            !isset($aRouter['page'])
-        ]);
-        echo '</pre>';
-        #if (!isset($aRouter['uri']) or !isset($aRouter['page'])) return true;
         if (!$this->widget_uri()) die('widget_uri()');
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
@@ -26,9 +17,8 @@ class View {
         
     function widget_uri()
     {
-        global $aRouter;
-        if (!isset($aRouter['uri'])) return true;
-        switch ($aRouter['uri'][0]) {
+        global $aUri;
+        switch ($aUri['host']) {
             case 'favicon.ico':
                 header('Content-Type: text/x-icon');
                 print file_get_contents(ROOT .'www'. DS .'favicon.ico');
@@ -36,13 +26,16 @@ class View {
             break;
             case 'script':
                 header('Content-Type: text/css; charset=utf-8');
-                print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
+                print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
             break;
             case 'style':
                 header('Content-Type: text/javascript; charset=utf-8');
-                print file_get_contents(DRAFT .'static'. DS .$aRouter['uri'][1]);
+                print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
+            break;
+            case 'index':
+                return true;
             break;
         }
     }
@@ -52,13 +45,13 @@ class View {
         global $aWidget;
         if (!headers_sent()) {
             header('Content-Type: text/html; charset=utf-8');
-            #print PHP_EOL;
+            print PHP_EOL;
             print $aWidget['html'];
             exit();
         }
         else {
             print $aWidget['html'];
-            exit;
+            exit();
         }
     }
 
