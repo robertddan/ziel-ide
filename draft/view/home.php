@@ -125,10 +125,10 @@ fimg {
 <style>
 * {
     box-sizing: border-box;
+    font-family: 'Calibri', sans-serif;
 }
 
 body {
-    font-family: Calibri;
     margin: 0;
     padding: 0;
 }
@@ -137,23 +137,6 @@ body {
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
-}
-
-.navbar {
-    display: flex;
-    background-color: #333;
-    color: white;
-}
-
-.navbar a {
-    padding: 7px 10px;
-    text-decoration: none;
-    text-align: center;
-}
-
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
 }
 
 .row {  
@@ -182,11 +165,84 @@ body {
     background: #ddd;
 }
 
+/* menu */
+
+.menu {
+    display: flex;
+    background-color: #333;
+    color: white;
+}
+
+
+.menu ul
+{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  list-style-type: none;
+}
+
+.menu ul li
+{
+
+}
+
+.menu ul li a
+{
+    padding: 7px 10px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.menu ul li a:hover
+{
+    background-color: #ddd;
+    color: black;
+}
+
+.menu ul li ul
+{
+  display: none;
+}
+
+.menu ul li:hover ul
+{
+
+}
+
 </style>
 
 <div class="article">
 
-<div class="navbar">a
+<div class="menu">
+
+    <ul>
+        <li>
+            <a href="#">Files</a>
+            <ul>
+                <li><a href="#">New</a></li>
+                <li><a href="#">Save</a></li>
+                <li><a href="#">Save all</a></li>
+                <li><a href="#">Open file</a></li>
+                <li><a href="#">Open project</a></li>
+                <li><a href="#">Toggle read-only</a></li>
+                <li><a href="#">Toggle read-only all</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Edit</a>
+        </li>
+        <li>
+            <a href="#">View</a>
+        </li>
+        <li>
+            <a href="#">Editor</a>
+        </li>
+        <li>
+            <a href="#">Help</a>
+        </li>
+    </ul>
+    
 </div>
 <div class="row">
     <div class="side">
@@ -195,7 +251,6 @@ body {
         <div class="fimg" style="height:60px;">Image</div><br>
         <div class="fimg" style="height:60px;">Image</div><br>
         <div class="fimg" style="height:60px;">Image</div>
-
     </div>
     <div class="main">
         <textarea></textarea>
