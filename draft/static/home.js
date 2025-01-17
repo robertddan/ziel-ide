@@ -1,3 +1,5 @@
+
+/*
 'use strict';
 
 var dom = {
@@ -99,8 +101,9 @@ var prices = {
 		return true;
 	}
 };
+*/
 
-
+/*
 document.addEventListener('DOMContentLoaded', () => prices.constructor());
 
 const button = document.querySelector("#ide-files-new");
@@ -108,4 +111,4 @@ const button = document.querySelector("#ide-files-new");
 button.addEventListener("click", (event) => {
     prices.prices_get('new');
 });
-
+*/

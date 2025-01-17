@@ -6,6 +6,14 @@ class Route {
     
     public function router_init()
     {
+        if (isset($_GET)) $this->router_get_init();
+        elseif (isset($_POST)) $this->router_post_init();
+        else $this->router_redirect();
+        return true;
+    }
+    
+    public function router_get_init()
+    {
         global $aUri;
         $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
         switch ($aUri["host"]) {
@@ -21,7 +29,21 @@ class Route {
                 if (empty($_GET)) $this->router_redirect();
             break;
         }
-        
+        return true;
+    }
+    
+    public function router_post_init()
+    {
+        global $aUri;
+        $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
+        switch ($aUri["host"]) {
+            case 'index':
+                $this->router_get();
+            break;
+            default:
+                if (empty($_GET)) $this->router_redirect();
+            break;
+        }
         return true;
     }
     
@@ -35,6 +57,7 @@ class Route {
     public function router_uri()
     {
         global $aUri;
+        
         $aUri['path'] = trim($aUri['path'], '/');
         return true;
     }

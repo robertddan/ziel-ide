@@ -1,5 +1,7 @@
 <?php
 
+namespace Ziel;
+
 class Autoload {
 
     public static $sJsonName = "ziel.json";
@@ -7,10 +9,9 @@ class Autoload {
     
     public static function autoload_custom()
     {
-        #print '<pre>';
-        #var_dump([self::$aClasses]);
-        #print '</pre>';
-        foreach(self::$aClasses as $sClass) if(!include($sClass)) continue;
+        spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
+        foreach(self::$aClasses as $sClass) 
+        if(!require($sClass)) throw_exception('autoload_custom()');
         return true;
     } 
 
@@ -28,9 +29,8 @@ class Autoload {
         $aVendors = array_diff(scandir($sVendors), array('.', '..', 'autoload.php'));
         foreach($aVendors as $sVendor)
         {
-            $sClassPath = $sVendors . DIRECTORY_SEPARATOR . $sVendor;
-            if (is_dir($sClassPath))
-            {
+            $sClassPath = $sVendors . DS . $sVendor;
+            if (is_dir($sClassPath)) {
                 self::autoload_vendors($sClassPath);
             }
             else {
@@ -42,8 +42,8 @@ class Autoload {
     }
 }
 
-if (!Autoload::autoload_files()) return print('autoload_files()');
-if (!Autoload::autoload_vendors()) return print('autoload_vendors()');
-if (!Autoload::autoload_custom()) return print('autoload_custom()');
+if (!Autoload::autoload_files()) throw_exception('autoload_files()');
+if (!Autoload::autoload_vendors()) throw_exception('autoload_vendors()');
+if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
 
 ?>

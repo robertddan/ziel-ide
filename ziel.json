@@ -3,6 +3,9 @@
     "description": "Ziel IDE",
     "type": "project",
     "autoload": {
+        "psr-4": {
+            "Ziel\\": "draft/"
+        },
         "files": ["draft"]
     },
     "authors": [

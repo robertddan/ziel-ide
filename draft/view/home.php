@@ -254,7 +254,6 @@ body {
 <div class="row">
     <div class="side">
         <h3>More Text</h3>
-        <p>Lorem ipsum dolor sit ame.</p>
         
     </div>
     <div class="main">

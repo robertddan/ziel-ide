@@ -9,9 +9,6 @@ class Event {
         global $aRouter, $aPage, $aRequest, $aUri;
         $aRouter = $aPage = $aRequest = $aUri = array();
         
-        #var_dump();
-        
-        
         return true;
     }
     

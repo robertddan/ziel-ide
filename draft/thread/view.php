@@ -23,12 +23,12 @@ class View {
                 print file_get_contents(ROOT .'www'. DS .'favicon.ico');
                 exit();
             break;
-            case 'script':
+            case 'style':
                 header('Content-Type: text/css; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
             break;
-            case 'style':
+            case 'script':
                 header('Content-Type: text/javascript; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
@@ -43,8 +43,8 @@ class View {
     {
         global $aWidget;
         if (!headers_sent()) {
-            header('Content-Type: text/html; charset=utf-8');
-            print PHP_EOL;
+            #header('Content-Type: text/html; charset=utf-8');
+            #print PHP_EOL;
             print $aWidget['html'];
             exit();
         }

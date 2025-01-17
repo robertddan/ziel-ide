@@ -70,7 +70,7 @@ class Model {
         global $aRouter, $aWidget;
         $aWidget['script'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
-        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . 'home.js"></script>';
+        $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
         return true;
     }
     
