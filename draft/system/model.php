@@ -2,6 +2,8 @@
 
 namespace Ziel\System;
 
+#todo a flag, already rendered
+
 class Model {
     
     public function model_init()

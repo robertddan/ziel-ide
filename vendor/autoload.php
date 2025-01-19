@@ -11,7 +11,10 @@ class Autoload {
     {
         spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
         foreach(self::$aClasses as $sClass) 
-        if(!require($sClass)) throw_exception('autoload_custom()');
+        {
+            if(!require($sClass)) throw_exception('autoload_custom()');
+            if(!class_exists($sClass))
+        }
         return true;
     } 
 
@@ -42,8 +45,11 @@ class Autoload {
     }
 }
 
+
 if (!Autoload::autoload_files()) throw_exception('autoload_files()');
 if (!Autoload::autoload_vendors()) throw_exception('autoload_vendors()');
-if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
+#if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
+
+spl_autoload_register(__NAMESPACE__ .'\Autoload::autoload_custom');
 
 ?>
