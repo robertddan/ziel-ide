@@ -25,10 +25,9 @@ class Dispatcher {
     public static function dispatch()
     {
         
-        var_dump($GLOBALS);
+        if (!self::$oEvent->event_init()) throw_exception('event_init()');
         if (!self::$oRoute->router_init()) throw_exception('router_init()');
-        #if (!self::$oEvent->event_init()) throw_exception('event_init()');
-        #if (!self::$oModel->model_init()) throw_exception('model_init()');
+        if (!self::$oModel->model_init()) throw_exception('model_init()');
         return true;
     }
     

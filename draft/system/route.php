@@ -57,7 +57,6 @@ class Route {
     public function router_uri()
     {
         global $aUri;
-        
         $aUri['path'] = trim($aUri['path'], '/');
         return true;
     }

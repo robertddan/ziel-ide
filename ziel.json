@@ -3,9 +3,6 @@
     "description": "Ziel IDE",
     "type": "project",
     "autoload": {
-        "psr-4": {
-            "Ziel\\": "draft/"
-        },
         "files": ["draft"]
     },
     "authors": [
@@ -13,8 +10,5 @@
             "name": "Robert-Dan",
             "email": "danrobert445@gmail.com"
         }
-    ],
-    "require": {
-        "": ""
-    }
+    ]
 }

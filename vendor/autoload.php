@@ -1,7 +1,5 @@
 <?php
 
-namespace Ziel;
-
 class Autoload {
 
     public static $sJsonName = "ziel.json";
@@ -11,10 +9,7 @@ class Autoload {
     {
         spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
         foreach(self::$aClasses as $sClass) 
-        {
-            if(!require($sClass)) throw_exception('autoload_custom()');
-            if(!class_exists($sClass))
-        }
+        if(!require($sClass)) throw_exception('autoload_custom()');
         return true;
     } 
 
@@ -33,7 +28,7 @@ class Autoload {
         foreach($aVendors as $sVendor)
         {
             $sClassPath = $sVendors . DS . $sVendor;
-            if (is_dir($sClassPath)) {
+            if(is_dir($sClassPath)) {
                 self::autoload_vendors($sClassPath);
             }
             else {
@@ -45,11 +40,8 @@ class Autoload {
     }
 }
 
-
 if (!Autoload::autoload_files()) throw_exception('autoload_files()');
 if (!Autoload::autoload_vendors()) throw_exception('autoload_vendors()');
-#if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
-
-spl_autoload_register(__NAMESPACE__ .'\Autoload::autoload_custom');
+if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
 
 ?>
