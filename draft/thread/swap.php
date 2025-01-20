@@ -4,7 +4,7 @@ namespace Ziel\Thread;
 
 class Swap {
     
-    public function router_init()
+    public function swap_init()
     {
         global $aUri;
         $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
