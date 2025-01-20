@@ -1,9 +1,7 @@
 <?php
 
 namespace Ziel\System;
-
 #todo a flag, already rendered
-
 class Model {
     
     public function model_init()
@@ -15,7 +13,7 @@ class Model {
         if (!$this->widget_render()) die('widget_render()');
         return true;
     }
-        
+    
     function widget_uri()
     {
         global $aUri;
@@ -40,7 +38,7 @@ class Model {
             break;
         }
     }
-
+    
     public function widget_render()
     {
         global $aWidget;
@@ -55,7 +53,7 @@ class Model {
             exit();
         }
     }
-
+    
     function widget_css()
     {
         global $aRouter, $aWidget;
@@ -66,7 +64,7 @@ class Model {
         $aWidget['style'][] = '<link rel="icon" type="image/x-icon" href="/favicon.ico">';
         return true;
     }
-
+    
     function widget_js()
     {
         global $aRouter, $aWidget;
@@ -114,7 +112,7 @@ class Model {
         
         return true;
     }
-
+    
 }
 
 ?>

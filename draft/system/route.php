@@ -22,8 +22,9 @@ class Route {
             break;
             case 'style':
             case 'script':
-            case 'favicon.ico':
                 $this->router_uri();
+            break;
+            case 'favicon.ico':
             break;
             default:
                 if (empty($_GET)) $this->router_redirect();
@@ -41,7 +42,7 @@ class Route {
                 $this->router_get();
             break;
             default:
-                if (empty($_GET)) $this->router_redirect();
+                if (empty($_POST)) $this->router_redirect();
             break;
         }
         return true;

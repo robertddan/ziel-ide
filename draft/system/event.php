@@ -1,9 +1,7 @@
 <?php
 
 namespace Ziel\System;
-
 #todo a flag, already rendered
-
 class Event {
     
     public function event_init()
