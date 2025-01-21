@@ -9,7 +9,7 @@ class Worker {
 
 
 $address = '0.0.0.0';
-$port = 4432;
+$port = 44321;
 
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);

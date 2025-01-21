@@ -103,6 +103,9 @@ class Model {
         #$aWidget['html'] .= '<main>';
         #$aWidget['html'] .= $aWidget['events'];
         $aWidget['html'] .= $aPage['content'];
+
+        $aWidget['html'] .= '<div id="root">';
+        $aWidget['html'] .= '</div>';
         #$aWidget['html'] .= '</main>';
         
         $aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
