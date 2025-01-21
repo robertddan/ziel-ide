@@ -50,6 +50,7 @@ class Model {
         }
         else {
             print $aWidget['html'];
+            return true;
             #exit();
         }
     }
