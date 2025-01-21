@@ -1,7 +1,5 @@
-    var exampleSocket = new WebSocket("ws://localhost:4432");
-    exampleSocket.onopen = function (event) {
-      exampleSocket.send("Can you hear me?");
-    };
-    exampleSocket.onmessage = function (event) {
-      console.log(event.data);
-    }
+        var host = 'ws://0.0.0.0:4432/websockets.php';
+        var socket = new WebSocket(host);
+        socket.onmessage = function(e) {
+            document.getElementById('root').innerHTML = e.data;
+        };

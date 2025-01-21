@@ -43,8 +43,6 @@ class Dispatcher {
     public static function processes()
     {
         if(!self::$oSession->session_init()) throw_exception('session_init()');
-        
-        
         #if(!self::$oStream->stream_init()) throw_exception('stream_init()');
         #if(!self::$oSwap->swap_init()) throw_exception('swap_init()');
         #if(!self::$oRoute->router_init()) die('router_init()');
