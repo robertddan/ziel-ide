@@ -5,6 +5,9 @@ $port = 1234;
 $path = 'C:/Certbot/live/php.net/';
 $transport = 'tlsv1.3';
 
+#cd ~/.ssh
+#- ssh-keygen -o -t rsa -C "danrobert445@gmail.com"
+
 $ssl = [
 'ssl' => [
     'local_cert'  => $path . 'cert.pem',       // SSL Certificate

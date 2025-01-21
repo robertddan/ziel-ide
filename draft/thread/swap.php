@@ -4,7 +4,12 @@ namespace Ziel\Thread;
 
 class Swap {
     
-    public function swap_init()
+    public function router_init()
+    {
+        return true;
+    }
+    
+    public function router_get_init()
     {
         global $aUri;
         $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
@@ -14,18 +19,29 @@ class Swap {
             break;
             case 'style':
             case 'script':
-            case 'favicon.ico':
                 $this->router_uri();
             break;
-            case 'ide':
-                $this->router_post();
+            case 'favicon.ico':
             break;
             default:
                 if (empty($_GET)) $this->router_redirect();
             break;
         }
-        
         return true;
+    }
+    
+    public function swap_curl()
+    {
+        $sJsonData = array();
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);		
+		curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:3001/". $sUri);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $sJsonData);
+		$output = curl_exec($ch);
+		curl_close($ch);
+		return $output;
     }
     
     public function router_post()

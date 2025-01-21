@@ -68,7 +68,7 @@ class Route {
         if (empty($aRouter['page'])) $aRouter['page'] = 'home';
         if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
         header('Location: /index?'. http_build_query($aRouter));
-        exit();
+        #exit();
     }
     
 }

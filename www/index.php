@@ -17,7 +17,7 @@ define("DRAFT", ROOT . DS . "draft" . DS);
 define("VENDOR", ROOT . DS . "vendor" . DS);
 
 include(CONFIG . DS . 'bootstrap.php');
-
+     
 if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
-
+   
 ?>

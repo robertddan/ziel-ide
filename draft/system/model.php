@@ -23,12 +23,12 @@ class Model {
                 print file_get_contents(ROOT .'www'. DS .'favicon.ico');
                 exit();
             break;
-            case 'script':
+            case 'style':
                 header('Content-Type: text/css; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
             break;
-            case 'style':
+            case 'script':
                 header('Content-Type: text/javascript; charset=utf-8');
                 print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
                 exit();
@@ -46,11 +46,11 @@ class Model {
             header('Content-Type: text/html; charset=utf-8');
             print PHP_EOL;
             print $aWidget['html'];
-            exit();
+            return true;
         }
         else {
             print $aWidget['html'];
-            exit();
+            #exit();
         }
     }
     
@@ -71,6 +71,7 @@ class Model {
         $aWidget['script'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
         $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
+        $aWidget['script'][] = '<script type="text/javascript" src="/script/ide.js"></script>';
         return true;
     }
     
