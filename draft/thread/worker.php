@@ -8,8 +8,12 @@ class Worker {
     {
 
 
+var_dump([
+    #php_sapi_name(),
+    #__FILE__
+]);
 $master = array();
-$socket = stream_socket_server("tcp://0.0.0.0:9001", $errno, $errstr);
+$socket = stream_socket_server("tcp://0.0.0.0:4432", $errno, $errstr);
 if (!$socket) {
     echo "$errstr ($errno)<br />\n";
 } else {
@@ -28,7 +32,7 @@ if (!$socket) {
                 $master[] = $conn;
             } else {
                 $sock_data = fread($read[$i], 1024);
-                var_dump($sock_data);
+                #var_dump($sock_data);
                 if (strlen($sock_data) === 0) { // connection closed
                     $key_to_del = array_search($read[$i], $master, TRUE);
                     fclose($read[$i]);
@@ -55,7 +59,7 @@ function play_stop()
 {
 global $keys;
         $stdin_stat_arr=fstat(STDIN);
-        var_dump(['stdin', $stdin_stat_arr[size]]);
+        #var_dump(['stdin', $stdin_stat_arr[size]]);
         if($stdin_stat_arr[size]!=0)
         {
             $val_in=fread(STDIN,4096);
@@ -97,9 +101,5 @@ global $keys;
 
 if (php_sapi_name() == 'cli') return Worker::event_init();
 
-var_dump([
-    #php_sapi_name(),
-    #__FILE__
-]);
 
 ?>

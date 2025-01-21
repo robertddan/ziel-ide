@@ -42,12 +42,8 @@ class Dispatcher {
     
     public static function processes()
     {
-        #if(!self::$oSession->session_init()) throw_exception('session_init()');
+        if(!self::$oSession->session_init()) throw_exception('session_init()');
         
-        var_dump([
-            #readfile("php://stdin"),
-            'stream_init'
-        ]);
         
         #if(!self::$oStream->stream_init()) throw_exception('stream_init()');
         #if(!self::$oSwap->swap_init()) throw_exception('swap_init()');

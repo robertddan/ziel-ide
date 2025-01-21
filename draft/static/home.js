@@ -1,3 +1,5 @@
+
+/*
 'use strict';
 
 var exampleSocket = new WebSocket("ws://localhost:4432");
@@ -8,7 +10,6 @@ exampleSocket.onmessage = function (event) {
     console.log(event.data);
 }
 
-/*
 'use strict';
 
 var dom = {
