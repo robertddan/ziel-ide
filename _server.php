@@ -1,7 +1,7 @@
 <?php
 
 $master = array();
-$socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
+$socket = stream_socket_server("tcp://0.0.0.0:80", $errno, $errstr);
 
 if (!$socket) {
     echo "$errstr ($errno)<br />\n";

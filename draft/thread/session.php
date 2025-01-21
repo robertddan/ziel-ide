@@ -22,7 +22,7 @@ $descriptorspec = array(
 );
 
 $process = proc_open('php -q "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null); //run test_gen.php
-echo ("Start process:\n");
+#echo ("Start process:\n");
 
 return true;
 $descriptorspec = array(

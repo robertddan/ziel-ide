@@ -254,7 +254,7 @@ body {
 <div class="row">
     <div class="side">
         <h3>More Text</h3>
-        
+        <div id="root"></div>
     </div>
     <div class="main">
         <textarea></textarea>

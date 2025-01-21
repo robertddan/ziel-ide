@@ -36,8 +36,11 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 4) exit();
+    if ($i == 14) exit();
     sleep(1);
+    
+    #var_dump($client);
+    
     $content = 'Now: ' . time();
     $response = chr(129) . chr(strlen($content)) . $content;
     socket_write($client, $response);
