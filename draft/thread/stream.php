@@ -47,7 +47,7 @@ openssl_pkey_export($privkey, $pem[1], $pem_passphrase);
 $pem = implode($pem);
 
 // Save PEM file
-$pemfile = './server.pem';
+$pemfile = DRAFT .'/static/server.pem';
 file_put_contents($pemfile, $pem);
 
 $context = stream_context_create();
