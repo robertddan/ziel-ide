@@ -21,7 +21,7 @@ $descriptorspec = array(
    2 => array("pipe", "r")
 );
 
-$process = proc_open('php -f "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null); //run test_gen.php
+$process = proc_open('php -q "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null); //run test_gen.php
 echo ("Start process:\n");
 
 return true;

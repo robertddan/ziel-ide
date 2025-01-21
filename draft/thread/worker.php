@@ -33,7 +33,10 @@ $headers .= "Sec-WebSocket-Accept: $key\r\n\r\n";
 socket_write($client, $headers, strlen($headers));
 
 // Send messages into WebSocket in a loop.
+$i = 0;
 while (true) {
+    $i++;
+    if ($i == 4) exit();
     sleep(1);
     $content = 'Now: ' . time();
     $response = chr(129) . chr(strlen($content)) . $content;
