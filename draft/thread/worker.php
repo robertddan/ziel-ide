@@ -36,13 +36,15 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    #if (!$client) #proc_close($oProcess);
-    #{
+    if ($i == 11) #proc_close($oProcess);
+    {
+        posix_kill(getmypid(), SIGTERM);
+        exit();
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}')");
         #exit();
         #echo ("Start process:\n");
-    #}
+    }
     sleep(1);
     #var_dump($client);
     
@@ -51,8 +53,6 @@ while (true) {
     $response = chr(129) . chr(strlen($content)) . $content;
     socket_write($client, $response);
     
-    posix_kill(getmypid(), SIGTERM);
-    exit();
     
 }
 

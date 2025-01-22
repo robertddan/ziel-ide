@@ -16,7 +16,7 @@ class Session {
         
 $iProcess = pcntl_fork();
 #pcntl_waitpid($iProcess, $status);
- 
+$executed = 0;
 
 if ($iProcess == -1) {
     die('could not fork');
@@ -26,8 +26,10 @@ if ($iProcess == -1) {
     #var_dump();
     return true;
 } else {
-    #var_dump(file_exists(DRAFT. 'thread/worker.php'));
-    pcntl_exec('php -q "./worker.php"');
+    #var_dump(getcwd());
+    if ($executed == 0)
+    pcntl_exec('php -q "'.DRAFT. 'thread/worker.php"');
+    $executed = 1;
     // we are the child
 }
 
