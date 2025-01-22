@@ -11,10 +11,9 @@ class Session {
 
     public function session_init()
     {
-print '<pre>';
 
 
-
+#print '<pre>';
 $descriptorspec = array(
    0 => array("pipe", "r"), 
    1 => array("pipe", "w"), 
@@ -23,6 +22,8 @@ $descriptorspec = array(
 
 $process = proc_open('php -q "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null); //run test_gen.php
 #echo ("Start process:\n");
+
+
 
 return true;
 $descriptorspec = array(

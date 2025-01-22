@@ -36,7 +36,11 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 14) exit();
+    if ($i == 14) 
+    {
+        exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
+        #echo ("Start process:\n");
+    }
     sleep(1);
     
     #var_dump($client);
@@ -47,6 +51,14 @@ while (true) {
 }
 
 return true;
+
+
+
+
+
+
+
+
 $master = array();
 $socket = stream_socket_server("tcp://0.0.0.0:4432", $errno, $errstr);
 if (!$socket) {

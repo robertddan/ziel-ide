@@ -26,8 +26,8 @@ class Dispatcher {
         self::$oStream = new Stream();
         self::$oSession = new Session();
         
-        if(!self::dispatch()) throw_exception('dispatch()');
         if(!self::processes()) throw_exception('processes()');
+        if(!self::dispatch()) throw_exception('dispatch()');
         
         return true;
     }
