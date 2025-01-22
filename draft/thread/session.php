@@ -7,12 +7,13 @@ namespace Ziel\Thread;
 -crud
 -
 */
+declare(ticks=1);
+
 class Session {
 
     public function session_init()
     {
-        global $iProcess;
-        
+        global $iProcess, $bProcess;
         
 $iProcess = pcntl_fork();
 #pcntl_waitpid($iProcess, $status);
@@ -24,12 +25,13 @@ if ($iProcess == -1) {
     // we are the parent
     #pcntl_wait($status); //Protect against Zombie children
     #var_dump();
+    
+    if (!$bProcess)
+    pcntl_exec('php -q "'.DRAFT. 'thread/worker.php"');
+    $bProcess = true;
     return true;
 } else {
     #var_dump(getcwd());
-    if ($executed == 0)
-    pcntl_exec('php -q "'.DRAFT. 'thread/worker.php"');
-    $executed = 1;
     // we are the child
 }
 

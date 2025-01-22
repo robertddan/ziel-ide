@@ -26,13 +26,13 @@ class Dispatcher {
         self::$oStream = new Stream();
         self::$oSession = new Session();
         
-        if(!self::processes()) throw_exception('processes()');
         if(!self::dispatch()) throw_exception('dispatch()');
+        if(!self::setup()) throw_exception('setup()');
         
         return true;
     }
     
-    public static function dispatch()
+    public static function setup()
     {
         if(!self::$oEvent->event_init()) throw_exception('event_init()');
         if(!self::$oRoute->router_init()) throw_exception('router_init()');
@@ -40,9 +40,9 @@ class Dispatcher {
         return true;
     }
     
-    public static function processes()
+    public static function dispatch()
     {
-        if(!self::$oSession->session_init()) throw_exception('session_init()');
+        #if(!self::$oSession->session_init()) throw_exception('session_init()');
         #if(!self::$oStream->stream_init()) throw_exception('stream_init()');
         #if(!self::$oSwap->swap_init()) throw_exception('swap_init()');
         #if(!self::$oRoute->router_init()) die('router_init()');

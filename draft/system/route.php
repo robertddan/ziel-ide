@@ -6,8 +6,17 @@ class Route {
     
     public function router_init()
     {
-        if (isset($_GET)) $this->router_get_init();
-        elseif (isset($_POST)) $this->router_post_init();
+        if(isset($_GET)) $this->router_get_init();
+        elseif(isset($_POST)) $this->router_post_init();
+        else $this->router_redirect();
+        return true;
+    }
+    
+/*
+    public function router_init()
+    {
+        if(isset($_GET)) $this->router_get_init();
+        elseif(isset($_POST)) $this->router_post_init();
         else $this->router_redirect();
         return true;
     }
@@ -70,7 +79,7 @@ class Route {
         header('Location: /index?'. http_build_query($aRouter));
         #exit();
     }
-    
+*/
 }
 
 ?>

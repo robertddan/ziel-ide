@@ -1,8 +1,8 @@
 <?php
 
-namespace Ziel\Thread;
+namespace Ziel\Agent;
 
-class Worker {
+class Agent {
 
     public static function event_init()
     {
@@ -152,7 +152,7 @@ global $keys;
     
 }
 
-if (php_sapi_name() == 'cli') return Worker::event_init();
+if (php_sapi_name() == 'cli') return Agent::event_init();
 
 
 ?>

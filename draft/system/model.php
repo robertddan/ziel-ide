@@ -10,13 +10,14 @@ class Model {
         if (!$this->widget_js()) die('widget_js()');
         if (!$this->widget_css()) die('widget_css()');
         if (!$this->widget_html()) die('widget_html()');
-        if (!$this->widget_render()) die('widget_render()');
+        #if (!$this->widget_render()) die('widget_render()');
         return true;
     }
     
     function widget_uri()
     {
-        global $aUri;
+        global $aUri;#, $bProcess;
+        #if ($bProcess) return true;
         switch ($aUri['host']) {
             case 'favicon.ico':
                 header('Content-Type: text/x-icon');
@@ -72,7 +73,7 @@ class Model {
         $aWidget['script'] = array();
         if (file_exists(DRAFT .'static'. DS . $aRouter['page'] .'.js'))
         $aWidget['script'][] = '<script type="text/javascript" src="/script'. DS . $aRouter['page'] .'.js"></script>';
-        $aWidget['script'][] = '<script type="text/javascript" src="/script/ide.js"></script>';
+        #$aWidget['script'][] = '<script type="text/javascript" src="/script/ide.js"></script>';
         return true;
     }
     
@@ -92,7 +93,8 @@ class Model {
         $aWidget['html'] .= '<head>';
         $aWidget['html'] .= '<meta charset="utf-8">';
         $aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
-        $aWidget['html'] .= implode(PHP_EOL, $aWidget['style']);
+        #$aWidget['html'] .= implode(PHP_EOL, $aWidget['style']);
+
         $aWidget['html'] .= '</head>';
         $aWidget['html'] .= '<!--- /head -->';
         
@@ -103,10 +105,9 @@ class Model {
         #$aWidget['html'] .= '<main>';
         #$aWidget['html'] .= $aWidget['events'];
         $aWidget['html'] .= $aPage['content'];
-
         #$aWidget['html'] .= '</main>';
-        
         $aWidget['html'] .= implode(PHP_EOL, $aWidget['script']);
+        
         $aWidget['html'] .= '</body>';
         $aWidget['html'] .= '<!--- /body -->';
         
