@@ -36,9 +36,10 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 1114) 
+    if ($i == 11) 
     {
-        exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
+        #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
+        exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}')");
         exit();
         #echo ("Start process:\n");
     }
@@ -47,7 +48,7 @@ while (true) {
     #var_dump($client);
     
     #$content = 'Now: '. $i .' '. $request.' '. time();
-    $content = 'Now: '. $i . time();
+    $content = json_encode(array('1','2','3','4'));
     $response = chr(129) . chr(strlen($content)) . $content;
     socket_write($client, $response);
 }
