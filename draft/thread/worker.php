@@ -36,16 +36,18 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 14) 
+    if ($i == 1114) 
     {
         exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
+        exit();
         #echo ("Start process:\n");
     }
     sleep(1);
     
     #var_dump($client);
     
-    $content = 'Now: ' . time();
+    #$content = 'Now: '. $i .' '. $request.' '. time();
+    $content = 'Now: '. $i . time();
     $response = chr(129) . chr(strlen($content)) . $content;
     socket_write($client, $response);
 }
