@@ -24,9 +24,10 @@ if ($iProcess == -1) {
     // we are the parent
     #pcntl_wait($status); //Protect against Zombie children
     #var_dump();
-    
-    pcntl_exec('php -q "'.DRAFT. 'thread/worker.php" &');
+    return true;
 } else {
+    #var_dump(file_exists(DRAFT. 'thread/worker.php'));
+    pcntl_exec('php -q "./worker.php"');
     // we are the child
 }
 
