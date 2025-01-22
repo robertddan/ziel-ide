@@ -1,6 +1,5 @@
-var host = 'ws://0.0.0.0:44321/websockets.php';
+var host = 'ws://127.0.0.1:44321/websockets.php';
 var socket = new WebSocket(host);
-
 
 socket.addEventListener("message", (event) => {
     document.getElementById('root').innerHTML = "Message from server "+ event.data;
@@ -12,7 +11,6 @@ socket.addEventListener("open", (event) => {
     document.getElementById('root').innerHTML = JSON.stringify(message);
 });
 
-// Listen for possible errors
 socket.addEventListener("error", (event) => {
-  console.log("WebSocket error: ", event);
+    console.log("WebSocket error: ", event);
 });

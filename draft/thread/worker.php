@@ -6,9 +6,9 @@ class Worker {
 
     public static function event_init()
     {
+        global $oProcess;
 
-
-$address = '0.0.0.0';
+$address = '127.0.0.1';
 $port = 44321;
 
 // Create WebSocket.
@@ -36,21 +36,24 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 11) 
-    {
+    #if (!$client) #proc_close($oProcess);
+    #{
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
-        exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}')");
-        exit();
+        #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}')");
+        #exit();
         #echo ("Start process:\n");
-    }
+    #}
     sleep(1);
-    
     #var_dump($client);
     
     #$content = 'Now: '. $i .' '. $request.' '. time();
-    $content = json_encode(array('1','2','3','4'));
+    $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
     socket_write($client, $response);
+    
+    posix_kill(getmypid(), SIGTERM);
+    exit();
+    
 }
 
 return true;

@@ -11,7 +11,26 @@ class Session {
 
     public function session_init()
     {
+        global $iProcess;
+        
+        
+$iProcess = pcntl_fork();
+#pcntl_waitpid($iProcess, $status);
+ 
 
+if ($iProcess == -1) {
+    die('could not fork');
+} else if ($iProcess) {
+    // we are the parent
+    #pcntl_wait($status); //Protect against Zombie children
+    #var_dump();
+    
+    pcntl_exec('php -q "'.DRAFT. 'thread/worker.php" &');
+} else {
+    // we are the child
+}
+
+return true;
 
 #print '<pre>';
 $descriptorspec = array(
@@ -20,10 +39,8 @@ $descriptorspec = array(
    2 => array("pipe", "r")
 );
 
-$process = proc_open('php -q "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null);
+$oProcess = proc_open('php -q "'.DRAFT. 'thread/worker.php"', $descriptorspec, $pipes, null, null);
 #echo ("Start process:\n");
-
-
 
 return true;
 $descriptorspec = array(
