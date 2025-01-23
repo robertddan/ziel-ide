@@ -22,6 +22,52 @@ include(CONFIG . DS . 'bootstrap.php');
 global $aUri;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 
+/**/
+    
+    $sUrl = "$this->sUrlStream/accounts/$this->sAcc/pricing/stream";
+    $sUrl = sprintf("%s?%s", $sUrl, http_build_query($sParameters));
+
+    //if (empty($aCallback)) exit('stream');
+    $this->aCallback = array(new $aCallback[0], $aCallback[1]);
+    $this->rStream = fopen(__DIR__ . '/stream.txt', 'w');
+
+    $aDefaults = array(
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_HEADER => true,
+      CURLOPT_HTTPHEADER => $this->aHeaders,
+      CURLOPT_URL => $sUrl,
+
+      CURLOPT_FILE => $this->rStream,
+      CURLOPT_WRITEFUNCTION => array($this, 'stream_handler'),
+      CURLOPT_CONNECTTIMEOUT => 20,
+      #CURLOPT_COOKIESESSION => true,
+      #CURLOPT_COOKIE => "App\Suiteziel",
+      #CURLOPT_COOKIELIST => "",
+      #CURLOPT_VERBOSE => true,
+      #CURLOPT_STDERR => $this->rVerbose,
+      CURLOPT_SSL_VERIFYPEER => false,
+      #CURLOPT_TIMEOUT => 5,
+      CURLOPT_BUFFERSIZE => 256,
+    );
+
+    $ch = curl_init();
+    curl_setopt_array($ch, $aDefaults); 
+    curl_exec($ch);
+
+    //var_dump('stream_api');
+
+    if (curl_errno($ch) !== 0)
+    {
+      sleep(2);
+      var_dump(curl_errno($ch));
+      call_user_func_array(array($this->aCallback[0], 'configure'), array(false, true));
+    }
+
+    curl_close($ch);
+    fclose($this->rStream);
+/**/
+
 switch ($aUri['host']) {
     case 'favicon.ico':
         header('Content-Type: text/x-icon');

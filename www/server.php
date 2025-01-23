@@ -19,9 +19,23 @@ define("VENDOR", ROOT . DS . "vendor" . DS);
 include(CONFIG . DS . 'bootstrap.php');
 #if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
+function router_redirect()
+{
+    global $aRouter;
+    if (empty($aRouter['page'])) $aRouter['page'] = 'home';
+    if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
+    header('Location: /index?'. http_build_query($aRouter));
+    #exit();
+}
 
 global $aUri, $aRouter;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
+
+if(isset($_GET)) print_r($_GET);
+elseif(isset($_POST)) print_r($_POST);
+else router_redirect();
+
+// TODO Route $_GET $_POST
 
 #var_dump($aUri);
 if (isset($aUri['host']))
@@ -34,6 +48,7 @@ switch ($aUri['host']) {
     case 'style':
         header('Content-Type: text/css; charset=utf-8');
         print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        print_r($GLOBALS);
         exit();
     break;
     case 'script':
@@ -117,6 +132,7 @@ else {
     #return true;
     #exit();
 }
+
 var_dump(getcwd());
 ?>
 
