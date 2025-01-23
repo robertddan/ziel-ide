@@ -21,10 +21,14 @@ class Agent {
             #if (!$bProcess)
             #pcntl_exec('php -q "'.DRAFT. 'thread/worker.php"');
             #$bProcess = true;
-            self::agent_socket();
             
+            var_dump('we are the parent');
+            self::agent_socket();
+            posix_kill(getmypid(), SIGTERM);
         } else {
-            var_dump(getcwd());
+            var_dump('we are the child');
+            self::agent_socket();
+            posix_kill(getmypid(), SIGTERM);
             // we are the child
         }
         
@@ -38,7 +42,6 @@ class Agent {
 $address = '127.0.0.1';
 $port = 44321;
 
-posix_kill(getmypid(), SIGTERM);
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
@@ -78,7 +81,7 @@ while (true) {
     #$content = 'Now: '. $i .' '. $request.' '. time();
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
-    if(!socket_write($client, $response)) Agent::event_init();
+    if(!socket_write($client, $response)) Agent::agent_init();
     #socket_write($client, $response)
     #if the server has a client
     #if is a client restart server 
