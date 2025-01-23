@@ -155,7 +155,7 @@ web_socket();
 document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('loader').classList.remove("hidden");
 });
-document.addEventListener("beforeunload", (event) => {
+window.addEventListener("beforeunload", (event) => {
     document.getElementById('loader').classList.remove("hidden");
 });
 
