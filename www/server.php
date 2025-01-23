@@ -121,32 +121,44 @@ var_dump(getcwd());
 ?>
 
 <script>
+function web_socket(){
+    var host = 'ws://127.0.0.1:44321/www/agent.php';
+    var socket = new WebSocket(host);
+    
+    socket.addEventListener("message", (event) => {
+        document.getElementById('root').innerHTML = "Message from server "+ event.data;
+    });
+    
+    socket.addEventListener("open", (event) => {
+        document.getElementById('loader').classList.add("hidden");
+        var message = {'a':'a1','b':'b2'};
+        socket.send(JSON.stringify(message));
+        document.getElementById('root').innerHTML = JSON.stringify(message);
+    });
+    
+    socket.addEventListener("close", (event) => {
+        
+        document.getElementById('loader').classList.remove("hidden");
+        console.log("WebSocket close: ", event);
+    });
+    
+    socket.addEventListener("error", (event) => {
+        document.getElementById('loader').classList.remove("hidden");
+        setTimeout(1);
+        web_socket();
+        console.log("WebSocket error: ", event);
+    });
+}
 
-var host = 'ws://127.0.0.1:44321/www/agent.php';
-var socket = new WebSocket(host);
+web_socket();
 
-socket.addEventListener("message", (event) => {
-    document.getElementById('root').innerHTML = "Message from server "+ event.data;
+document.addEventListener("DOMContentLoaded", (event) => {
+    document.getElementById('loader').classList.remove("hidden");
 });
-
-socket.addEventListener("open", (event) => {
-    var message = {'a':'a1','b':'b2'};
-    socket.send(JSON.stringify(message));
-    document.getElementById('root').innerHTML = JSON.stringify(message);
-});
-
-socket.addEventListener("close", (event) => {
-
-});
-
-socket.addEventListener("error", (event) => {
-    console.log("WebSocket error: ", event);
-});
-
 document.addEventListener("beforeunload", (event) => {
     document.getElementById('loader').classList.remove("hidden");
-    socket.close();
 });
+
 </script>
 
 
@@ -170,7 +182,6 @@ document.onreadystatechange = () => {
         }
         case "complete":
             console.log('complete');
-            document.getElementById('loader').classList.add("hidden");
         break;
     }
 };

@@ -37,13 +37,13 @@ class Agent {
 
 $address = '127.0.0.1';
 $port = 44321;
-
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
 socket_bind($server, $address, $port);
 socket_listen($server);
 $client = socket_accept($server);
+var_dump('wait conn');
 
 // Send WebSocket handshake headers.
 $request = socket_read($client, 5000);
@@ -88,14 +88,14 @@ while (true) {
         break;
     }
     else {
-        echo "Message Sent : $write";
+        echo "Message Sent : ". chr(129);
     }
     #socket_write($client, $response)
     #if the server has a client
     #if is a client restart server 
     #else close
 }
-
+echo "return agent_init())";
 self::agent_init();
 return true;
 
