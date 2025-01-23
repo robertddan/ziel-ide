@@ -25,10 +25,12 @@ class Agent {
             var_dump('we are the parent');
             self::agent_socket();
             posix_kill(getmypid(), SIGTERM);
+            Agent::agent_init();
         } else {
             var_dump('we are the child');
             self::agent_socket();
             posix_kill(getmypid(), SIGTERM);
+            Agent::agent_init();
             // we are the child
         }
         
