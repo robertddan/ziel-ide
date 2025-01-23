@@ -4,13 +4,41 @@ namespace Ziel\Agent;
 
 class Agent {
 
-    public static function event_init()
+
+
+    public static function agent_init()
+    {
+        $iProcess = pcntl_fork();
+        #pcntl_waitpid($iProcess, $status);
+        var_dump($iProcess);
+        if ($iProcess == -1) {
+            die('could not fork');
+        } else if ($iProcess) {
+            // we are the parent
+            #pcntl_wait($status); //Protect against Zombie children
+            #var_dump();
+            
+            #if (!$bProcess)
+            #pcntl_exec('php -q "'.DRAFT. 'thread/worker.php"');
+            #$bProcess = true;
+            self::agent_socket();
+            
+        } else {
+            var_dump(getcwd());
+            // we are the child
+        }
+        
+        return true;
+    }
+    
+    public static function agent_socket()
     {
         global $oProcess;
 
 $address = '127.0.0.1';
 $port = 44321;
 
+posix_kill(getmypid(), SIGTERM);
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
@@ -39,7 +67,7 @@ while (true) {
     if ($i == 11) #proc_close($oProcess);
     {
         posix_kill(getmypid(), SIGTERM);
-        exit();
+        #exit();
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}')");
         #exit();
@@ -50,7 +78,11 @@ while (true) {
     #$content = 'Now: '. $i .' '. $request.' '. time();
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
-    socket_write($client, $response);
+    if(!socket_write($client, $response)) Agent::event_init();
+    #socket_write($client, $response)
+    #if the server has a client
+    #if is a client restart server 
+    #else close
 }
 
 return true;
@@ -58,7 +90,7 @@ return true;
     }
     
 }
-if (php_sapi_name() == 'cli') return Agent::event_init();
+if (php_sapi_name() == 'cli') return Agent::agent_init();
 
 
 ?>

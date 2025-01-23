@@ -106,8 +106,17 @@ $aWidget['html'] .= '<!--- /body -->';
 $aWidget['html'] .= '<!--- /html -->';
 $aWidget['html'] .= '</html>';
 
-print $aWidget['html'];
-
+if (!headers_sent()) {
+    header('Content-Type: text/html; charset=utf-8');
+    print PHP_EOL;
+    print $aWidget['html'];
+    #return true;
+}
+else {
+    print $aWidget['html'];
+    #return true;
+    #exit();
+}
 var_dump(getcwd());
 ?>
 
