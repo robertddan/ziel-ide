@@ -19,8 +19,11 @@ define("VENDOR", ROOT . DS . "vendor" . DS);
 include(CONFIG . DS . 'bootstrap.php');
 #if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
+
 global $aUri;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
+
+#var_dump($aUri);
 
 switch ($aUri['host']) {
     case 'favicon.ico':
@@ -59,29 +62,27 @@ $aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></scri
 
 $aWidget['html'] .= '<style>
 .loader {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #3498db;
-    border-left: 4px solid #3498db;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -20px;
     margin-top: -20px;
 }
-
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
-
 .hidden {
     display: none;
 }
 </style>';
+
 $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
 
@@ -90,6 +91,8 @@ $aWidget['html'] .= '<body>';
 #$aWidget['html'] .= $aWidget['nav'];
 
 #$aWidget['html'] .= '<main>';
+
+$aWidget['html'] .= '<img>';
 $aWidget['html'] .= '<div id="loader" class="loader"></div>';
 #$aWidget['html'] .= $aWidget['events'];
 $aWidget['html'] .= $aPage['content'];
@@ -102,8 +105,8 @@ $aWidget['html'] .= '<!--- /html -->';
 $aWidget['html'] .= '</html>';
 
 print $aWidget['html'];
-?>
 
+/*
 <script>
 function getStyleSheet() {
   for (const sheet of document.styleSheets) {
@@ -131,3 +134,58 @@ socket.addEventListener("error", (event) => {
     console.log("WebSocket error: ", event);
 });
 </script>
+*/
+?>
+
+
+<script>
+
+const myImage = document.querySelector("img");
+
+const myRequest = new Request("favicon.ico");
+
+window
+    .fetch(myRequest)
+    .then((response) => {
+        if (!response.ok) 
+        throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.blob();
+    })
+    .then((response) => {
+        myImage.src = URL.createObjectURL(response);
+        document.body.appendChild(myImage);
+        console.log(myImage);
+    });
+  
+console.log(document.adoptedStyleSheets.length);
+console.log(document.styleSheets);
+
+document.onreadystatechange = () => {
+    switch (document.readyState) {
+        case "loading":
+            // The document is loading.
+            console.log('loading');
+        break;
+        case "interactive": {
+            console.log('interactive');
+            // The document has finished loading and we can access DOM elements.
+            // Sub-resources such as scripts, images, stylesheets and frames are still loading.
+            //const span = document.createElement("span");
+            //span.textContent = "A <span> element.";
+            //document.body.appendChild(span);
+        break;
+        }
+        case "complete":
+            console.log('complete');
+            document.getElementById('loader').classList.add("hidden");
+        break;
+    }
+};
+
+const sheet = new CSSStyleSheet();
+sheet.replaceSync("a { color: red; }");
+document.adoptedStyleSheets = [sheet];
+
+</script>
+
+
