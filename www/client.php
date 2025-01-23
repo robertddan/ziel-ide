@@ -22,50 +22,66 @@ include(CONFIG . DS . 'bootstrap.php');
 global $aUri;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 
+var_dump('style');
+
 /**/
-    
-    $sUrl = "$this->sUrlStream/accounts/$this->sAcc/pricing/stream";
-    $sUrl = sprintf("%s?%s", $sUrl, http_build_query($sParameters));
+/*
+$data = array("param1" => "value1");
+$ch = curl_init('http://site.com/page_that_inserts_something_in_a_db.php');
 
-    //if (empty($aCallback)) exit('stream');
-    $this->aCallback = array(new $aCallback[0], $aCallback[1]);
-    $this->rStream = fopen(__DIR__ . '/stream.txt', 'w');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
-    $aDefaults = array(
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_HEADER => true,
-      CURLOPT_HTTPHEADER => $this->aHeaders,
-      CURLOPT_URL => $sUrl,
+$response = curl_exec($ch);
+if(!$response) {
+    return false;
+}
+        
+        
+$sUrl = "$this->sUrlStream/accounts/$this->sAcc/pricing/stream";
+$sUrl = sprintf("%s?%s", $sUrl, http_build_query($sParameters));
 
-      CURLOPT_FILE => $this->rStream,
-      CURLOPT_WRITEFUNCTION => array($this, 'stream_handler'),
-      CURLOPT_CONNECTTIMEOUT => 20,
-      #CURLOPT_COOKIESESSION => true,
-      #CURLOPT_COOKIE => "App\Suiteziel",
-      #CURLOPT_COOKIELIST => "",
-      #CURLOPT_VERBOSE => true,
-      #CURLOPT_STDERR => $this->rVerbose,
-      CURLOPT_SSL_VERIFYPEER => false,
-      #CURLOPT_TIMEOUT => 5,
-      CURLOPT_BUFFERSIZE => 256,
-    );
+//if (empty($aCallback)) exit('stream');
+$this->aCallback = array(new $aCallback[0], $aCallback[1]);
+$this->rStream = fopen(__DIR__ . '/stream.txt', 'w');
 
-    $ch = curl_init();
-    curl_setopt_array($ch, $aDefaults); 
-    curl_exec($ch);
+$aDefaults = array(
+CURLOPT_FOLLOWLOCATION => true,
+CURLOPT_RETURNTRANSFER => true,
+CURLOPT_HEADER => true,
+CURLOPT_HTTPHEADER => $this->aHeaders,
+CURLOPT_URL => $sUrl,
 
-    //var_dump('stream_api');
+CURLOPT_FILE => $this->rStream,
+CURLOPT_WRITEFUNCTION => array($this, 'stream_handler'),
+CURLOPT_CONNECTTIMEOUT => 20,
+#CURLOPT_COOKIESESSION => true,
+#CURLOPT_COOKIE => "App\Suiteziel",
+#CURLOPT_COOKIELIST => "",
+#CURLOPT_VERBOSE => true,
+#CURLOPT_STDERR => $this->rVerbose,
+CURLOPT_SSL_VERIFYPEER => false,
+#CURLOPT_TIMEOUT => 5,
+CURLOPT_BUFFERSIZE => 256,
+);
 
-    if (curl_errno($ch) !== 0)
-    {
-      sleep(2);
-      var_dump(curl_errno($ch));
-      call_user_func_array(array($this->aCallback[0], 'configure'), array(false, true));
-    }
+$ch = curl_init();
+curl_setopt_array($ch, $aDefaults); 
+curl_exec($ch);
 
-    curl_close($ch);
-    fclose($this->rStream);
+//var_dump('stream_api');
+
+if (curl_errno($ch) !== 0)
+{
+sleep(2);
+var_dump(curl_errno($ch));
+call_user_func_array(array($this->aCallback[0], 'configure'), array(false, true));
+}
+
+curl_close($ch);
+fclose($this->rStream);
+*/
 /**/
 
 switch ($aUri['host']) {
@@ -75,8 +91,16 @@ switch ($aUri['host']) {
         exit();
     break;
     case 'style':
-        header('Content-Type: text/css; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+$ch = curl_init('http://127.0.0.1:8005/style/water.css');
+$data = file_get_contents(ROOT .'www'. DS .'favicon.ico');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$response = curl_exec($ch);
+var_dump($response);
+
+        #header('Content-Type: text/css; charset=utf-8');
+        #print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
         exit();
     break;
     case 'script':
