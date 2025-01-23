@@ -20,11 +20,11 @@ include(CONFIG . DS . 'bootstrap.php');
 #if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
 
-global $aUri;
+global $aUri, $aRouter;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 
 #var_dump($aUri);
-
+if (isset($aUri['host']))
 switch ($aUri['host']) {
     case 'favicon.ico':
         header('Content-Type: text/x-icon');
@@ -50,12 +50,12 @@ $aWidget['html'] = '';
 #$aWidget['html'] .= '<!--- doctype -->';
 #$aWidget['html'] .= '<!doctype html>';
 $aWidget['html'] .= '<!--- html -->';
-$aWidget['html'] .= '<html class="" lang="'. $aRouter['lang'] .'">';
+$aWidget['html'] .= '<html class="">';
 
 $aWidget['html'] .= '<!--- head -->';
 $aWidget['html'] .= '<head>';
 $aWidget['html'] .= '<meta charset="utf-8">';
-$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
+#$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
 
 $aWidget['html'] .= '<link rel="stylesheet" type="text/css" href="/style/water.css">';
 $aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
@@ -94,8 +94,10 @@ $aWidget['html'] .= '<body>';
 
 $aWidget['html'] .= '<img>';
 $aWidget['html'] .= '<div id="loader" class="loader"></div>';
+
+$aWidget['html'] .= '<div id="root"></div>';
 #$aWidget['html'] .= $aWidget['events'];
-$aWidget['html'] .= $aPage['content'];
+#$aWidget['html'] .= $aPage['content'];
 #$aWidget['html'] .= '</main>';
 
 $aWidget['html'] .= '</body>';
@@ -106,18 +108,11 @@ $aWidget['html'] .= '</html>';
 
 print $aWidget['html'];
 
-/*
-<script>
-function getStyleSheet() {
-  for (const sheet of document.styleSheets) {
-    console.log(sheet.href);
-  }
-}
-getStyleSheet();
-const sheet = document.styleSheets[0];
-console.log(sheet);
+var_dump(getcwd());
+?>
 
-var host = 'ws://127.0.0.1:44321/websockets.php';
+<script>
+var host = 'ws://127.0.0.1:44321/www/agent.php';
 var socket = new WebSocket(host);
 
 socket.addEventListener("message", (event) => {
@@ -134,31 +129,10 @@ socket.addEventListener("error", (event) => {
     console.log("WebSocket error: ", event);
 });
 </script>
-*/
-?>
+
 
 
 <script>
-
-const myImage = document.querySelector("img");
-
-const myRequest = new Request("favicon.ico");
-
-window
-    .fetch(myRequest)
-    .then((response) => {
-        if (!response.ok) 
-        throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.blob();
-    })
-    .then((response) => {
-        myImage.src = URL.createObjectURL(response);
-        document.body.appendChild(myImage);
-        console.log(myImage);
-    });
-  
-console.log(document.adoptedStyleSheets.length);
-console.log(document.styleSheets);
 
 document.onreadystatechange = () => {
     switch (document.readyState) {
@@ -181,10 +155,6 @@ document.onreadystatechange = () => {
         break;
     }
 };
-
-const sheet = new CSSStyleSheet();
-sheet.replaceSync("a { color: red; }");
-document.adoptedStyleSheets = [sheet];
 
 </script>
 
