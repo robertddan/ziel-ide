@@ -126,10 +126,12 @@ function web_socket(){
     var socket = new WebSocket(host);
     
     socket.addEventListener("message", (event) => {
+        //console.log("WebSocket message: ", event);
         document.getElementById('root').innerHTML = "Message from server "+ event.data;
     });
     
     socket.addEventListener("open", (event) => {
+        console.log("WebSocket open: ", event);
         document.getElementById('loader').classList.add("hidden");
         var message = {'a':'a1','b':'b2'};
         socket.send(JSON.stringify(message));
@@ -137,16 +139,17 @@ function web_socket(){
     });
     
     socket.addEventListener("close", (event) => {
-        
-        document.getElementById('loader').classList.remove("hidden");
         console.log("WebSocket close: ", event);
-    });
-    
-    socket.addEventListener("error", (event) => {
         document.getElementById('loader').classList.remove("hidden");
         setTimeout(1);
         web_socket();
+    });
+    
+    socket.addEventListener("error", (event) => {
         console.log("WebSocket error: ", event);
+        document.getElementById('loader').classList.remove("hidden");
+        setTimeout(1);
+        web_socket();
     });
 }
 

@@ -67,8 +67,9 @@ socket_write($client, $headers, strlen($headers));
 $i = 0;
 while (true) {
     $i++;
-    if ($i == 11) #proc_close($oProcess);
+    if ($i == 1111) #proc_close($oProcess);
     {
+        socket_close($client);
         socket_close($server);
         break;
         #posix_kill(getmypid(), SIGTERM);
@@ -79,11 +80,12 @@ while (true) {
         #echo ("Start process:\n");
     }
     sleep(1);
-    #var_dump($client);
     #$content = 'Now: '. $i .' '. $request.' '. time();
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
+    #var_dump(socket_get_status());
     if(!@socket_write($client, $response)) {
+        socket_close($client);
         socket_close($server);
         break;
     }
