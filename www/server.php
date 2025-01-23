@@ -121,6 +121,7 @@ var_dump(getcwd());
 ?>
 
 <script>
+
 var host = 'ws://127.0.0.1:44321/www/agent.php';
 var socket = new WebSocket(host);
 
@@ -134,8 +135,17 @@ socket.addEventListener("open", (event) => {
     document.getElementById('root').innerHTML = JSON.stringify(message);
 });
 
+socket.addEventListener("close", (event) => {
+
+});
+
 socket.addEventListener("error", (event) => {
     console.log("WebSocket error: ", event);
+});
+
+document.addEventListener("beforeunload", (event) => {
+    document.getElementById('loader').classList.remove("hidden");
+    socket.close();
 });
 </script>
 

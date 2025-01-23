@@ -6,6 +6,9 @@ class Agent {
     
     public static function agent_init()
     {
+        self::agent_socket();
+        return true;
+        
         $iProcess = pcntl_fork();
         #pcntl_waitpid($iProcess, $status);
         var_dump($iProcess);
@@ -20,11 +23,11 @@ class Agent {
         } else {
             var_dump('we are the child');
             #if (!self::agent_socket()) posix_kill(getmypid(), SIGTERM);
-            posix_kill(getmypid(), SIGTERM);
+            #posix_kill(getmypid(), SIGTERM);
             #Agent::agent_init();
             // we are the child
         }
-        
+        self::agent_socket();
         return true;
     }
     
@@ -38,10 +41,7 @@ $port = 44321;
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
-$linger = array ('l_linger' => 0, 'l_onoff' => 1);
-socket_set_option($server, SOL_SOCKET, SO_LINGER, $linger);
-
-if(!socket_bind($server, $address, $port)) {socket_close($server); self::agent_socket();}
+socket_bind($server, $address, $port);
 socket_listen($server);
 $client = socket_accept($server);
 
@@ -65,6 +65,8 @@ while (true) {
     $i++;
     if ($i == 11) #proc_close($oProcess);
     {
+        socket_close($server);
+        break;
         #posix_kill(getmypid(), SIGTERM);
         #exit();
         #exec("kill $(ps aux | grep '[p]hp' | awk '{print $2}') | sh _serve.sh &");
@@ -82,11 +84,11 @@ while (true) {
         $errorcode = socket_last_error();
         $errormsg = socket_strerror($errorcode);
         echo "$errorcode : $errormsg";
-        self::agent_socket();
-        return false;
+        socket_close($server);
+        break;
     }
     else {
-        echo "Message Sent : $write". PHP_EOL;
+        echo "Message Sent : $write";
     }
     #socket_write($client, $response)
     #if the server has a client
@@ -94,6 +96,7 @@ while (true) {
     #else close
 }
 
+self::agent_init();
 return true;
 
     }
