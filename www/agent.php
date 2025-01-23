@@ -40,10 +40,14 @@ $port = 44321;
 // Create WebSocket.
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
-socket_bind($server, $address, $port);
+if(!socket_bind($server, $address, $port) ) {
+    socket_close($server);
+    self::agent_init();
+    #return true;
+}
 socket_listen($server);
 $client = socket_accept($server);
-var_dump('wait conn');
+print('wait');
 
 // Send WebSocket handshake headers.
 $request = socket_read($client, 5000);
@@ -79,23 +83,17 @@ while (true) {
     #$content = 'Now: '. $i .' '. $request.' '. time();
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
-    $write = socket_write($client, $response);
-    if($write === false) {
-        $errorcode = socket_last_error();
-        $errormsg = socket_strerror($errorcode);
-        echo "$errorcode : $errormsg";
+    if(!@socket_write($client, $response)) {
         socket_close($server);
         break;
     }
-    else {
-        echo "Message Sent : ". chr(129);
-    }
+    print ".";
     #socket_write($client, $response)
     #if the server has a client
     #if is a client restart server 
     #else close
 }
-echo "return agent_init())";
+print('endf');
 self::agent_init();
 return true;
 
