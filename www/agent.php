@@ -1,7 +1,7 @@
 <?php
 
 namespace Ziel;
-
+#self signed certificate
 class Agent {
     
     public static function agent_init()
@@ -12,7 +12,7 @@ class Agent {
     
     public static function agent_socket()
     {
-        global $oProcess;
+        global $oProcess, $client, $server;
         
 $address = '127.0.0.1';
 $port = 44321;
@@ -20,7 +20,10 @@ $port = 44321;
 $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
 if(!socket_bind($server, $address, $port) ) {
+    var_dump('-socket_bind-23-');
     socket_close($server);
+    socket_close($client);
+    sleep(1);
     self::agent_init();
     #return true;
 }
@@ -30,6 +33,7 @@ print('wait');
 
 // Send WebSocket handshake headers.
 $request = socket_read($client, 5000);
+#var_dump($request);
 preg_match('#Sec-WebSocket-Key: (.*)\r\n#', $request, $matches);
 $key = base64_encode(pack(
     'H*',
@@ -63,7 +67,10 @@ while (true) {
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;
     #var_dump(socket_get_status());
-    if(!@socket_write($client, $response)) {
+    #var_dump($response);
+    
+    if(!socket_write($client, $response)) {
+        var_dump('-socket_write-71-');
         socket_close($client);
         socket_close($server);
         break;
