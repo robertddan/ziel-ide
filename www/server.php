@@ -28,7 +28,7 @@ function router_redirect()
     #exit();
 }
 
-function static_response($event)
+function static_response()
 {
     $data = file_get_contents(DRAFT .'static'. DS .'home.css');
     return strlen($data);
@@ -37,8 +37,8 @@ function static_response($event)
 global $aUri, $aRouter;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 
-if(isset($_GET)) print_r($_GET);
-elseif(isset($_POST)) print_r($_POST);
+if(isset($_GET)) var_dump($_GET);
+elseif(isset($_POST)) var_dump($_POST);
 else router_redirect();
 
 // TODO Route $_GET $_POST
@@ -52,8 +52,9 @@ switch ($aUri['host']) {
         exit();
     break;
     case 'style':
+        var_dump(headers_sent());
         header('Content-Type: text/css; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        file_get_contents(DRAFT .'static'. DS .$aUri['path']);
         exit();
     break;
     case 'script':
@@ -142,6 +143,7 @@ var_dump(getcwd());
 ?>
 
 <script>
+
 function web_socket(){
     var host = 'ws://127.0.0.1:44321/www/agent.php';
     var socket = new WebSocket(host);
@@ -174,7 +176,7 @@ function web_socket(){
     });
 }
 
-//web_socket();
+web_socket();
 
 document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('loader').classList.remove("hidden");
