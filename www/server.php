@@ -52,34 +52,8 @@ switch ($aUri['host']) {
         exit();
     break;
     case 'style':
-
-$url = 'http://localhost:8005/style/water.css';
-$header = array('Content-Type: text/css; charset=utf-8');
-
-$ch = curl_init();
-$data = file_get_contents(DRAFT .'static'. DS .'home.css');
-$dataa = array("a" => 'aa');
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-#curl_setopt($ch, CURLOPT_WRITEFUNCTION, array('static_response'));
-#curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-#curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-#curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-#curl_setopt($ch, CURLOPT_HEADER, true);
-#curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-#curl_setopt($ch, CURLOPT_POSTFIELDS, $dataa);
-
-$info = curl_getinfo($ch);
-#print '<pre>';
-var_dump([$info]);
-#print '<pre>';
-$response = curl_exec($ch);
-curl_close($ch);
-#var_dump($response);
-
-        #header('Content-Type: text/css; charset=utf-8');
-        #print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        header('Content-Type: text/css; charset=utf-8');
+        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
         exit();
     break;
     case 'script':
