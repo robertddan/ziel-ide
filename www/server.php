@@ -28,6 +28,12 @@ function router_redirect()
     #exit();
 }
 
+function static_response($event)
+{
+    $data = file_get_contents(DRAFT .'static'. DS .'home.css');
+    return strlen($data);
+}
+
 global $aUri, $aRouter;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 
@@ -51,14 +57,22 @@ var_dump('style');
 $url = 'http://localhost:8005/style/water.css';
 $header = array('Content-Type: text/css; charset=utf-8');
 $ch = curl_init();
-$data = file_get_contents(ROOT .'www'. DS .'favicon.ico');
+$data = file_get_contents(DRAFT .'static'. DS .'home.css');
 curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, array('static_response'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-#$response = curl_exec($ch);
+
+$info = curl_getinfo($ch);
+#print '<pre>';
+#var_dump([$GLOBALS, $info]);
+#print '<pre>';
+
+$response = curl_exec($ch);
+curl_close($ch);
 #var_dump($response);
 
         #header('Content-Type: text/css; charset=utf-8');
