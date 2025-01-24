@@ -139,7 +139,6 @@ else {
     #exit();
 }
 
-var_dump(getcwd());
 ?>
 
 <script>
