@@ -1,5 +1,5 @@
 <?php
-
+#curl -X POST 127.0.0.1:8005/style/water.css -i
 $host = '192.168.1.2';
 $port = 1234;
 $path = 'C:/Certbot/live/php.net/';
