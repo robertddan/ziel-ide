@@ -114,83 +114,47 @@ else {
 
 <script>
 
-function sendText() {
-    const msg = {
-        type: "message",
-        text: document.getElementById("root").value,
-        date: Date.now(),
-    };
-    socket.send(JSON.stringify(msg));
-    console.log(JSON.stringify(msg));
+let sockets = {
+    socket: {},
+	host: 'ws://127.0.0.1:44321/www/agent.php',
+	constructor: function() {
+	    this.socket = new WebSocket(this.host);
+	    this.web();
+    },
+    sendMsg: function() {
+        var message = {'a':'a1','b':'b2'};
+        this.socket.send(JSON.stringify(message));
+    },
+	web: function() {
+		try {
+		    this.socket.onopen = function(event) {
+                console.log("WebSocket open: ", event);
+                document.getElementById('loader').classList.add("hidden");
+                document.getElementById('open').innerHTML = JSON.stringify(event.data);
+            };
+            this.socket.onmessage = function(event) {
+                document.getElementById('root').innerHTML = "Message from server "+ event.data;
+            };
+            this.socket.onclose = function(event) {
+                console.log("WebSocket close: ", event);
+                document.getElementById('loader').classList.remove("hidden");
+                this.sendMsg();
+                setTimeout(2);
+                sockets.constructor();
+            };
+            this.socket.onerror = function(error) {
+                console.log("WebSocket error: ", event);
+                document.getElementById('loader').classList.remove("hidden");
+                this.sendMsg();
+                setTimeout(2);
+                sockets.constructor();
+            };
+		    return true;
+		} catch (e) {
+			console.error(e);
+		}
+  	}
 }
-
-function web_socket(){
-    var host = 'ws://127.0.0.1:44321/www/agent.php';
-    var socket = new WebSocket(host);
-    console.log("web_socket");
-
-    socket.addEventListener("message", (event) => {
-        //console.log("WebSocket message: ", event);
-        document.getElementById('root').innerHTML = "Message from server "+ event.data;
-    });
-    
-    socket.addEventListener("open", (event) => {
-        console.log("WebSocket open: ", event);
-        document.getElementById('loader').classList.add("hidden");
-        var message = {'a':'a1','b':'b2'};
-        socket.send(JSON.stringify(message));
-        document.getElementById('root').innerHTML = JSON.stringify(message);
-    });
-    
-    socket.addEventListener("close", (event) => {
-        console.log("WebSocket close: ", event);
-        document.getElementById('loader').classList.remove("hidden");
-        setTimeout(1);
-        web_socket();
-    });
-    
-    socket.addEventListener("error", (event) => {
-        console.log("WebSocket error: ", event);
-        document.getElementById('loader').classList.remove("hidden");
-        setTimeout(1);
-        web_socket();
-    });    
-/*
-    socket.onopen = function(event) {
-        console.log("WebSocket open: ", event);
-        document.getElementById('loader').classList.add("hidden");
-        document.getElementById('open').innerHTML = JSON.stringify(event.data);
-        var message = {'a':'a1','b':'b2'};
-        socket.send(JSON.stringify(message));
-    };
-    
-    socket.onmessage = function(event) {
-        document.getElementById('root').innerHTML = "Message from server "+ event.data;
-        var message = {'a':'a1','b':'b2'};
-        socket.send(JSON.stringify(message));
-    };
-    
-    socket.onclose = function(event) {
-        console.log("WebSocket close: ", event);
-        document.getElementById('loader').classList.remove("hidden");
-        var message = {'a':'a1','b':'b2'};
-        socket.send(JSON.stringify(message));
-        setTimeout(2);
-        web_socket();
-    };
-    
-    socket.onerror = function(error) {
-        console.log("WebSocket error: ", event);
-        document.getElementById('loader').classList.remove("hidden");
-        var message = {'a':'a1','b':'b2'};
-        socket.send(JSON.stringify(message));
-        setTimeout(2);
-        web_socket();
-    };
-*/
-}
-
-web_socket();
 
 window.addEventListener("beforeunload", (event) => {
     document.getElementById('loader').classList.remove("hidden");
@@ -198,6 +162,7 @@ window.addEventListener("beforeunload", (event) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('loader').classList.remove("hidden");
+    sockets.constructor();
 });
 
 let loginForm = document.getElementById("sendtext");
