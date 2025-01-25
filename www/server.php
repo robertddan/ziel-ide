@@ -114,45 +114,52 @@ else {
 
 <script>
 
+
 let sockets = {
     socket: {},
 	host: 'ws://127.0.0.1:44321/www/agent.php',
 	constructor: function() {
 	    this.socket = new WebSocket(this.host);
-	    this.web();
+        setTimeout(2);
+        this.web();
     },
     send_msg: function() {
         var message = {'a':'a1','b':'b2'};
-        this.socket.send(JSON.stringify(message));
+        //this.socket.send(JSON.stringify(message));
+    },
+    onclose: function(event) {
+        console.log("WebSocket close: ", event);
+        document.getElementById('loader').classList.remove("hidden");
+        this.send_msg();
+        //this.constructor();
+    },
+    onerror: function(error) {
+        console.log("WebSocket error: ", event);
+        document.getElementById('loader').classList.remove("hidden");
+        sockets.send_msg();
+        //sockets.constructor();
+    },
+    onmessage: function(event) {
+        console.log('WebSocket onmessage: ', event);
+        //document.getElementById('root').innerHTML = "Message from server "+ event.data;
+    },
+    onopen: function(event) {
+        console.log("WebSocket open: ", event);
+        document.getElementById('loader').classList.add("hidden");
+        //document.getElementById('open').innerHTML = JSON.stringify(event.data);
+    },
+    onreadystate: function(state) {
+        console.log("WebSocket state: ", state);
     },
 	web: function() {
-		try {
-		    this.socket.onopen = function(event) {
-                console.log("WebSocket open: ", event);
-                document.getElementById('loader').classList.add("hidden");
-                document.getElementById('open').innerHTML = JSON.stringify(event.data);
-            };
-            this.socket.onmessage = function(event) {
-                document.getElementById('root').innerHTML = "Message from server "+ event.data;
-            };
-            this.socket.onclose = function(event) {
-                console.log("WebSocket close: ", event);
-                document.getElementById('loader').classList.remove("hidden");
-                sockets.send_msg();
-                setTimeout(2);
-                sockets.constructor();
-            };
-            this.socket.onerror = function(error) {
-                console.log("WebSocket error: ", event);
-                document.getElementById('loader').classList.remove("hidden");
-                sockets.send_msg();
-                setTimeout(2);
-                sockets.constructor();
-            };
-		    return true;
-		} catch (e) {
-			console.error(e);
-		}
+        //console.log(this.socket);
+        //this.socket = new WebSocket(this.host);
+        this.socket.onopen = this.onopen(event);
+        this.socket.onmessage = this.onmessage(event);
+        this.socket.onclose = this.onclose(event);
+        this.socket.onerror = this.onerror(event);
+        this.socket.onreadystatechange = sockets.onreadystate(event);
+        //console.log(this.socket);
   	}
 }
 
