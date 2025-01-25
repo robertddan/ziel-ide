@@ -135,7 +135,7 @@ let sockets = {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //this.send_msg();
-        this.oninit();
+        sockets.oninit();
     },
     onerror: function(error) {
         console.log("WebSocket error: ", event);
