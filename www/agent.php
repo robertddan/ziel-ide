@@ -72,16 +72,18 @@ socket_write($client, $headers, strlen($headers));
 #$i = 0;
 while (true) {
 
-$request = socket_read($client, 5000);
-var_dump($request);
-#print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
+#$request = socket_read($client, 5000);
 
+#var_dump(base64_decode($request));
+#print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
+/*
 $buf = 'This is my buffer.';
 if (false !== ($bytes = socket_recv($client, $buf, 2048, MSG_WAITALL))) {
     echo "Read $bytes bytes from socket_recv()...";
 } else {
     echo "socket_recv() failed; reason: " . socket_strerror(socket_last_error($socket)) . "\n";
 }
+*/
 
     #$i++;
     #if ($i == 1111) #proc_close($oProcess);
@@ -96,7 +98,7 @@ if (false !== ($bytes = socket_recv($client, $buf, 2048, MSG_WAITALL))) {
         #exit();
         #echo ("Start process:\n");
     #}
-    sleep(1);
+    sleep(5);
     #$content = 'Now: '. $i .' '. $request.' '. time();
     $content = json_encode(array('1','2','3','4', date("H:i:s",time()) ));
     $response = chr(129) . chr(strlen($content)) . $content;

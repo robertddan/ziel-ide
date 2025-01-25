@@ -85,7 +85,6 @@ $aWidget['html'] .= '<body>';
 #$aWidget['html'] .= $aWidget['nav'];
 
 #$aWidget['html'] .= '<main>';
-$aWidget['html'] .= '<br/><button id="sendtext" type="submit">Click Me!</button>';
 $aWidget['html'] .= '<div id="loader" class="loader"></div>';
 $aWidget['html'] .= '<br/><div id="root">root</div>';
 $aWidget['html'] .= '<br/><div id="open">open</div>';
@@ -120,44 +119,43 @@ let sockets = {
 	host: 'ws://127.0.0.1:44321/www/agent.php',
 	oninit: function() {
         this.socket = new WebSocket(this.host);
-        this.socket.addEventListener('readystatechange', this.onstate);
-        this.socket.addEventListener('open', this.onopen);
-        this.socket.addEventListener('message', this.onmessage);
-        this.socket.addEventListener('close', this.onclose);
-        this.socket.addEventListener('error', this.onerror);
+        this.socket.addEventListener('readystatechange', this.state);
+        //this.socket.addEventListener('open', this.onopen);
+        this.socket.addEventListener('open', this.open);
+        //this.socket.addEventListener('message', this.message);
+        //this.socket.addEventListener('close', this.close);
+        //this.socket.addEventListener('error', this.error);
     },
-    send: function(data) {
-        console.log(data);
-        //var message = {'a':'a1','b':'b2'};
-        this.socket.send(JSON.stringify(data));
-    },
-    onclose: function(event) {
+    close: function(event) {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //this.send_msg();
+        setInterval(1000);
+        sockets.socket.close();
         sockets.oninit();
     },
-    onerror: function(error) {
+    error: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //sockets.send_msg();
+        setInterval(1000);
         sockets.oninit();
     },
-    onmessage: function(event) {
+    message: function(event) {
         //console.log('WebSocket onmessage: ', event);
         document.getElementById('root').innerHTML = "Message from server "+ event.data;
     },
-    onopen: function(event) {
-        //console.log("WebSocket open: ", event);
+    open: function(event) {
+        console.log("WebSocket open: ", event);
         var message = "{'a':'a1','b':'b2'}";
         document.getElementById('loader').classList.add("hidden");
         document.getElementById('open').innerHTML = JSON.stringify(event.data);
-
+        
         setInterval(function() {
             if (event.currentTarget['bufferedAmount'] == 0)
             sockets.socket.send(message);
             console.log(message);
-        }, 2);
+        }, 1000);
 /*        
 var data = new ArrayBuffer(10000000);
 sockets.socket.send(data);
@@ -169,7 +167,7 @@ console.log('the data did not send');
 }
 */
     },
-    onstate: function(state) {
+    state: function(state) {
         // this.socket.readyState
         console.log("WebSocket state: ", state);
     }
@@ -184,44 +182,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('loader').classList.remove("hidden");
     sockets.oninit();
 });
-
-let loginForm = document.getElementById("sendtext");
-loginForm.addEventListener("click", (event) => {
-    event.preventDefault();
-    sendText();
-});
-
-function WebSocketSend(){
-    var d = new Date();
-    sockets.socket.send( d.toLocaleTimeString());
-}
-
-</script>
-
-
-
-<script>
-
-document.onreadystatechange = () => {
-    switch (document.readyState) {
-        case "loading":
-            // The document is loading.
-            //console.log('loading');
-        break;
-        case "interactive": {
-            //console.log('interactive');
-            // The document has finished loading and we can access DOM elements.
-            // Sub-resources such as scripts, images, stylesheets and frames are still loading.
-            //const span = document.createElement("span");
-            //span.textContent = "A <span> element.";
-            //document.body.appendChild(span);
-        break;
-        }
-        case "complete":
-            //console.log('complete');
-        break;
-    }
-};
 
 </script>
 
