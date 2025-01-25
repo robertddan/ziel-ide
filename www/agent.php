@@ -54,7 +54,7 @@ print('wait');
 
 // Send WebSocket handshake headers.
 $request = socket_read($client, 5000);
-#var_dump($request);
+var_dump($request);
 preg_match('#Sec-WebSocket-Key: (.*)\r\n#', $request, $matches);
 $key = base64_encode(pack(
     'H*',
@@ -71,8 +71,9 @@ socket_write($client, $headers, strlen($headers));
 // Send messages into WebSocket in a loop.
 #$i = 0;
 while (true) {
- 
-#$request = socket_read($client, 5000);
+
+$request = socket_read($client, 5000);
+var_dump($request);
 #print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
 
 $buf = 'This is my buffer.';

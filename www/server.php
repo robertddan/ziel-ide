@@ -119,17 +119,12 @@ let sockets = {
     socket: {},
 	host: 'ws://127.0.0.1:44321/www/agent.php',
 	oninit: function() {
-		try {
-		    this.socket = new WebSocket(this.host);
-            this.socket.addEventListener('readystatechange', this.onstate);
-            this.socket.addEventListener('open', this.onopen);
-            this.socket.addEventListener('message', this.onmessage);
-            this.socket.addEventListener('close', this.onclose);
-            this.socket.addEventListener('error', this.onerror);
-            return true;
-		} catch (error) {
-			console.error(error);
-		}
+        this.socket = new WebSocket(this.host);
+        this.socket.addEventListener('readystatechange', this.onstate);
+        this.socket.addEventListener('open', this.onopen);
+        this.socket.addEventListener('message', this.onmessage);
+        this.socket.addEventListener('close', this.onclose);
+        this.socket.addEventListener('error', this.onerror);
     },
     send: function(data) {
         console.log(data);
@@ -140,13 +135,13 @@ let sockets = {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //this.send_msg();
-        this.constructor();
+        this.oninit();
     },
     onerror: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //sockets.send_msg();
-        sockets.constructor();
+        sockets.oninit();
     },
     onmessage: function(event) {
         //console.log('WebSocket onmessage: ', event);
