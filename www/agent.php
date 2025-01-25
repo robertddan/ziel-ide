@@ -53,6 +53,7 @@ while (true) {
  
 #$request = socket_read($client, 5000);
 #print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
+
 /*
 $buf = 'This is my buffer.';
 if (false !== ($bytes = socket_recv($client, $buf, 2048, MSG_WAITALL))) {

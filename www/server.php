@@ -35,13 +35,14 @@ function static_response()
     return strlen($data);
 }
 
+global $aUri;
+$aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
+
+#echo '<pre>';
 #if(!empty($_GET)) var_dump(['$_GET', $_GET]);
 #elseif(!empty($_POST)) var_dump(['$_POST', $_POST]);
 #else router_redirect();
-if(empty($_GET)) router_redirect();
 
-global $aUri;
-$aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 // TODO Route $_GET $_POST
 
 if (isset($aUri['host']))
@@ -126,8 +127,35 @@ function sendText() {
 function web_socket(){
     var host = 'ws://127.0.0.1:44321/www/agent.php';
     var socket = new WebSocket(host);
-    
     console.log("web_socket");
+
+    socket.addEventListener("message", (event) => {
+        //console.log("WebSocket message: ", event);
+        document.getElementById('root').innerHTML = "Message from server "+ event.data;
+    });
+    
+    socket.addEventListener("open", (event) => {
+        console.log("WebSocket open: ", event);
+        document.getElementById('loader').classList.add("hidden");
+        var message = {'a':'a1','b':'b2'};
+        socket.send(JSON.stringify(message));
+        document.getElementById('root').innerHTML = JSON.stringify(message);
+    });
+    
+    socket.addEventListener("close", (event) => {
+        console.log("WebSocket close: ", event);
+        document.getElementById('loader').classList.remove("hidden");
+        setTimeout(1);
+        web_socket();
+    });
+    
+    socket.addEventListener("error", (event) => {
+        console.log("WebSocket error: ", event);
+        document.getElementById('loader').classList.remove("hidden");
+        setTimeout(1);
+        web_socket();
+    });    
+/*
     socket.onopen = function(event) {
         console.log("WebSocket open: ", event);
         document.getElementById('loader').classList.add("hidden");
@@ -159,6 +187,7 @@ function web_socket(){
         setTimeout(2);
         web_socket();
     };
+*/
 }
 
 web_socket();
