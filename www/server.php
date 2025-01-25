@@ -35,9 +35,10 @@ function static_response()
     return strlen($data);
 }
 
-if(!empty($_GET)) var_dump(['$_GET', $_GET]);
-elseif(!empty($_POST)) var_dump(['$_POST', $_POST]);
-else router_redirect();
+#if(!empty($_GET)) var_dump(['$_GET', $_GET]);
+#elseif(!empty($_POST)) var_dump(['$_POST', $_POST]);
+#else router_redirect();
+if(empty($_GET)) router_redirect();
 
 global $aUri;
 $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
@@ -111,7 +112,6 @@ else {
 ?>
 
 <script>
-
 
 function sendText() {
     const msg = {
