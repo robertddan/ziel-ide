@@ -89,6 +89,7 @@ $aWidget['html'] .= '<br/><button id="sendtext" type="submit">Click Me!</button>
 $aWidget['html'] .= '<div id="loader" class="loader"></div>';
 $aWidget['html'] .= '<br/><div id="root">root</div>';
 $aWidget['html'] .= '<br/><div id="open">open</div>';
+$aWidget['html'] .= '<div id="sse"><a href="javascript:WebSocketSend()">send WebSocket</a></div>';
 #$aWidget['html'] .= $aWidget['events'];
 #$aWidget['html'] .= $aPage['content'];
 #$aWidget['html'] .= '</main>';
@@ -130,21 +131,22 @@ let sockets = {
 			console.error(error);
 		}
     },
-    send_msg: function() {
-        var message = {'a':'a1','b':'b2'};
-        this.socket.send(JSON.stringify(message));
+    send: function(data) {
+        console.log(data);
+        //var message = {'a':'a1','b':'b2'};
+        this.socket.send(JSON.stringify(data));
     },
     onclose: function(event) {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //this.send_msg();
-        //this.constructor();
+        this.constructor();
     },
     onerror: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //sockets.send_msg();
-        //sockets.constructor();
+        sockets.constructor();
     },
     onmessage: function(event) {
         //console.log('WebSocket onmessage: ', event);
@@ -160,7 +162,7 @@ let sockets = {
             if (event.currentTarget['bufferedAmount'] == 0)
             sockets.socket.send(message);
             console.log(message);
-        }, 1);
+        }, 2);
 /*        
 var data = new ArrayBuffer(10000000);
 sockets.socket.send(data);
@@ -193,6 +195,11 @@ loginForm.addEventListener("click", (event) => {
     event.preventDefault();
     sendText();
 });
+
+function WebSocketSend(){
+    var d = new Date();
+    sockets.socket.send( d.toLocaleTimeString());
+}
 
 </script>
 

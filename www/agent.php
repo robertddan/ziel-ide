@@ -6,11 +6,32 @@ class Agent {
     
     public static function agent_init()
     {
-        self::agent_socket();
+        #self::agent_native();
+        self::agent_basic();
         return true;
     }
     
-    public static function agent_socket()
+    public static function agent_native()
+    {
+        $socket = stream_socket_server("ssl://127.0.0.1:44321", $errno, $errstr);
+        if(!$socket)
+        {
+            echo "$errstr ($errno)\n";
+        }
+        else
+        {
+            while($connection = stream_socket_accept($socket))
+            {
+                var_dump('conn');
+                fwrite($connection, 'The local time is ' . date('n/j/Y g:i a') . "\n");
+                fclose($connection);
+            }
+            fclose($socket);
+        }
+        return true;
+    }
+    
+    public static function agent_basic()
     {
         global $oProcess, $client, $server;
         
@@ -53,7 +74,6 @@ while (true) {
  
 #$request = socket_read($client, 5000);
 #print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
-
 
 $buf = 'This is my buffer.';
 if (false !== ($bytes = socket_recv($client, $buf, 2048, MSG_WAITALL))) {
