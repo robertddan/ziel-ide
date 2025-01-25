@@ -120,12 +120,11 @@ let sockets = {
 	host: 'ws://127.0.0.1:44321/www/agent.php',
 	constructor: function() {
 	    this.socket = new WebSocket(this.host);
-        setTimeout(2);
         this.web();
     },
     send_msg: function() {
         var message = {'a':'a1','b':'b2'};
-        //this.socket.send(JSON.stringify(message));
+        this.socket.send(JSON.stringify(message));
     },
     onclose: function(event) {
         console.log("WebSocket close: ", event);
@@ -145,23 +144,36 @@ let sockets = {
     },
     onopen: function(event) {
         console.log("WebSocket open: ", event);
+        var message = "{'a':'a1','b':'b2'}";
         document.getElementById('loader').classList.add("hidden");
         //document.getElementById('open').innerHTML = JSON.stringify(event.data);
+        
+        setInterval(function() {
+            if (event.currentTarget['bufferedAmount'] == 0)
+            sockets.socket.send(message);
+            console.log(message);
+        }, 500);
+        
     },
-    onreadystate: function(state) {
+    onstate: function(state) {
         console.log("WebSocket state: ", state);
     },
 	web: function() {
         //console.log(this.socket);
         //this.socket = new WebSocket(this.host);
-        this.socket.onopen = this.onopen(event);
-        this.socket.onmessage = this.onmessage(event);
-        this.socket.onclose = this.onclose(event);
-        this.socket.onerror = this.onerror(event);
-        this.socket.onreadystatechange = sockets.onreadystate(event);
+        //this.socket.onopen = this.onopen(event);
+        //this.socket.onmessage = this.onmessage(event);
+        //this.socket.onclose = this.onclose(event);
+        //this.socket.onerror = this.onerror(event);
+        this.socket.addEventListener('onreadystatechange', this.onstate);
+        this.socket.addEventListener('open', this.onopen);
+        this.socket.addEventListener('onmessage', this.onmessage); 
+        this.socket.addEventListener('onclose', this.onclose); 
+        this.socket.addEventListener('onerror', this.onerror); 
         //console.log(this.socket);
   	}
 }
+
 
 window.addEventListener("beforeunload", (event) => {
     document.getElementById('loader').classList.remove("hidden");
