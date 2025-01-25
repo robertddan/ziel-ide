@@ -85,10 +85,10 @@ $aWidget['html'] .= '<body>';
 #$aWidget['html'] .= $aWidget['nav'];
 
 #$aWidget['html'] .= '<main>';
-$aWidget['html'] .= '<br /><button id="sendtext" type="submit">Click Me!</button>';
+$aWidget['html'] .= '<br/><button id="sendtext" type="submit">Click Me!</button>';
 $aWidget['html'] .= '<div id="loader" class="loader"></div>';
-$aWidget['html'] .= '<div id="root"></div>';
-$aWidget['html'] .= '<div id="open"></div>';
+$aWidget['html'] .= '<br/><div id="root">root</div>';
+$aWidget['html'] .= '<br/><div id="open">open</div>';
 #$aWidget['html'] .= $aWidget['events'];
 #$aWidget['html'] .= $aPage['content'];
 #$aWidget['html'] .= '</main>';
@@ -114,13 +114,21 @@ else {
 
 <script>
 
-
 let sockets = {
     socket: {},
 	host: 'ws://127.0.0.1:44321/www/agent.php',
-	constructor: function() {
-	    this.socket = new WebSocket(this.host);
-        this.web();
+	oninit: function() {
+		try {
+		    this.socket = new WebSocket(this.host);
+            this.socket.addEventListener('readystatechange', this.onstate);
+            this.socket.addEventListener('open', this.onopen);
+            this.socket.addEventListener('message', this.onmessage);
+            this.socket.addEventListener('close', this.onclose);
+            this.socket.addEventListener('error', this.onerror);
+            return true;
+		} catch (error) {
+			console.error(error);
+		}
     },
     send_msg: function() {
         var message = {'a':'a1','b':'b2'};
@@ -129,49 +137,45 @@ let sockets = {
     onclose: function(event) {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
-        this.send_msg();
+        //this.send_msg();
         //this.constructor();
     },
     onerror: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
-        sockets.send_msg();
+        //sockets.send_msg();
         //sockets.constructor();
     },
     onmessage: function(event) {
-        console.log('WebSocket onmessage: ', event);
-        //document.getElementById('root').innerHTML = "Message from server "+ event.data;
+        //console.log('WebSocket onmessage: ', event);
+        document.getElementById('root').innerHTML = "Message from server "+ event.data;
     },
     onopen: function(event) {
-        console.log("WebSocket open: ", event);
+        //console.log("WebSocket open: ", event);
         var message = "{'a':'a1','b':'b2'}";
         document.getElementById('loader').classList.add("hidden");
-        //document.getElementById('open').innerHTML = JSON.stringify(event.data);
-        
+        document.getElementById('open').innerHTML = JSON.stringify(event.data);
+
         setInterval(function() {
             if (event.currentTarget['bufferedAmount'] == 0)
             sockets.socket.send(message);
             console.log(message);
-        }, 500);
-        
+        }, 50);
+/*        
+var data = new ArrayBuffer(10000000);
+sockets.socket.send(data);
+if (event.currentTarget['bufferedAmount'] === 0) {
+console.log('the data sent');
+}
+else {
+console.log('the data did not send');
+}
+*/
     },
     onstate: function(state) {
+        // this.socket.readyState
         console.log("WebSocket state: ", state);
-    },
-	web: function() {
-        //console.log(this.socket);
-        //this.socket = new WebSocket(this.host);
-        //this.socket.onopen = this.onopen(event);
-        //this.socket.onmessage = this.onmessage(event);
-        //this.socket.onclose = this.onclose(event);
-        //this.socket.onerror = this.onerror(event);
-        this.socket.addEventListener('onreadystatechange', this.onstate);
-        this.socket.addEventListener('open', this.onopen);
-        this.socket.addEventListener('onmessage', this.onmessage); 
-        this.socket.addEventListener('onclose', this.onclose); 
-        this.socket.addEventListener('onerror', this.onerror); 
-        //console.log(this.socket);
-  	}
+    }
 }
 
 
@@ -181,7 +185,7 @@ window.addEventListener("beforeunload", (event) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('loader').classList.remove("hidden");
-    sockets.constructor();
+    sockets.oninit();
 });
 
 let loginForm = document.getElementById("sendtext");
@@ -200,10 +204,10 @@ document.onreadystatechange = () => {
     switch (document.readyState) {
         case "loading":
             // The document is loading.
-            console.log('loading');
+            //console.log('loading');
         break;
         case "interactive": {
-            console.log('interactive');
+            //console.log('interactive');
             // The document has finished loading and we can access DOM elements.
             // Sub-resources such as scripts, images, stylesheets and frames are still loading.
             //const span = document.createElement("span");
@@ -212,7 +216,7 @@ document.onreadystatechange = () => {
         break;
         }
         case "complete":
-            console.log('complete');
+            //console.log('complete');
         break;
     }
 };

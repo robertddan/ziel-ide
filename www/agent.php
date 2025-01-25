@@ -54,14 +54,14 @@ while (true) {
 #$request = socket_read($client, 5000);
 #print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
 
-/*
+
 $buf = 'This is my buffer.';
 if (false !== ($bytes = socket_recv($client, $buf, 2048, MSG_WAITALL))) {
     echo "Read $bytes bytes from socket_recv()...";
 } else {
     echo "socket_recv() failed; reason: " . socket_strerror(socket_last_error($socket)) . "\n";
 }
-*/
+
     #$i++;
     #if ($i == 1111) #proc_close($oProcess);
     #{
