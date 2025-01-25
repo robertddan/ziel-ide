@@ -122,7 +122,7 @@ let sockets = {
         this.socket.addEventListener('readystatechange', this.state);
         //this.socket.addEventListener('open', this.onopen);
         this.socket.addEventListener('open', this.open);
-        //this.socket.addEventListener('message', this.message);
+        this.socket.addEventListener('message', this.message);
         //this.socket.addEventListener('close', this.close);
         //this.socket.addEventListener('error', this.error);
     },
@@ -142,7 +142,7 @@ let sockets = {
         sockets.oninit();
     },
     message: function(event) {
-        //console.log('WebSocket onmessage: ', event);
+        console.log('WebSocket onmessage: ', event);
         document.getElementById('root').innerHTML = "Message from server "+ event.data;
     },
     open: function(event) {

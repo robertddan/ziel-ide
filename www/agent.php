@@ -72,9 +72,9 @@ socket_write($client, $headers, strlen($headers));
 #$i = 0;
 while (true) {
 
-#$request = socket_read($client, 5000);
+$request = socket_read($client, 5000);
 
-#var_dump(base64_decode($request));
+var_dump(base64_decode($request));
 #print(implode(',', ['$request', $request, 'socket_recv', socket_recv($client, $buf, 2048, MSG_WAITALL)]));
 /*
 $buf = 'This is my buffer.';
