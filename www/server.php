@@ -121,7 +121,7 @@ let sockets = {
 	    this.socket = new WebSocket(this.host);
 	    this.web();
     },
-    sendMsg: function() {
+    send_msg: function() {
         var message = {'a':'a1','b':'b2'};
         this.socket.send(JSON.stringify(message));
     },
@@ -138,14 +138,14 @@ let sockets = {
             this.socket.onclose = function(event) {
                 console.log("WebSocket close: ", event);
                 document.getElementById('loader').classList.remove("hidden");
-                this.sendMsg();
+                sockets.send_msg();
                 setTimeout(2);
                 sockets.constructor();
             };
             this.socket.onerror = function(error) {
                 console.log("WebSocket error: ", event);
                 document.getElementById('loader').classList.remove("hidden");
-                this.sendMsg();
+                sockets.send_msg();
                 setTimeout(2);
                 sockets.constructor();
             };
