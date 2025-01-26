@@ -113,6 +113,28 @@ else {
 ?>
 
 <script>
+/*
+let socket = new WebSocket("ws://127.0.0.1:44321/www/agent.php");
+
+var socketOpen = (e) => {
+    console.log("connected to the socket");
+    var joinMsg = {
+        type: "join",
+        sender: 'sender',
+        text: 'joined the chat!'
+    };
+    socket.send(JSON.stringify(joinMsg));
+}
+
+var socketMessage = (e) => {
+    console.log(`Message from socket server: ${e.data}`);
+}
+
+socket.addEventListener("open", socketOpen);
+socket.addEventListener("message", socketMessage);
+*/
+
+
 
 let sockets = {
     socket: {},
@@ -120,26 +142,22 @@ let sockets = {
 	oninit: function() {
         this.socket = new WebSocket(this.host);
         this.socket.addEventListener('readystatechange', this.state);
-        //this.socket.addEventListener('open', this.onopen);
         this.socket.addEventListener('open', this.open);
         this.socket.addEventListener('message', this.message);
-        //this.socket.addEventListener('close', this.close);
-        //this.socket.addEventListener('error', this.error);
+        this.socket.addEventListener('close', this.close);
+        this.socket.addEventListener('error', this.error);
     },
     close: function(event) {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
-        //this.send_msg();
-        setInterval(1000);
-        sockets.socket.close();
-        sockets.oninit();
+        //setInterval(1000);
+        //sockets.oninit();
     },
     error: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
-        //sockets.send_msg();
-        setInterval(1000);
-        sockets.oninit();
+        //setInterval(1000);
+        //sockets.oninit();
     },
     message: function(event) {
         console.log('WebSocket onmessage: ', event);
