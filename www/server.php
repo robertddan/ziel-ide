@@ -173,7 +173,7 @@ let sockets = {
             if (event.currentTarget['bufferedAmount'] == 0)
             sockets.socket.send(message);
             console.log(message);
-        }, 1000);
+        }, 10000);
 /*        
 var data = new ArrayBuffer(10000000);
 sockets.socket.send(data);

@@ -32,11 +32,20 @@ $connections[] = $sock;
 echo "Listening for new connections on port $port: " . "\n";
 
 while(true) {
-    
+
     $reads = $writes = $exceptions = $connections;
     socket_select($reads, $writes, $exceptions, 0);
-    
+
     if(in_array($sock, $reads)) {
+        
+var_dump(array(
+    $sock,
+    $reads,
+    $writes,
+    $exceptions,
+    $connections
+));
+        
         $new_connection = socket_accept($sock);
         $header = socket_read($new_connection, 1024);
         self::handshake($header, $new_connection, $address, $port);
@@ -44,7 +53,8 @@ while(true) {
         $reply = [
             "type" => "join",
             "sender" => "Server",
-            "text" => "enter name to join... \n"
+            #"text" => "enter name to join... \n"
+            "text" => date("Y-m-d H:i:s")
         ];
         $reply = self::pack_data(json_encode($reply));
         socket_write($new_connection, $reply, strlen($reply));
