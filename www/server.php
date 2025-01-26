@@ -165,7 +165,7 @@ let sockets = {
     },
     open: function(event) {
         console.log("WebSocket open: ", event);
-        var message = "{'a':'a1','b':'b2'}";
+        var message = '{"a":1,"b":2}';
         document.getElementById('loader').classList.add("hidden");
         document.getElementById('open').innerHTML = JSON.stringify(event.data);
         

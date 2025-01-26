@@ -20,7 +20,6 @@ $address = '127.0.0.1';
 $port = 44321;
 $null = NULL;
 
-
 $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1);
 socket_bind($sock, $address, $port);
@@ -37,7 +36,7 @@ while(true) {
     socket_select($reads, $writes, $exceptions, 0);
 
     if(in_array($sock, $reads)) {
-        
+/*
 var_dump(array(
     $sock,
     $reads,
@@ -45,7 +44,7 @@ var_dump(array(
     $exceptions,
     $connections
 ));
-        
+*/
         $new_connection = socket_accept($sock);
         $header = socket_read($new_connection, 1024);
         self::handshake($header, $new_connection, $address, $port);
@@ -68,8 +67,13 @@ var_dump(array(
         
         if(!empty($data)) {
             $message = self::unmask($data);
-            var_dump($message);
+            #var_dump(['$message', $message]);
             $decoded_message = json_decode($message, true);
+            
+            $decoded_message["text"] = date("Y-m-d H:i:s");
+            $decoded_message["type"] = 'join';
+            
+            $message = json_encode($decoded_message);
             if ($decoded_message) {
                 if(isset($decoded_message['text'])){
                     if($decoded_message['type'] === 'join') {
@@ -78,6 +82,7 @@ var_dump(array(
                             'connection' => $value
                         ];
                     }
+                    var_dump($message);
                     $maskedMessage = self::pack_data($message);
                     foreach ($members as $mkey => $mvalue) {
                         socket_write($mvalue['connection'], $maskedMessage, strlen($maskedMessage));
@@ -169,7 +174,8 @@ public static function handshake($request_header,$sock, $host_name, $port) {
 	"Sec-WebSocket-Accept:$sec_accept\r\n\r\n";
 	socket_write($sock, $response_header,strlen($response_header));
 }
-    
+
+
     public static function agent_basic()
     {
         global $oProcess, $client, $server;
