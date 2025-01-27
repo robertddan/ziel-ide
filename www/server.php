@@ -295,146 +295,110 @@ li.file-explorer-file {
         <div id="root"></div>
         <div id="open">open</div>
         <div id="file-explorer" class="">
-            <ul>
-                <li class="file-explorer-directory">
-                    <a href="#">Directory</a>
-                    <ul>
-                        <li class="file-explorer-file"><a id="files" href="#new">New</a></li>
-                        <li class="file-explorer-file"><a href="#save">Save</a></li>
-                        <li class="file-explorer-file"><a href="#">Save all</a></li>
-                        <li class="file-explorer-file"><a href="#">Open file</a></li>
-                        <li class="file-explorer-directory"><a href="#">Directory</a></li>
-                        <li class="file-explorer-file"><a href="#">Toggle read-only</a></li>
-                        <li class="file-explorer-file"><a href="#">Toggle read-only all</a></li>
-                    </ul>
-                </li>
-                <li class="file-explorer-file">
+            <div>
+                <span class="file-explorer-directory">
+                    <a href="#new">Directory</a>
+                </span>
+                <span class="file-explorer-file">
                     <a href="#">File file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
+                </span>
+                <span class="file-explorer-file">
                     <a href="#">File file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Help file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">View file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Editor file.txt</a>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">1 Help file.txt</a>
-                </li>
-            </ul>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+                <span class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </span>
+            </div>
         </div>
     </div>
     <div class="middle">
