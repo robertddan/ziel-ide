@@ -53,9 +53,8 @@ switch ($aUri['host']) {
         exit();
     break;
     case 'style':
-        var_dump(headers_sent());
         header('Content-Type: text/css; charset=utf-8');
-        file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
         exit();
     break;
     case 'script':
@@ -75,7 +74,6 @@ $aWidget['html'] .= '<!--- head -->';
 $aWidget['html'] .= '<head>';
 $aWidget['html'] .= '<meta charset="utf-8">';
 #$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
-$aWidget['html'] .= '<link rel="stylesheet" type="text/css" href="/style/water.css">';
 #$aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
 $aWidget['html'] .= '<style>.loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; }</style>';
 $aWidget['html'] .= '</head>';
@@ -92,36 +90,32 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
 header {
 	flex: 0 0 0;
 	background-color: #C14F4F;
 }
-
 main {
 	flex: 1;
 	display: flex;
 	background-color: #699EBD;
+    height: 86%;
 }
-
 footer {
 	flex: 0 0 40px;
 	background-color: #C14F4F;
-	padding: 5px;
 	text-align: center;
 }
-
 .left,
 .right {
 	flex: 0 2 25%;
 	background-color: #C28282;
+    height: 100%;
+    overflow: hidden;
 }
-
 .middle {
 	flex: 1 1 75%;
 	padding-left: 50px;
 }
-
 .loader {
 	border: 16px solid #f3f3f3;
 	border-top: 16px solid #3498db;
@@ -135,7 +129,6 @@ footer {
 	margin-left: -20px;
 	margin-top: -20px;
 }
-
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);
@@ -146,13 +139,11 @@ footer {
 	}
 
 }
-
 .hidden {
 	display: none;
 }
-
 textarea {
-	height: 100%;
+    height: 100%;
 	width: 100%;
 	resize: none;
 	border: none;
@@ -161,13 +152,11 @@ textarea:focus {
     outline: none;
     border: none;
 }
-
 .menu {
 	display: flex;
 	background-color: #303030;
 	color: white;
 }
-
 .menu ul {
 	display: flex;
 	justify-content: space-evenly;
@@ -176,47 +165,98 @@ textarea:focus {
 	padding: 0;
 	margin: 5px;
 }
-
 .menu ul li {}
-
 .menu ul li a {
 	padding: 7px 10px;
 	text-decoration: none;
 	text-align: center;
 	color: #808080;
 }
-
 .menu ul li a:hover {
 	color: white;
 }
-
 .menu ul li ul {
 	display: none;
 }
-
 .menu ul li:hover ul {
 	display: flex;
 	position: absolute;
 	flex-direction: column;
 	background-color: #303030;
 }
+/*
+#file-explorer {
+    overflow: scroll;
+    height: 100%;
+    scrollbar-color: red orange;
+    scrollbar-width: thin;
+}
+#file-explorer a {
+	padding: 7px 10px;
+	text-decoration: none;
+	color: #303030;
+}
+#file-explorer a:hover {
+	color: #808080;
+}
+#file-explorer > ul {
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 250px;
+}
+#file-explorer li:nth-child(n) {
+    margin: 4px 0px;
+    padding: 10px 15px;
+    background-color: lightyellow;
+}
+#file-explorer li {
+	list-style-type: none;
+	cursor: pointer;
+}
+#file-explorer li:hover {
+    background-color: aliceblue;
+}
+li.file-explorer-directory {
+}
+li.file-explorer-file {
+	margin: 7px 10px;
+}
+*/
+
+#file-explorer {
+    overflow: scroll;
+    height: 100%;
+    scrollbar-color: red orange;
+    scrollbar-width: thin;
+}
+
+#file-explorer > ul {
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 250px;
+}
+#file-explorer ul, #file-explorer li {
+	list-style-type: none;
+	cursor: pointer;
+}
+#file-explorer a {
+	text-decoration: none;
+	color: #303030;
+}
+#file-explorer a {
+    margin: 4px 0px;
+    padding: 10px 15px;
+}
+#file-explorer a:hover {
+}
 
 #file-explorer li {
-	border-bottom: 1px solid red;
+    background-color: lightyellow;
+}
+#file-explorer li:hover {
+    background-color: aliceblue;
 }
 
-li.file-explorer-directory {
-	display: flex;
-	justify-content: space-evenly;
-	flex-direction: column;
-	list-style-type: none;
-	margin: 7px 10px;
-}
-
-li.file-explorer-file {
-	list-style-type: none;
-	margin: 7px 10px;
-}
 </style>
 
 <header>
@@ -250,16 +290,12 @@ li.file-explorer-file {
 </div>
 </header>
 <main>
-  <div class="left">
-    <div class="side">
-        <h3>More Text</h3>
+    <div class="left">
+        <h3>Draft directory name</h3>
         <div id="root"></div>
         <div id="open">open</div>
         <div id="file-explorer" class="">
             <ul>
-                <li class="file-explorer-file">
-                    <a href="#">File</a>
-                </li>
                 <li class="file-explorer-directory">
                     <a href="#">Directory</a>
                     <ul>
@@ -273,23 +309,142 @@ li.file-explorer-file {
                     </ul>
                 </li>
                 <li class="file-explorer-file">
-                    <a href="#">Edit</a>
+                    <a href="#">File file.txt</a>
                 </li>
-                <li class="file-explorer-directory">
-                    <a href="#">View</a>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
                 </li>
-                <li class="file-explorer-directory">
-                    <a href="#">Editor</a>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
                 </li>
-                <li class="file-explorer-directory">
-                    <a href="#">Help</a>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">File file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Help file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">View file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Editor file.txt</a>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">1 Help file.txt</a>
                 </li>
             </ul>
         </div>
     </div>
-  </div>
-  <div class="middle"><textarea>dafas
-  adfsdfsf</textarea></div>
+    <div class="middle">
+        <textarea>
+            dafa
+            s
+            adfs
+            dfsf
+        </textarea>
+    </div>
 </main>
 <footer>ziel--ide</footer>
 EOD;
