@@ -86,32 +86,42 @@ $aWidget['html'] .= <<<EOD
 <style>
 body {
 	font-family: 'Calibri', sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
 }
+
 header {
-    flex: 0 0 0;
-    background-color: #C14F4F;
+	flex: 0 0 0;
+	background-color: #C14F4F;
 }
+
 main {
-  flex: 1;
-  display: flex;
-  background-color: #699EBD;
+	flex: 1;
+	display: flex;
+	background-color: #699EBD;
 }
+
 footer {
-  flex: 0 0 40px;
-  background-color: #C14F4F;
+	flex: 0 0 40px;
+	background-color: #C14F4F;
+	padding: 5px;
+	text-align: center;
 }
-.left, .right {
-  flex: 0 2 25%;
-  background-color: #C28282;
+
+.left,
+.right {
+	flex: 0 2 25%;
+	background-color: #C28282;
 }
+
 .middle {
-  flex:1 1 75%;
+	flex: 1 1 75%;
+	padding-left: 50px;
 }
+
 .loader {
 	border: 16px solid #f3f3f3;
 	border-top: 16px solid #3498db;
@@ -125,6 +135,7 @@ footer {
 	margin-left: -20px;
 	margin-top: -20px;
 }
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);
@@ -135,62 +146,22 @@ footer {
 	}
 
 }
+
 .hidden {
 	display: none;
 }
 
-/*
-* {
-	box-sizing: border-box;
-	font-family: 'Calibri', sans-serif;
-	margin: 0;
-	padding: 0;
+textarea {
+	height: 100%;
+	width: 100%;
+	resize: none;
+	border: none;
+}
+textarea:focus {
+    outline: none;
+    border: none;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-}
-
-.article {
-	display: flex;
-	flex-flow: column nowrap;
-}
-
-.row {
-	display: flex;
-	height: inherit;
-}
-
-.side {
-	flex: 20%;
-	background-color: #f1f1f1;
-	padding: 20px;
-}
-
-.main {
-	flex: 80%;
-	background-color: white;
-	padding: 20px;
-
-	textarea {
-		height: 100%;
-		width: 100%;
-		resize: none;
-	}
-
-}
-
-.footer {
-	padding: 5px;
-	text-align: center;
-	background: #ddd;
-}
-
-*/
 .menu {
 	display: flex;
 	background-color: #303030;
@@ -231,102 +202,23 @@ body {
 }
 
 #file-explorer li {
-    border-bottom: 1px solid red;
+	border-bottom: 1px solid red;
 }
+
 li.file-explorer-directory {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    list-style-type: none;
-    margin: 7px 10px;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	list-style-type: none;
+	margin: 7px 10px;
 }
+
 li.file-explorer-file {
-    list-style-type: none;
-    margin: 7px 10px;
+	list-style-type: none;
+	margin: 7px 10px;
 }
 </style>
-<!--
-<div class="article">
 
-<div class="menu">
-
-    <ul>
-        <li>
-            <a href="#">Files</a>
-            <ul>
-                <li><a id="ide-files-new" href="#new">New</a></li>
-                <li><a href="#save">Save</a></li>
-                <li><a href="#">Save all</a></li>
-                <li><a href="#">Open file</a></li>
-                <li><a href="#">Open project</a></li>
-                <li><a href="#">Toggle read-only</a></li>
-                <li><a href="#">Toggle read-only all</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Edit</a>
-        </li>
-        <li>
-            <a href="#">View</a>
-        </li>
-        <li>
-            <a href="#">Editor</a>
-        </li>
-        <li>
-            <a href="#">Help</a>
-        </li>
-    </ul>
-    
-</div>
-<div class="row">
-    <div class="side">
-        <h3>More Text</h3>
-        <div id="root"></div>
-        <div id="open">open</div>
-        <div id="file-explorer" class="">
-            <ul>
-                <li class="file-explorer-file">
-                    <a href="#">File</a>
-                </li>
-                <li class="file-explorer-directory">
-                    <a href="#">Directory</a>
-                    <ul>
-                        <li class="file-explorer-file"><a id="files" href="#new">New</a></li>
-                        <li class="file-explorer-file"><a href="#save">Save</a></li>
-                        <li class="file-explorer-file"><a href="#">Save all</a></li>
-                        <li class="file-explorer-file"><a href="#">Open file</a></li>
-                        <li class="file-explorer-directory"><a href="#">Directory</a></li>
-                        <li class="file-explorer-file"><a href="#">Toggle read-only</a></li>
-                        <li class="file-explorer-file"><a href="#">Toggle read-only all</a></li>
-                    </ul>
-                </li>
-                <li class="file-explorer-file">
-                    <a href="#">Edit</a>
-                </li>
-                <li class="file-explorer-directory">
-                    <a href="#">View</a>
-                </li>
-                <li class="file-explorer-directory">
-                    <a href="#">Editor</a>
-                </li>
-                <li class="file-explorer-directory">
-                    <a href="#">Help</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="main">
-        <textarea></textarea>
-    </div>
-</div>
-
-<div class="footer">
-    <span>d</span>
-</div>
-
-</div>
---!>
 <header>
 <div class="menu">
     <ul>
@@ -396,7 +288,8 @@ li.file-explorer-file {
         </div>
     </div>
   </div>
-  <div class="middle"></div>
+  <div class="middle"><textarea>dafas
+  adfsdfsf</textarea></div>
 </main>
 <footer>ziel--ide</footer>
 EOD;
