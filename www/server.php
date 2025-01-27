@@ -82,11 +82,157 @@ $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
 $aWidget['html'] .= '<!--- body -->';
 $aWidget['html'] .= '<body>';
-#$aWidget['html'] .= $aWidget['nav'];
-#$aWidget['html'] .= '<main>';
 $aWidget['html'] .= <<<EOD
 <style>
-* { box-sizing: border-box; font-family: 'Calibri', sans-serif; margin: 0; padding: 0; } body { margin: 0; padding: 0; max-width: initial; } .loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; } .article { display: flex; flex-flow: column nowrap; } .row { display: flex; height: inherit; } .side { flex: 20%; background-color: #f1f1f1; padding: 20px; } .main { flex: 80%; background-color: white; padding: 20px; textarea { height: 100%; width: 100%; resize: none; } } .footer { padding: 5px; text-align: center; background: #ddd; } /* menu */ .menu { display: flex; background-color: #303030; color: white; } .menu ul { display: flex; justify-content: space-evenly; align-items: flex-start; list-style-type: none; padding: 7px 10px; } .menu ul li { } .menu ul li a { padding: 7px 10px; text-decoration: none; text-align: center; color: #808080; } .menu ul li a:hover { color: white; } .menu ul li ul { display: none; } .menu ul li:hover ul { display: flex; position: absolute; flex-direction: column; background-color: #303030; }
+body {
+	font-family: 'Calibri', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+header {
+    flex: 0 0 0;
+    background-color: #C14F4F;
+}
+main {
+  flex: 1;
+  display: flex;
+  background-color: #699EBD;
+}
+footer {
+  flex: 0 0 40px;
+  background-color: #C14F4F;
+}
+.left, .right {
+  flex: 0 2 25%;
+  background-color: #C28282;
+}
+.middle {
+  flex:1 1 75%;
+}
+.loader {
+	border: 16px solid #f3f3f3;
+	border-top: 16px solid #3498db;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	animation: spin 2s linear infinite;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -20px;
+	margin-top: -20px;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+
+}
+.hidden {
+	display: none;
+}
+
+/*
+* {
+	box-sizing: border-box;
+	font-family: 'Calibri', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.article {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.row {
+	display: flex;
+	height: inherit;
+}
+
+.side {
+	flex: 20%;
+	background-color: #f1f1f1;
+	padding: 20px;
+}
+
+.main {
+	flex: 80%;
+	background-color: white;
+	padding: 20px;
+
+	textarea {
+		height: 100%;
+		width: 100%;
+		resize: none;
+	}
+
+}
+
+.footer {
+	padding: 5px;
+	text-align: center;
+	background: #ddd;
+}
+
+*/
+.menu {
+	display: flex;
+	background-color: #303030;
+	color: white;
+}
+
+.menu ul {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	list-style-type: none;
+	padding: 0;
+	margin: 5px;
+}
+
+.menu ul li {}
+
+.menu ul li a {
+	padding: 7px 10px;
+	text-decoration: none;
+	text-align: center;
+	color: #808080;
+}
+
+.menu ul li a:hover {
+	color: white;
+}
+
+.menu ul li ul {
+	display: none;
+}
+
+.menu ul li:hover ul {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	background-color: #303030;
+}
+
+#file-explorer li {
+    border-bottom: 1px solid red;
+}
 li.file-explorer-directory {
     display: flex;
     justify-content: space-evenly;
@@ -97,10 +243,9 @@ li.file-explorer-directory {
 li.file-explorer-file {
     list-style-type: none;
     margin: 7px 10px;
-} 
-
+}
 </style>
-
+<!--
 <div class="article">
 
 <div class="menu">
@@ -181,6 +326,79 @@ li.file-explorer-file {
 </div>
 
 </div>
+--!>
+<header>
+<div class="menu">
+    <ul>
+        <li>
+            <a href="#">Files</a>
+            <ul>
+                <li><a id="ide-files-new" href="#new">New</a></li>
+                <li><a href="#save">Save</a></li>
+                <li><a href="#">Save all</a></li>
+                <li><a href="#">Open file</a></li>
+                <li><a href="#">Open project</a></li>
+                <li><a href="#">Toggle read-only</a></li>
+                <li><a href="#">Toggle read-only all</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Edit</a>
+        </li>
+        <li>
+            <a href="#">View</a>
+        </li>
+        <li>
+            <a href="#">Editor</a>
+        </li>
+        <li>
+            <a href="#">Help</a>
+        </li>
+    </ul>
+</div>
+</header>
+<main>
+  <div class="left">
+    <div class="side">
+        <h3>More Text</h3>
+        <div id="root"></div>
+        <div id="open">open</div>
+        <div id="file-explorer" class="">
+            <ul>
+                <li class="file-explorer-file">
+                    <a href="#">File</a>
+                </li>
+                <li class="file-explorer-directory">
+                    <a href="#">Directory</a>
+                    <ul>
+                        <li class="file-explorer-file"><a id="files" href="#new">New</a></li>
+                        <li class="file-explorer-file"><a href="#save">Save</a></li>
+                        <li class="file-explorer-file"><a href="#">Save all</a></li>
+                        <li class="file-explorer-file"><a href="#">Open file</a></li>
+                        <li class="file-explorer-directory"><a href="#">Directory</a></li>
+                        <li class="file-explorer-file"><a href="#">Toggle read-only</a></li>
+                        <li class="file-explorer-file"><a href="#">Toggle read-only all</a></li>
+                    </ul>
+                </li>
+                <li class="file-explorer-file">
+                    <a href="#">Edit</a>
+                </li>
+                <li class="file-explorer-directory">
+                    <a href="#">View</a>
+                </li>
+                <li class="file-explorer-directory">
+                    <a href="#">Editor</a>
+                </li>
+                <li class="file-explorer-directory">
+                    <a href="#">Help</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <div class="middle"></div>
+</main>
+<footer>ziel--ide</footer>
 EOD;
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';
