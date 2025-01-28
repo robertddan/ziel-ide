@@ -229,7 +229,7 @@ textarea:focus {
 #file-explorer span {
     background-color: lightyellow;
 	cursor: pointer;
-    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
 }
 #file-explorer span:hover {
     background-color: aliceblue;
@@ -250,6 +250,9 @@ textarea:focus {
 
 .file-explorer-directory:hover {
 
+}
+.file-explorer div span:nth-last-child(){
+    border-bottom: 1px solid gray;
 }
 
 </style>
@@ -392,6 +395,44 @@ socket.addEventListener("open", socketOpen);
 socket.addEventListener("message", socketMessage);
 */
 
+
+let menu = {
+    oninit: function() {
+    },
+    files.new: : function() {
+    },
+    files.save: : function() {
+    },
+    files.saveAll: : function() {
+    },
+    files.open: : function() {
+    },
+    files.openProject: : function() {
+    },
+    files.readOnly: : function() {
+    },
+    files.readOnlyAll: : function() {
+    }
+}
+
+let nav = {
+    oninit: function() {
+    }
+}
+
+let main = {
+    oninit: function() {
+    }
+}
+
+let aside = {
+    oninit: function() {
+    }
+}
+
+let footer = {
+    oninit: function() {}
+}
 
 
 let sockets = {
