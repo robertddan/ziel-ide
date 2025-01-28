@@ -79,6 +79,7 @@ $aWidget['html'] .= '<head>';
 $aWidget['html'] .= '<meta charset="utf-8">';
 #$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
 #$aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
+$aWidget['html'] .= '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
 $aWidget['html'] .= '<style>.loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; }</style>';
 $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
@@ -185,45 +186,23 @@ footer {
 .menu ul li:hover ul li{
 	padding: 7px 14px;
 }
-/*
-#file-explorer {
-    overflow: scroll;
-    height: 100%;
-    scrollbar-color: red orange;
-    scrollbar-width: thin;
-}
-#file-explorer a {
-	padding: 7px 10px;
-	text-decoration: none;
-	color: #303030;
-}
-#file-explorer a:hover {
-	color: #808080;
-}
-#file-explorer > ul {
-    margin: 0px;
-    padding: 0px;
-    padding-bottom: 250px;
-}
-#file-explorer li:nth-child(n) {
-    margin: 4px 0px;
-    padding: 10px 15px;
-    background-color: lightyellow;
-}
-#file-explorer li {
-	list-style-type: none;
-	cursor: pointer;
-}
-#file-explorer li:hover {
-    background-color: aliceblue;
-}
-li.file-explorer-directory {
-}
-li.file-explorer-file {
-	margin: 7px 10px;
-}
-*/
 
+@font-face {
+  font-family: "Fira Code";
+  src: url("/fonts/FiraCode-Regular.ttf");
+}
+textarea {
+    font-family: "Fira Code";
+    font-size: 16px;
+    height: 100%;
+	width: 100%;
+	resize: none;
+	border: none;
+}
+textarea:focus {
+    outline: none;
+    border: none;
+}
 #file-explorer > div {
     padding-bottom: 220px;
 }
@@ -265,26 +244,14 @@ li.file-explorer-file {
 .file-explorer-file {
     padding: 7px;
 }
-.file-explorer-directory + div {
+.file-explorer-directory {
     padding-left: 14px;
 }
 
-@font-face {
-  font-family: "Fira Code";
-  src: url("/fonts/FiraCode-Regular.ttf");
+.file-explorer-directory:hover {
+
 }
-textarea {
-    font-family: "Fira Code";
-    font-size: 16px;
-    height: 100%;
-	width: 100%;
-	resize: none;
-	border: none;
-}
-textarea:focus {
-    outline: none;
-    border: none;
-}
+
 </style>
 
 <header>
