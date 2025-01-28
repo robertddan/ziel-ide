@@ -250,6 +250,7 @@ li.file-explorer-file {
 #file-explorer span {
     background-color: lightyellow;
 	cursor: pointer;
+    border-bottom: 1px solid gray;
 }
 #file-explorer span:hover {
     background-color: aliceblue;
@@ -263,7 +264,7 @@ li.file-explorer-file {
 .file-explorer-file {
     padding: 15px;
 }
-.file-explorer-directory > div + div {
+.file-explorer-directory + div {
     padding-left: 20px;
 }
 
@@ -307,43 +308,32 @@ li.file-explorer-file {
         <div id="open">open</div>
         <div id="file-explorer" class="">
             <div>   
-
+                <span class="file-explorer-directory">
+                    <a href="#">Directory</a>
+                </span>
                 <div>
                     <span class="file-explorer-directory">
-                        <a href="#">directory file</a>
+                        <a href="#">Directory</a>
                     </span>
-                </div>
-                <div>
-
                     <div>
                         <span class="file-explorer-directory">
-                            <a href="#">directory file</a>
+                            <a href="#">Directory</a>
                         </span>
-                    </div>
-                    <div>
                         <div>
                             <span class="file-explorer-directory">
-                                <a href="#">directory file</a>
+                                <a href="#">Directory</a>
+                            </span>
+                            <span class="file-explorer-file">
+                                <a href="#">File file.php</a>
                             </span>
                         </div>
-                        <div>
-                            <div>
-                                <span class="file-explorer-file">
-                                    <a href="#">File file.php</a>
-                                </span>
-                            </div>
-                        </div>
                     </div>
-                    <div>
-                        <span class="file-explorer-file">
-                            <a href="#">File file.php</a>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="file-explorer-file">
-                            <a href="#">File file.php</a>
-                        </span>
-                    </div>
+                    <span class="file-explorer-file">
+                        <a href="#">File file.php</a>
+                    </span>
+                    <span class="file-explorer-file">
+                        <a href="#">File file.php</a>
+                    </span>
                 </div>
                 
                 <span class="file-explorer-file">
