@@ -79,7 +79,6 @@ $aWidget['html'] .= '<head>';
 $aWidget['html'] .= '<meta charset="utf-8">';
 #$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
 #$aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
-$aWidget['html'] .= '<link rel="stylesheet" type="text/css" href="/style' . DS .'water.css">';
 $aWidget['html'] .= '<style>.loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; }</style>';
 $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
@@ -244,8 +243,9 @@ textarea:focus {
 .file-explorer-file {
     padding: 7px;
 }
-.file-explorer-directory {
-    padding-left: 14px;
+.file-explorer-directory + div {
+    margin-left: 14px;
+    border-left: 1px solid gray;
 }
 
 .file-explorer-directory:hover {
@@ -342,7 +342,7 @@ textarea:focus {
         </textarea>
     </div>
 </main>
-<footer>ziel--ide</footer>
+<footer>ziel--ide © [YEAR OF PUBLICATION] [WEBSITE NAME]. All rights reserved.</footer>
 EOD;
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';
