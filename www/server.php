@@ -44,12 +44,16 @@ $aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
 #else router_redirect();
 
 // TODO Route $_GET $_POST
-
 if (isset($aUri['host']))
 switch ($aUri['host']) {
     case 'favicon.ico':
         header('Content-Type: text/x-icon');
         print file_get_contents(ROOT .'www'. DS .'favicon.ico');
+        exit();
+    break;
+    case 'fonts':
+        header('Content-Type: font/ttf; charset=utf-8');
+        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
         exit();
     break;
     case 'style':
@@ -142,16 +146,7 @@ footer {
 .hidden {
 	display: none;
 }
-textarea {
-    height: 100%;
-	width: 100%;
-	resize: none;
-	border: none;
-}
-textarea:focus {
-    outline: none;
-    border: none;
-}
+
 .menu {
 	display: flex;
 	background-color: #303030;
@@ -162,12 +157,13 @@ textarea:focus {
 	justify-content: space-evenly;
 	align-items: flex-start;
 	list-style-type: none;
-	padding: 0;
+	padding: 7px;
 	margin: 5px;
 }
-.menu ul li {}
+.menu ul li {
+}
 .menu ul li a {
-	padding: 7px 10px;
+	padding: 7px 14px;
 	text-decoration: none;
 	text-align: center;
 	color: #808080;
@@ -183,6 +179,11 @@ textarea:focus {
 	position: absolute;
 	flex-direction: column;
 	background-color: #303030;
+	padding-top: 7px;
+}
+
+.menu ul li:hover ul li{
+	padding: 7px 14px;
 }
 /*
 #file-explorer {
@@ -256,19 +257,34 @@ li.file-explorer-file {
     background-color: aliceblue;
 }
 .file-explorer-directory {
-    padding: 15px;
+    padding: 7px;
 }
 .file-explorer-directory:hover {
 
 }
 .file-explorer-file {
-    padding: 15px;
+    padding: 7px;
 }
 .file-explorer-directory + div {
-    padding-left: 20px;
+    padding-left: 14px;
 }
 
-
+@font-face {
+  font-family: "Fira Code";
+  src: url("/fonts/FiraCode-Regular.ttf");
+}
+textarea {
+    font-family: "Fira Code";
+    font-size: 16px;
+    height: 100%;
+	width: 100%;
+	resize: none;
+	border: none;
+}
+textarea:focus {
+    outline: none;
+    border: none;
+}
 </style>
 
 <header>
