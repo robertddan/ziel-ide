@@ -4,9 +4,12 @@ namespace Ziel;
 #self signed certificate
 class Agent {
     
+    public static $sock;
+    
     public static function agent_init()
     {
         self::agent_native();
+        #self::agent_basic();
         return true;
     }
     
@@ -26,9 +29,20 @@ class Agent {
         echo "Listening for new connections on port $port: " . "\n";
         
         while(true) {
+        
             $reads = $writes = $exceptions = $connections;
             socket_select($reads, $writes, $exceptions, 0);
+        
             if(in_array($sock, $reads)) {
+        /*
+        var_dump(array(
+            $sock,
+            $reads,
+            $writes,
+            $exceptions,
+            $connections
+        ));
+        */
                 $new_connection = socket_accept($sock);
                 $header = socket_read($new_connection, 1024);
                 self::handshake($header, $new_connection, $address, $port);
@@ -45,8 +59,10 @@ class Agent {
                 $firstIndex = array_search($sock, $reads);
                 unset($reads[$firstIndex]);
             }
+        
             foreach ($reads as $key => $value) {
                 $data = socket_read($value, 1024);
+                
                 if(!empty($data)) {
                     $message = self::unmask($data);
                     #var_dump(['$message', $message]);
@@ -91,61 +107,72 @@ class Agent {
                 }
             }
         }
+        
         socket_close($sock);
+
+        
     }
     
     public static function unmask($text) {
         $length = ord($text[1]) & 127;
         if($length == 126) {
-            $masks = substr($text, 4, 4);
-            $data = substr($text, 8); 
-        }
+    		$masks = substr($text, 4, 4);
+    		$data = substr($text, 8); 
+    	}
         elseif($length == 127) {
-            $masks = substr($text, 10, 4);
-            $data = substr($text, 14); 
-        }
+    		$masks = substr($text, 10, 4);
+    		$data = substr($text, 14); 
+    	}
         else {
-            $masks = substr($text, 2, 4);
-            $data = substr($text, 6); 
-        }
+    		$masks = substr($text, 2, 4);
+    		$data = substr($text, 6); 
+    	}
         $text = "";
         for ($i = 0; $i < strlen($data); ++$i) {
-            $text .= $data[$i] ^ $masks[$i % 4];    
-        }
+    		$text .= $data[$i] ^ $masks[$i % 4];    
+    	}
         return $text;
     }
     
     public static function pack_data($text) {
         $b1 = 0x80 | (0x1 & 0x0f);
         $length = strlen($text);
+    
         if($length <= 125) {
-            $header = pack('CC', $b1, $length);
-        }
+    		$header = pack('CC', $b1, $length);
+    	}
+            
         elseif($length > 125 && $length < 65536) {
-            $header = pack('CCn', $b1, 126, $length);
-        }
+    		$header = pack('CCn', $b1, 126, $length);
+    	}
+            
         elseif($length >= 65536) {
-            $header = pack('CCNN', $b1, 127, $length);
-        }
+    		$header = pack('CCNN', $b1, 127, $length);
+    	}
+            
         return $header.$text;
     }
     
-    public static function handshake($sHeader, $oSocket) {
-        $sMagicString = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-        $aHeader = preg_split("/\r\n/", $sHeader);
-        
-        foreach($aHeader as $sHeaders)
-        if(preg_match('/\A(\S+): (.*)\z/', chop($sHeaders), $aMatches))
-        $aHeaders[$aMatches[1]] = $aMatches[2];
-        
-        $sKey = $aHeaders['Sec-WebSocket-Key'];
-        $sKeyAccept = base64_encode(pack('H*', sha1($sKey .$sMagicString)));
-        $aHeaderResponse  = array("HTTP/1.1 101 Switching Protocols",
-        "Upgrade: websocket",
-        "Connection: Upgrade",
-        "Sec-WebSocket-Accept: $sKeyAccept");
-        socket_write($oSocket, $aHeaderResponse, strlen(implode("\r\n", $aHeaderResponse. "\r\n")));
+    public static function handshake($request_header,$sock, $host_name, $port) {
+    	$headers = array();
+    	$lines = preg_split("/\r\n/", $request_header);
+    	foreach($lines as $line)
+    	{
+    		$line = chop($line);
+    		if(preg_match('/\A(\S+): (.*)\z/', $line, $matches)){
+    			$headers[$matches[1]] = $matches[2];
+    		}
+    	}
+    
+    	$sec_key = $headers['Sec-WebSocket-Key'];
+    	$sec_accept = base64_encode(pack('H*', sha1($sec_key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
+    	$response_header  = "HTTP/1.1 101 Switching Protocols\r\n" .
+    	"Upgrade: websocket\r\n" .
+    	"Connection: Upgrade\r\n" .
+    	"Sec-WebSocket-Accept:$sec_accept\r\n\r\n";
+    	socket_write($sock, $response_header,strlen($response_header));
     }
+
 }
 
 if (php_sapi_name() == 'cli') return Agent::agent_init();
