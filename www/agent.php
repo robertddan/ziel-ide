@@ -33,15 +33,6 @@ class Agent
             socket_select($reads, $writes, $exceptions, 0);
 
             if (in_array($sock, $reads)) {
-                /*
-        var_dump(array(
-            $sock,
-            $reads,
-            $writes,
-            $exceptions,
-            $connections
-        ));
-        */
                 $new_connection = socket_accept($sock);
                 $header = socket_read($new_connection, 1024);
                 self::handshake($header, $new_connection, $address, $port);
@@ -68,7 +59,12 @@ class Agent
 
                     var_dump(['$message', $decoded_message]);
 #get cookie token for user array
-#
+                    if (isset($decoded_message['menu']))
+                    switch ($decoded_message['menu']) {
+                        case 'new':
+                            
+                        break;
+                    }
 
                     $decoded_message["text"] = date("Y-m-d H:i:s");
                     $decoded_message["type"] = "join";

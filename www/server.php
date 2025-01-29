@@ -186,6 +186,7 @@ nav { height: 40px; background-color: darkslategrey; }
 EOD;
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';
+$aWidget['html'] .= '<button id="file-handle">button</button>';
 #$aWidget['html'] .= '<div id="sse"><a href="javascript:WebSocketSend()">send WebSocket</a></div>';
 #$aWidget['html'] .= $aWidget['events'];
 #$aWidget['html'] .= $aPage['content'];
@@ -357,9 +358,19 @@ let layer = {
     }
 }
 
-
 menu.onInit()
 layer.onInit();
+
+
+let fileHandle;
+let butOpenFile = document.getElementById('file-handle');
+butOpenFile.addEventListener('click', async () => {
+  // Destructure the one-element array.
+  [fileHandle] = await window.showOpenFilePicker();
+  // Do something with the file handle.
+  console.log([fileHandle]);
+});
+
 
 </script>
 
