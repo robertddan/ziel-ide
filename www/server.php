@@ -126,9 +126,6 @@ nav { height: 40px; background-color: darkslategrey; }
 <nav></nav>
 <main>
     <div class="left">
-        <h3>Draft directory name</h3>
-        <div id="root"></div>
-        <div id="open">open</div>
         <div id="file-explorer" class="">
             <div>   
                 <span class="file-explorer-directory">
@@ -182,7 +179,11 @@ nav { height: 40px; background-color: darkslategrey; }
         </textarea>
     </div>
 </main>
-<footer>ziel--ide © [YEAR OF PUBLICATION] [WEBSITE NAME]. All rights reserved.</footer>
+<footer>
+ziel--ide © [YEAR OF PUBLICATION] [WEBSITE NAME]. All rights reserved.
+<br/>
+<div id="root"></div>
+</footer>
 EOD;
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';

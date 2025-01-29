@@ -57,8 +57,6 @@ class Agent
                     $message = self::unmask($data);
                     $decoded_message = json_decode($message, true);
 
-                    var_dump(['$message', $decoded_message]);
-#get cookie token for user array
                     if (isset($decoded_message['menu']))
                     switch ($decoded_message['menu']) {
                         case 'new':

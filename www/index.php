@@ -51,24 +51,5 @@ $aWidget['html'] .= '</html>';
 print $aWidget['html'];
 ?>
 
-<script>
-const evtSource = new EventSource("http://127.0.0.1:44321/www/client.php");
-
-evtSource.addEventListener("ping", (event) => {
-    const newElement = document.createElement("li");
-    const eventList = document.getElementById("list");
-    const time = JSON.parse(event.data).time;
-    newElement.textContent = `ping at ${time}`;
-    eventList.appendChild(newElement);
-});
-
-evtSource.onmessage = (event) => {
-    const newElement = document.createElement("li");
-    const eventList = document.getElementById("list");
-    newElement.textContent = `message: ${event.data}`;
-    eventList.appendChild(newElement);
-};
-</script>
-
 
 
