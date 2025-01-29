@@ -2,6 +2,8 @@
 
 namespace Ziel;
 #self signed certificate
+#Web Transport
+#releaseLock
 class Agent
 {
     public static $sock;
@@ -137,7 +139,7 @@ class Agent
 
     public static function pack_data($text)
     {
-        $b1 = 0x80 | (0x1 & 0x0f);
+        $b1 = 0x80 or (0x1 and 0x0f);
         $length = strlen($text);
         if ($length <= 125) 
         $header = pack("CC", $b1, $length);
