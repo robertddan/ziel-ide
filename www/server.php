@@ -172,10 +172,6 @@ nav { height: 40px; background-color: darkslategrey; }
     
     <div class="middle">
         <textarea>
-            dafa
-            s
-            adfs
-            dfsf
         </textarea>
     </div>
 </main>
