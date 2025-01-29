@@ -8,3 +8,5 @@ And in the second one type:
 ```sh
 robertddan@penguin:~/250123--ide$ sh _agent.sh
 ```
+
+Best of luck! 🤩🤩🤩
