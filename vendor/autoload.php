@@ -16,11 +16,26 @@ class Autoload {
         #return var_dump(self::$aClasses);
         
         #spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
-        foreach(self::$aClasses as $sClass) 
-        if(!require($sClass)) throw_exception('autoload_custom()');
-        #print '<pre>';
-        #var_dump(self::$aClasses);
+        print '<pre>';
+        foreach(self::$aClasses as $sClass)
+        {
+            #if(!require($sClass[2])) throw_exception('autoload_custom()');
+        
+            set_include_path(ROOT . 'draft');
+            var_dump($sClass);
+            spl_autoload($sClass[0]);
+            #return true;
+            var_dump([
+                #class_exists($sClass[0]),
+                file_exists($sClass[2])
+            ]);
+        }
+        
         return true;
+        #spl_autoload($sClass[0]);
+        #spl_autoload_register($sClass[0]);
+        #if(!require($sClass)) throw_exception('autoload_custom()');
+        #print '<pre>';
     } 
 
     public static function autoload_json()
@@ -104,7 +119,7 @@ class Autoload {
                     if(!in_array(pathinfo($aVendor['path'] .$sPath)['extension'], array('php'))) continue;
                     
                     $sVendorPath = $aVendor['path'] .$sPath. DS;
-                    $sNameSpace = array_shift(explode('.', array_pop(explode('draft', $sVendorPath))));
+                    $sNameSpace = array_shift(explode('.', array_pop(explode($aVendor['directory'], $sVendorPath))));
                     $sNameSpace = explode('/', $sNameSpace);
                     /*
                     var_dump([
@@ -116,16 +131,16 @@ class Autoload {
                     */
                     
                     $aClass = array(
-                        $aVendor['namespace'].implode("\\", array_map('ucfirst', array_filter($sNameSpace))), 
-                        ucfirst(array_shift(explode('.',$sPath))), 
-                        $aVendor['path'] .$sPath. DS
+                        'namespace' => $aVendor['namespace'].implode("\\", array_map('ucfirst', array_filter($sNameSpace))), 
+                        'class' => ucfirst(array_shift(explode('.', $sPath))), 
+                        'path' => $sVendorPath
                     );
                     if(!array_push(self::$aClasses, $aClass)) continue;
                     
                 }
-                echo '<pre>';
-                var_dump(self::$aClasses);
-                echo '</pre>';
+                #echo '<pre>';
+                #var_dump(self::$aClasses);
+                #echo '</pre>';
             }
             
             /*
@@ -147,6 +162,6 @@ class Autoload {
 
 if (!Autoload::autoload_json()) throw_exception('autoload_json()');
 if (!Autoload::autoload_namespaces()) throw_exception('autoload_namespaces()');
-#if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
+if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
 
 ?>
