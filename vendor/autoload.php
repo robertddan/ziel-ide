@@ -50,6 +50,9 @@ class Autoload {
                     'path' => ROOT. trim($sDirectory) .DS);
             }
         }
+        
+        #echo '<pre>';
+        #var_dump(self::$aDirectories);
         return true;
     }
     
@@ -57,7 +60,7 @@ class Autoload {
     {
         #$aDirectories = array_push($aDirectories, __DIR__);
         #self::$aDirectories
-echo '<pre>';
+        
         #var_dump(self::$aDirectories);
         
         if (empty($aaVendors)) 
@@ -78,29 +81,51 @@ echo '<pre>';
             
             foreach ($aPaths as $sPath) {
                 
-                if(is_dir($aVendor[1] . $sPath)) {
+                if(is_dir($aVendor['path'] . $sPath)) {
                     #var_dump([
+                        #$aVendor
                         #$aVendor[1].$sPath, 
                         #is_dir($aVendor[1] . $sPath),
                         #array($aVendor[0], $aVendor[1] .$sPath)
                     #]);
+                    #var_dump(['self::$aComposer', self::$aComposer, $aVendor['namespace']]);
+                    #$sNameSpace = explode($aVendor['directory'], $aVendor['path'] . $sPath);
+                    #var_dump(['$sNameSpace----isdir', $sNameSpace, $aVendor]);
+                    
                     self::$i++;
-                    $aaVendor = array(array($aVendor['namespace'], $aVendor['path'] .$sPath. DS));
+                    $aaVendor = array(array(
+                        'namespace' => $aVendor['namespace'], 
+                        'directory' => $aVendor['directory'], 
+                        'path' => $aVendor['path'] .$sPath. DS
+                    ));
                     self::autoload_namespaces($aaVendor);
                 }
                 else {
                     if(!in_array(pathinfo($aVendor['path'] .$sPath)['extension'], array('php'))) continue;
-                    #expllode($aVendor[1]);
-                    #var_dump(self::$aComposer);
+                    
                     $sVendorPath = $aVendor['path'] .$sPath. DS;
-                    $sNameSpace = explode('draft',$sVendorPath);
+                    $sNameSpace = array_shift(explode('.', array_pop(explode('draft', $sVendorPath))));
+                    $sNameSpace = explode('/', $sNameSpace);
+                    /*
+                    var_dump([
+                        array_shift(explode('.', $sPath)),
+                        '$sNameSpace', 
+                        implode("\\", array_map('ucfirst', array_filter($sNameSpace))),
+                        #array_shift(explode('.', $sNameSpace)),
+                    ]);
+                    */
                     
-                    #var_dump(self::$aComposer);
-                    
-                    $aClass = array($aVendor['namespace'], ucfirst(array_shift(explode('.',$sPath))), $aVendor['path'] .$sPath. DS);
+                    $aClass = array(
+                        $aVendor['namespace'].implode("\\", array_map('ucfirst', array_filter($sNameSpace))), 
+                        ucfirst(array_shift(explode('.',$sPath))), 
+                        $aVendor['path'] .$sPath. DS
+                    );
                     if(!array_push(self::$aClasses, $aClass)) continue;
-                    #var_dump($aVendor[1] .$sPath);
+                    
                 }
+                echo '<pre>';
+                var_dump(self::$aClasses);
+                echo '</pre>';
             }
             
             /*
