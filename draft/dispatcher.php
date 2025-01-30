@@ -1,5 +1,7 @@
 <?php
 
+namespace Ziel;
+
 use Ziel\System\Event;
 use Ziel\System\Route;
 use Ziel\System\Model;

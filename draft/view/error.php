@@ -2,14 +2,14 @@
 
 namespace Ziel\View;
 
-class Home {
+class Error {
 
-    public static function home_init()
+    public static function error_init()
     {
         global $aPage, $aRouter;
         $aPage = array();
         $aPage['content'] = $aPage['script'] = $aPage['projekt'] = '';
-        $aPage['title'] = '🔆 Home';
+        $aPage['title'] = '🔆 Error';
         $aPage['projekt'] = '<br/>🩹Projekt: Ziel-IDE';
         $aPage['content'] .= <<<EOD
 <style>
@@ -52,55 +52,7 @@ nav { height: 40px; background-color: darkslategrey; }
 </header>
 <nav></nav>
 <main>
-    <div class="left">
-        <div id="file-explorer" class="">
-            <div>   
-                <span class="file-explorer-directory">
-                    <a href="#">Directory</a>
-                </span>
-                <div>
-                    <span class="file-explorer-directory">
-                        <a href="#">Directory</a>
-                    </span>
-                    <div>
-                        <span class="file-explorer-directory">
-                            <a href="#">Directory</a>
-                        </span>
-                        <div>
-                            <span class="file-explorer-directory">
-                                <a href="#">Directory</a>
-                            </span>
-                            <span class="file-explorer-file">
-                                <a href="#">File file.php</a>
-                            </span>
-                        </div>
-                    </div>
-                    <span class="file-explorer-file">
-                        <a href="#">File file.php</a>
-                    </span>
-                    <span class="file-explorer-file">
-                        <a href="#">File file.php</a>
-                    </span>
-                </div>
-                
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                
-            </div>
-        </div>
-    </div>
-    
-    <div class="middle">
-        <textarea>
-        </textarea>
-    </div>
+
 </main>
 
 EOD;

@@ -2,7 +2,7 @@
 
 namespace Ziel\Thread;
 
-class Model {
+class Queue {
     
     public function model_init()
     {

@@ -7,9 +7,11 @@ class Autoload {
     
     public static function autoload_custom()
     {
-        spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
+        #spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
         foreach(self::$aClasses as $sClass) 
         if(!require($sClass)) throw_exception('autoload_custom()');
+        print '<pre>';
+        var_dump(self::$aClasses);
         return true;
     } 
 

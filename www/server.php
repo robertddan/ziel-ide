@@ -19,33 +19,43 @@ define("VENDOR", ROOT . DS . "vendor" . DS);
 include(CONFIG . DS . 'bootstrap.php');
 #if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
-function router_redirect()
+function router_redirect($aRoute = array())
 {
-    global $aRouter;
-    var_dump(['$aRouter', $aRouter]);
+    $aRouter = array();
+    if (!empty($aRoute)) $aRouter = $aRoute;
     if (empty($aRouter['page'])) $aRouter['page'] = 'home';
-    if (empty($aRouter['lang'])) $aRouter['lang'] = 'en';
     header('Location: /index?'. http_build_query($aRouter));
     exit();
 }
 
-function static_response()
-{
-    $data = file_get_contents(DRAFT .'static'. DS .'home.css');
-    return strlen($data);
-}
+global $aRouter, $aWidget, $aPage;
+$aRouter = array();
 
-global $aUri;
-$aUri = parse_url('/'. $_SERVER["REQUEST_URI"]);
+if(empty($_GET)) router_redirect();
+$aRouter = parse_url('/'. $_SERVER["REQUEST_URI"]);
+parse_str($aRouter["query"], $aQuery);
+$aRouter = array_merge($aQuery, $aRouter);
+
+$sNamespace = 'Ziel\View\\'. ucfirst($aRouter['page']);
+
+
+#if(empty($aRouter['page'])) router_redirect();
+if (!class_exists($sNamespace)) router_redirect(array('page' => 'error'));
+return var_dump([$sNamespace, class_exists($sNamespace)]);
+
+
+
+$a = call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
+
+
 
 #echo '<pre>';
-#if(!empty($_GET)) var_dump(['$_GET', $_GET]);
-#elseif(!empty($_POST)) var_dump(['$_POST', $_POST]);
-#else router_redirect();
+#var_dump([$aRouter, $aRouter]);
+
 
 // TODO Route $_GET $_POST
-if (isset($aUri['host']))
-switch ($aUri['host']) {
+if (isset($aRouter['host']))
+switch ($aRouter['host']) {
     case 'favicon.ico':
         header('Content-Type: text/x-icon');
         print file_get_contents(ROOT .'www'. DS .'favicon.ico');
@@ -53,20 +63,21 @@ switch ($aUri['host']) {
     break;
     case 'fonts':
         header('Content-Type: font/ttf; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        print file_get_contents(DRAFT .'static'. DS .$aRouter['path']);
         exit();
     break;
     case 'style':
         header('Content-Type: text/css; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        print file_get_contents(DRAFT .'static'. DS .$aRouter['path']);
         exit();
     break;
     case 'script':
         header('Content-Type: text/javascript; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aUri['path']);
+        print file_get_contents(DRAFT .'static'. DS .$aRouter['path']);
         exit();
     break;
 }
+
 
 $aWidget['html'] = '';
 #$aWidget['html'] .= '<!--- doctype -->';
@@ -84,115 +95,25 @@ $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
 $aWidget['html'] .= '<!--- body -->';
 $aWidget['html'] .= '<body>';
-$aWidget['html'] .= <<<EOD
-<style>
-body { font-family: 'Calibri', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0; } header { flex: 0 0 0; background-color: #C14F4F; } main { flex: 1; display: flex; background-color: #699EBD; height: 86%; } footer { flex: 0 0 40px; background-color: #C14F4F; text-align: center; } .left, .right { flex: 0 2 25%; background-color: #C28282; height: 100%; overflow: hidden; } .middle { flex: 1 1 75%; padding-left: 50px; } .loader { border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; } @font-face { font-family: "Fira Code"; src: url("/fonts/FiraCode-Regular.ttf"); } textarea { font-family: "Fira Code"; font-size: 16px; height: 100%; width: 100%; resize: none; border: none; } textarea:focus { outline: none; border: none; }
-.menu { display: flex; background-color: #303030; color: white; } .menu ul { display: flex; justify-content: space-evenly; align-items: flex-start; list-style-type: none; padding: 7px; margin: 5px; } .menu ul li { } .menu ul li a { padding: 7px 14px; text-decoration: none; text-align: center; color: #808080; } .menu ul li a:hover { color: white; } .menu ul li ul { display: none; } .menu ul li:hover ul { display: flex; position: absolute; flex-direction: column; background-color: #303030; padding-top: 7px; } .menu ul li:hover ul li{ padding: 7px 14px; }
-#file-explorer > div { padding-bottom: 220px; } #file-explorer { overflow: scroll; height: 100%; scrollbar-width: thin; background-color: lightyellow; } #file-explorer div { display: flex; flex-direction: column; } #file-explorer li { list-style-type: none; } #file-explorer a { text-decoration: none; color: #303030; } #file-explorer a:hover { } #file-explorer span { background-color: lightyellow; cursor: pointer; border-top: 1px solid gray; } #file-explorer span:hover { background-color: aliceblue; } .file-explorer-directory { padding: 7px; } .file-explorer-directory:hover { } .file-explorer-file { padding: 7px; } .file-explorer-directory + div { margin-left: 14px; border-left: 1px solid gray; } .file-explorer-directory:hover { } .file-explorer div span:nth-last-child(){ border-bottom: 1px solid gray; }
-nav { height: 40px; background-color: darkslategrey; }
-
-</style>
-
-<header>
-<div class="menu">
-    <ul>
-        <li>
-            <a href="#">Files</a>
-            <ul>
-                <li><a data-menu-files="new" href="#new">New</a></li>
-                <li><a data-menu-files="save" href="#save">Save</a></li>
-                <li><a data-menu-files="saveAll" href="#">Save all</a></li>
-                <li><a data-menu-files="openFile" href="#">Open file</a></li>
-                <li><a data-menu-files="openProject" href="#">Open project</a></li>
-                <li><a data-menu-files="readOnly" href="#">Toggle read-only</a></li>
-                <li><a data-menu-files="readOnlyAll" href="#">Toggle read-only all</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Edit</a>
-        </li>
-        <li>
-            <a href="#">View</a>
-        </li>
-        <li>
-            <a href="#">Editor</a>
-        </li>
-        <li>
-            <a href="#">Help</a>
-        </li>
-    </ul>
-</div>
-</header>
-<nav></nav>
-<main>
-    <div class="left">
-        <div id="file-explorer" class="">
-            <div>   
-                <span class="file-explorer-directory">
-                    <a href="#">Directory</a>
-                </span>
-                <div>
-                    <span class="file-explorer-directory">
-                        <a href="#">Directory</a>
-                    </span>
-                    <div>
-                        <span class="file-explorer-directory">
-                            <a href="#">Directory</a>
-                        </span>
-                        <div>
-                            <span class="file-explorer-directory">
-                                <a href="#">Directory</a>
-                            </span>
-                            <span class="file-explorer-file">
-                                <a href="#">File file.php</a>
-                            </span>
-                        </div>
-                    </div>
-                    <span class="file-explorer-file">
-                        <a href="#">File file.php</a>
-                    </span>
-                    <span class="file-explorer-file">
-                        <a href="#">File file.php</a>
-                    </span>
-                </div>
-                
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                <span class="file-explorer-file">
-                    <a href="#">File file.php</a>
-                </span>
-                
-            </div>
-        </div>
-    </div>
-    
-    <div class="middle">
-        <textarea>
-        </textarea>
-    </div>
-</main>
-<footer>
-ziel--ide © [YEAR OF PUBLICATION] [WEBSITE NAME]. All rights reserved.
-<br/>
-<div id="root"></div>
-</footer>
-EOD;
+$aWidget['html'] .= $aPage['content'];
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';
 $aWidget['html'] .= '<button id="file-handle">button</button>';
 #$aWidget['html'] .= '<div id="sse"><a href="javascript:WebSocketSend()">send WebSocket</a></div>';
 #$aWidget['html'] .= $aWidget['events'];
 #$aWidget['html'] .= $aPage['content'];
-#$aWidget['html'] .= '</main>';
+
+$aWidget['html'] .= '<footer>
+ziel--ide © [YEAR OF PUBLICATION] [WEBSITE NAME]. All rights reserved.
+<br/>
+<div id="root"></div>
+</footer>';
 
 $aWidget['html'] .= '</body>';
 $aWidget['html'] .= '<!--- /body -->';
 $aWidget['html'] .= '<!--- /html -->';
 $aWidget['html'] .= '</html>';
+
 
 if (!headers_sent()) {
     header('Content-Type: text/html; charset=utf-8');
