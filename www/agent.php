@@ -2,8 +2,6 @@
 
 namespace Ziel;
 #self signed certificate
-#Web Transport
-#releaseLock
 class Agent
 {
     public static $sock;
@@ -59,6 +57,8 @@ class Agent
                     $message = self::unmask($data);
                     $decoded_message = json_decode($message, true);
 
+                    var_dump(['$message', $decoded_message]);
+#get cookie token for user array
                     if (isset($decoded_message['menu']))
                     switch ($decoded_message['menu']) {
                         case 'new':
@@ -139,7 +139,7 @@ class Agent
 
     public static function pack_data($text)
     {
-        $b1 = 0x80 or (0x1 and 0x0f);
+        $b1 = 0x80 | (0x1 & 0x0f);
         $length = strlen($text);
         if ($length <= 125) 
         $header = pack("CC", $b1, $length);

@@ -16,19 +16,19 @@ class Autoload {
         #return var_dump(self::$aClasses);
         
         #spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
-        print '<pre>';
+        #print '<pre>';
         foreach(self::$aClasses as $sClass)
         {
-            #if(!require($sClass[2])) throw_exception('autoload_custom()');
+            if(!require($sClass['path'])) throw_exception('autoload_custom()');
         
-            set_include_path(ROOT . 'draft');
-            var_dump($sClass);
-            spl_autoload($sClass[0]);
+            #set_include_path(ROOT . 'draft');
+            #var_dump($sClass);
+            #spl_autoload($sClass['class']);
             #return true;
-            var_dump([
-                #class_exists($sClass[0]),
-                file_exists($sClass[2])
-            ]);
+            #var_dump([
+                #class_exists($sClass['namespace']),
+                #file_exists($sClass['path'])
+            #]);
         }
         
         return true;
@@ -118,7 +118,7 @@ class Autoload {
                 else {
                     if(!in_array(pathinfo($aVendor['path'] .$sPath)['extension'], array('php'))) continue;
                     
-                    $sVendorPath = $aVendor['path'] .$sPath. DS;
+                    $sVendorPath = $aVendor['path'] .$sPath;
                     $sNameSpace = array_shift(explode('.', array_pop(explode($aVendor['directory'], $sVendorPath))));
                     $sNameSpace = explode('/', $sNameSpace);
                     /*

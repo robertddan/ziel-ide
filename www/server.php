@@ -1,7 +1,10 @@
 <?php
 
 function exception_handler (Throwable $exception) {
-    print $exception->getMessage() .PHP_EOL;
+    print PHP_EOL. $exception->getMessage() .PHP_EOL.
+    "On file: ".$exception->getFile() .PHP_EOL.
+    "On line: ". $exception->getLine() .PHP_EOL.
+    $exception->getTraceAsString() .PHP_EOL;
 }
 
 function throw_exception ($sException) {
@@ -17,7 +20,8 @@ define("DRAFT", ROOT . DS . "draft" . DS);
 define("VENDOR", ROOT . DS . "vendor" . DS);
 
 include(CONFIG . DS . 'bootstrap.php');
-if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
+
+#if (!Ziel\Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
 function router_redirect($aRoute = array())
 {
@@ -39,7 +43,6 @@ $sNamespace = 'Ziel\View\\'. ucfirst($aRouter['page']);
 if (!class_exists($sNamespace)) router_redirect(array('page' => 'error'));
 if (!call_user_func(array($sNamespace, $aRouter['page'] .'_init')))
 throw_exception('call_user_func()');
-
 
 if (isset($aRouter['host']))
 switch ($aRouter['host']) {
@@ -265,16 +268,6 @@ let layer = {
 
 menu.onInit()
 layer.onInit();
-
-
-let fileHandle;
-let butOpenFile = document.getElementById('file-handle');
-butOpenFile.addEventListener('click', async () => {
-  // Destructure the one-element array.
-  [fileHandle] = await window.showOpenFilePicker();
-  // Do something with the file handle.
-  console.log([fileHandle]);
-});
 
 
 </script>
