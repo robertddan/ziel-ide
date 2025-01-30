@@ -16,7 +16,7 @@ class Autoload {
         return true;
     } 
 
-    public static function autoload_directories()
+    public static function autoload_json()
     {
         $sComposer = file_get_contents(ROOT . self::$sJsonName);
         $aComposer = json_decode($sComposer, true);
@@ -33,12 +33,12 @@ class Autoload {
         
         foreach($aComposer['autoload']['psr-4'] as $sNamespace => $aDirectory)
         {
-            if (!is_array($aDirectory)) $aDirectory = (array) $aDirectory;
-            
+            if (!is_array($aDirectory)) 
+            $aDirectory = (array) $aDirectory;
             foreach($aDirectory as $sDirectory) 
             {
                 if (!is_dir(ROOT . trim($sDirectory))) continue;
-                self::$aDirectories[$sNamespace][] = trim($sDirectory);
+                self::$aDirectories[] = array($sNamespace, ROOT. trim($sDirectory) .DS);
             }
         }
         
@@ -46,28 +46,53 @@ class Autoload {
         return true;
     }
     
-    public static function autoload_vendors($sVendors = null)
+    public static function autoload_namespaces($aVendors = array())
     {
         #$aDirectories = array_push($aDirectories, __DIR__);
+        #self::$aDirectories
+echo '<pre>';
         
-        $aVendors = array_diff(scandir($sVendors), array('.', '..', 'autoload.php'));
-        foreach($aVendors as $sVendor)
+        if (empty($aVendors)) $aaVendors = self::$aDirectories;
+        if (empty($aaVendors)) return true;
+            
+        foreach($aaVendors as $aVendor)
         {
-            $sClassPath = $sVendors . DS . $sVendor;
-            if(is_dir($sClassPath)) {
-                self::autoload_vendors($sClassPath);
+            var_dump([$aaVendors ,$aVendor]);
+            
+            $aClasses = array_diff(scandir($aVendor[1]), array('.', '..', 'autoload.php'));
+            
+
+            foreach ($aClasses as $sClass) {
+                var_dump($aVendor[1] . $sClass);
+                if(is_dir($aVendor[1] . $sClass)) {
+                    
+                    self::autoload_namespaces(array($aVendor[0], $aVendor[1] .$sClass));
+var_dump([
+    is_dir($aVendor[1] . $sClass),
+    
+]);
+                }
             }
+            
+            /*
+            $sClassPath = $aVendor[1];
+            
             else {
                 if(!in_array(pathinfo($sClassPath)['extension'], array('php'))) continue;
                 if(!array_push(self::$aClasses, $sClassPath)) continue;
             }
+            */
+            
+
+            
         }
+        
         return true;
     }
 }
 
-if (!Autoload::autoload_files()) throw_exception('autoload_files()');
-if (!Autoload::autoload_vendors()) throw_exception('autoload_vendors()');
+if (!Autoload::autoload_json()) throw_exception('autoload_json()');
+if (!Autoload::autoload_namespaces()) throw_exception('autoload_namespaces()');
 #if (!Autoload::autoload_custom()) throw_exception('autoload_custom()');
 
 ?>
