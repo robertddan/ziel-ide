@@ -52,7 +52,7 @@ nav { height: 40px; background-color: darkslategrey; }
 </header>
 <nav></nav>
 <main>
-
+<h2>Error</h2>
 </main>
 
 EOD;

@@ -18,7 +18,7 @@ define("VENDOR", ROOT . DS . "vendor" . DS);
 
 include(CONFIG . DS . 'bootstrap.php');
 #if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
-
+return true;
 function router_redirect($aRoute = array())
 {
     $aRouter = array();
@@ -29,31 +29,18 @@ function router_redirect($aRoute = array())
 }
 
 global $aRouter, $aWidget, $aPage;
-$aRouter = array();
 
+$aRouter = array();
 if(empty($_GET)) router_redirect();
 $aRouter = parse_url('/'. $_SERVER["REQUEST_URI"]);
 parse_str($aRouter["query"], $aQuery);
 $aRouter = array_merge($aQuery, $aRouter);
-
 $sNamespace = 'Ziel\View\\'. ucfirst($aRouter['page']);
-
-
-#if(empty($aRouter['page'])) router_redirect();
 if (!class_exists($sNamespace)) router_redirect(array('page' => 'error'));
-return var_dump([$sNamespace, class_exists($sNamespace)]);
+if (!call_user_func(array($sNamespace, $aRouter['page'] .'_init')))
+throw_exception('call_user_func()');
 
 
-
-$a = call_user_func(array($sNamespace, $aRouter['page'] .'_init'));
-
-
-
-#echo '<pre>';
-#var_dump([$aRouter, $aRouter]);
-
-
-// TODO Route $_GET $_POST
 if (isset($aRouter['host']))
 switch ($aRouter['host']) {
     case 'favicon.ico':
@@ -63,7 +50,7 @@ switch ($aRouter['host']) {
     break;
     case 'fonts':
         header('Content-Type: font/ttf; charset=utf-8');
-        print file_get_contents(DRAFT .'static'. DS .$aRouter['path']);
+        print file_get_contents(DRAFT .'static'. DS .$aRouter['path']); 
         exit();
     break;
     case 'style':

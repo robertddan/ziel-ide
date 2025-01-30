@@ -3,12 +3,18 @@
     "description": "Ziel IDE",
     "type": "project",
     "autoload": {
-        "files": ["draft"]
+        "psr-4": { 
+            "Ziel\\": ["draft/", "var/"], 
+            "Ziel\\Test\\": ["var/"]
+        }
     },
     "authors": [
         {
             "name": "Robert-Dan",
             "email": "danrobert445@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "monolog/monolog": "1.0.*"
+    }
 }
