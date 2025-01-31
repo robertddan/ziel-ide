@@ -150,7 +150,7 @@ let menu = {
             //var action = link.getAttribute('data-menu-files');
             //console.log(link.getAttribute('data-menu-files'));
             link.addEventListener('click', (event) => {
-                var message = '{"menu":"'+ action +'", "file":""}';
+                var message = '{"menu":"'+ action +'", "path":"", "file":""}';
                 socket.call(message);
             });
         });
@@ -210,22 +210,23 @@ let socket = {
         this.peer.addEventListener('message', this.onMessage);
         this.peer.addEventListener('close', this.onClose);
         this.peer.addEventListener('error', this.onError);
+        console.log(this.peer);
     },
     call: function(event) {
         console.log("WebSocket send: ", event);
-        socket.peer.send(event);
+        this.peer.send(event);
     },
     onClose: function(event) {
         console.log("WebSocket close: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //setInterval(1000);
-        //socket.onInit();
+        socket.onInit();
     },
     onError: function(error) {
         console.log("WebSocket error: ", event);
         document.getElementById('loader').classList.remove("hidden");
         //setInterval(1000);
-        //socket.onInit();
+        socket.onInit();
     },
     onMessage: function(event) {
         console.log('WebSocket onmessage: ', event);
