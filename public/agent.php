@@ -1,7 +1,7 @@
 <?php
 
 namespace Ziel;
-#self signed certificate
+
 class Agent
 {
     public static $sock;
@@ -173,6 +173,29 @@ class Agent
             "Sec-WebSocket-Accept:$sec_accept\r\n\r\n";
         socket_write($sock, $response_header, strlen($response_header));
     }
+    
+    /*
+    //self signed certificate
+    
+    $ssl = [
+    'ssl' => [
+        'local_cert'  => $path . 'cert.pem',       // SSL Certificate
+        'local_pk'    => $path . 'privkey.pem',    // SSL Keyfile
+        'disable_compression' => true,             // TLS compression attack vulnerability
+        'verify_peer'         => false,            // Set this to true if acting as an SSL client
+        'ssltransport' => $transport,              // Transport Methods such as 'tlsv1.1', tlsv1.2' 
+    ]];
+    
+    $stream_context = stream_context_create([
+    'ssl' => [
+        'local_cert'        => '/path/to/key.pem',
+        'peer_fingerprint'  => openssl_x509_fingerprint(file_get_contents('/path/to/key.crt')),
+        'verify_peer'       => false,
+        'verify_peer_name'  => false,
+        'allow_self_signed' => true,
+        'verify_depth'      => 0 
+    ]]);
+    */
 }
 
 if (php_sapi_name() == "cli") {

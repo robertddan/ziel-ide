@@ -9,6 +9,7 @@ class Autoload {
     
     const DS = DIRECTORY_SEPARATOR;
     const ROOT = __DIR__ . DS . '..' . DS;
+    const CONFIG = ROOT . DS . 'config' . DS;
 
     
     public static $i = 0;
@@ -38,7 +39,7 @@ class Autoload {
 
     public static function autoload_json()
     {
-        $sComposer = file_get_contents(ROOT . self::$sJsonName);
+        $sComposer = file_get_contents(CONFIG . self::$sJsonName);
         self::$aComposer = json_decode($sComposer, true);
         
         #for json require
