@@ -1,6 +1,6 @@
 {
     "name": "root/ziel-ide",
-    "description": "Ziel IDE",
+    "description": "Ziel - Cloud IDE Service",
     "type": "project",
     "autoload": {
         "psr-4": { 
