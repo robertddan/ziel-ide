@@ -1,9 +1,18 @@
-cron
-
+cron\console
 scheduler\task
-
 dispatcher\pid
 server\http
+server\ssh
+
+
+
+Pipeline:
+$process = (new Pipeline)
+    ->pipe([new RegistratorLog, 'register'])
+    ->pipe([new NotificationSms, 'notification'])
+    ->pipe([new NotificationEmail, 'notification']);
+
+$result = $process->process( new Order() );
 
 #-view
 #--session
