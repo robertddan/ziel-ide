@@ -1,0 +1,10 @@
+{
+    "name": "Ziel-IDE",
+    "short_name": "ziel-ide",
+    "theme_color": "#fff",
+    "background_color": "#fff",
+    "display": "browser",
+    "orientation": "portrait",
+    "scope": "/draft",
+    "start_url": "/"
+}
