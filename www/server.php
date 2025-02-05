@@ -21,6 +21,7 @@ define("VENDOR", ROOT . DS . "vendor" . DS);
 
 include(CONFIG . DS . 'bootstrap.php');
 
+var_dump(base64_encode(pack("H*", sha1('NnRlZW4gYnl0ZXMgbG9uZw==258EAFA5-E914-47DA-95CA-C5AB0DC85B11'))));
 #if (!Ziel\Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
 function router_redirect($aRoute = array())

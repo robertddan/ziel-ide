@@ -12,11 +12,6 @@ class Autoload {
     
     public static function autoload_custom()
     {
-        
-        #return var_dump(self::$aClasses);
-        
-        #spl_autoload_register(__CLASS__ ."::". __FUNCTION__);
-        #print '<pre>';
         foreach(self::$aClasses as $sClass)
         {
             if(!require($sClass['path'])) throw_exception('autoload_custom()');
@@ -65,48 +60,21 @@ class Autoload {
                     'path' => ROOT. trim($sDirectory) .DS);
             }
         }
-        
-        #echo '<pre>';
-        #var_dump(self::$aDirectories);
         return true;
     }
     
     public static function autoload_namespaces($aaVendors = array())
     {
-        #$aDirectories = array_push($aDirectories, __DIR__);
-        #self::$aDirectories
-        
-        #var_dump(self::$aDirectories);
-        
         if (empty($aaVendors)) 
         {
             $aaVendors = self::$aDirectories;
             if (empty($aaVendors)) return true;
-        } 
-        
-        #var_dump(['foreach($aaVendors as $aVendor)', $aaVendors]);
-        
+        }
         foreach($aaVendors as $aVendor)
         {
-            #var_dump([scandir($aVendor[1]), $aVendor, $aaVendors]);
-            #var_dump($aVendor);
             $aPaths = array_diff(scandir($aVendor['path']), array('.', '..', 'autoload.php'));
-            
-            #var_dump([$aPaths ,$aVendor]);
-            
             foreach ($aPaths as $sPath) {
-                
                 if(is_dir($aVendor['path'] . $sPath)) {
-                    #var_dump([
-                        #$aVendor
-                        #$aVendor[1].$sPath, 
-                        #is_dir($aVendor[1] . $sPath),
-                        #array($aVendor[0], $aVendor[1] .$sPath)
-                    #]);
-                    #var_dump(['self::$aComposer', self::$aComposer, $aVendor['namespace']]);
-                    #$sNameSpace = explode($aVendor['directory'], $aVendor['path'] . $sPath);
-                    #var_dump(['$sNameSpace----isdir', $sNameSpace, $aVendor]);
-                    
                     self::$i++;
                     $aaVendor = array(array(
                         'namespace' => $aVendor['namespace'], 
@@ -119,43 +87,20 @@ class Autoload {
                     if(!in_array(pathinfo($aVendor['path'] .$sPath)['extension'], array('php'))) continue;
                     
                     $sVendorPath = $aVendor['path'] .$sPath;
-                    $sNameSpace = array_shift(explode('.', array_pop(explode($aVendor['directory'], $sVendorPath))));
-                    $sNameSpace = explode('/', $sNameSpace);
-                    /*
-                    var_dump([
-                        array_shift(explode('.', $sPath)),
-                        '$sNameSpace', 
-                        implode("\\", array_map('ucfirst', array_filter($sNameSpace))),
-                        #array_shift(explode('.', $sNameSpace)),
-                    ]);
-                    */
-                    
+                    $a075306 = explode($aVendor['directory'], $sVendorPath);
+                    $a363174 = explode('.', array_pop($a075306));
+                    $sNameSpace = array_shift($a363174);
+                    $sNameSpace = @explode('/', $sNameSpace);
+                    $aPath = explode('.', $sPath);
                     $aClass = array(
                         'namespace' => $aVendor['namespace'].implode("\\", array_map('ucfirst', array_filter($sNameSpace))), 
-                        'class' => ucfirst(array_shift(explode('.', $sPath))), 
+                        'class' => ucfirst(array_shift($aPath)), 
                         'path' => $sVendorPath
                     );
                     if(!array_push(self::$aClasses, $aClass)) continue;
-                    
                 }
-                #echo '<pre>';
-                #var_dump(self::$aClasses);
-                #echo '</pre>';
             }
-            
-            /*
-            $sClassPath = $aVendor[1];
-            
-            else {
-                if(!in_array(pathinfo($sClassPath)['extension'], array('php'))) continue;
-                if(!array_push(self::$aClasses, $sClassPath)) continue;
-            }
-            */
-            
-
-            
         }
-        
         return true;
     }
 }

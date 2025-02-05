@@ -11,10 +11,15 @@
     "authors": [
         {
             "name": "Robert-Dan",
-            "email": "danrobert445@gmail.com"
+            "email": "robertddanedu@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
         
-    }
+    },
+    "license": [
+        "LGPL-2.1-only",
+        "GPL-3.0-or-later"
+    ]
 }
