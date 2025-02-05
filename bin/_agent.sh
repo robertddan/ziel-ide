@@ -1,1 +1,1 @@
-php -f ./www/agent.php
+php -f ./public/agent.php

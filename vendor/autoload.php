@@ -7,6 +7,9 @@ class Autoload {
     public static $aClasses = array();
     public static $aComposer = array();
     
+    const DS = DIRECTORY_SEPARATOR;
+    const ROOT = __DIR__ . DS . '..' . DS;
+
     
     public static $i = 0;
     
