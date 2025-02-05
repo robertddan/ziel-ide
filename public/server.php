@@ -19,9 +19,9 @@ define("CONFIG", ROOT . DS . "config" . DS);
 define("DRAFT", ROOT . DS . "draft" . DS);
 define("VENDOR", ROOT . DS . "vendor" . DS);
 
-include(CONFIG . DS . 'bootstrap.php');
+require(CONFIG . DS . 'bootstrap.php');
 
-var_dump(base64_encode(pack("H*", sha1('NnRlZW4gYnl0ZXMgbG9uZw==258EAFA5-E914-47DA-95CA-C5AB0DC85B11'))));
+#var_dump(base64_encode(pack("H*", sha1('NnRlZW4gYnl0ZXMgbG9uZw==258EAFA5-E914-47DA-95CA-C5AB0DC85B11'))));
 #if (!Ziel\Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
 function router_redirect($aRoute = array())
@@ -82,6 +82,7 @@ $aWidget['html'] .= '<meta charset="utf-8">';
 #$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
 #$aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
 $aWidget['html'] .= '<style>.loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; }</style>';
+$aWidget['html'] .= '<link rel="manifest" href="manifest.json" />';
 $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
 $aWidget['html'] .= '<!--- body -->';
@@ -89,7 +90,7 @@ $aWidget['html'] .= '<body>';
 $aWidget['html'] .= $aPage['content'];
 
 $aWidget['html'] .= '<div id="loader-wrapper"><div id="loader" class="loader"></div></div>';
-$aWidget['html'] .= '<button id="file-handle">button</button>';
+#$aWidget['html'] .= '<button id="file-handle">button</button>';
 #$aWidget['html'] .= '<div id="sse"><a href="javascript:WebSocketSend()">send WebSocket</a></div>';
 #$aWidget['html'] .= $aWidget['events'];
 #$aWidget['html'] .= $aPage['content'];
