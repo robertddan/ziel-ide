@@ -49,7 +49,12 @@ if (isset($aRouter['host']))
 switch ($aRouter['host']) {
     case 'favicon.ico':
         header('Content-Type: text/x-icon');
-        print file_get_contents(ROOT .'www'. DS .'favicon.ico');
+        print file_get_contents(ROOT .'public'. DS .'favicon.ico');
+        exit();
+    break;
+    case 'app.webmanifest':
+        header('Content-Type: application/manifest+json');
+        print file_get_contents(ROOT .'public'. DS .'app.webmanifest');
         exit();
     break;
     case 'fonts':
@@ -79,10 +84,19 @@ $aWidget['html'] .= '<html class="">';
 $aWidget['html'] .= '<!--- head -->';
 $aWidget['html'] .= '<head>';
 $aWidget['html'] .= '<meta charset="utf-8">';
+/*
+<!-- Startup configuration -->
+<link rel="manifest" href="manifest.webmanifest">
+
+<!-- Fallback application metadata for legacy browsers -->
+<meta name="application-name" content="Racer3K">
+<link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico">
+<link rel="icon" sizes="512x512" href="hi_def.png">
+*/
 #$aWidget['html'] .= '<title>'. $aPage['title'] .'</title>';
 #$aWidget['html'] .= '<script type="text/javascript" src="/script/home.js"></script>';
 $aWidget['html'] .= '<style>.loader { border: 16px solid #f3f3f3; /* Light grey */ border-top: 16px solid #3498db; /* Blue */ border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; position: absolute; top: 50%; left: 50%; margin-left: -20px; margin-top: -20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .hidden { display: none; }</style>';
-$aWidget['html'] .= '<link rel="manifest" href="manifest.json" />';
+$aWidget['html'] .= '<link rel="manifest" href="/app.webmanifest">';
 $aWidget['html'] .= '</head>';
 $aWidget['html'] .= '<!--- /head -->';
 $aWidget['html'] .= '<!--- body -->';
@@ -123,7 +137,7 @@ else {
 
 <script>
 /*
-let socket = new WebSocket("ws://127.0.0.1:44321/www/agent.php");
+let socket = new WebSocket("ws://127.0.0.1:44321/public/agent.php");
 
 var socketOpen = (e) => {
     console.log("connected to the socket");
@@ -204,7 +218,7 @@ let footer = {
 
 let socket = {
     peer: {},
-	host: 'ws://127.0.0.1:44321/www/agent.php',
+	host: 'ws://127.0.0.1:44321/public/agent.php',
 	onInit: function() {
         this.peer = new WebSocket(this.host);
         this.peer.addEventListener('readystatechange', this.onState);

@@ -1,8 +1,9 @@
 cron\console
 scheduler\task
 dispatcher\pid
-server\http
-server\ssh
+pipeline:
+-server\http
+-server\ssh
 
 
 

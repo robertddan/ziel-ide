@@ -11,8 +11,8 @@
 
 #sudo mysql -u root
 
-#CREATE DATABASE calendar;
-#USE calendar;
-#SOURCE sql/calendar.sql;
-#SET PASSWORD FOR root@localhost='';
-#quit;
+#mysql: CREATE DATABASE calendar;
+#mysql: USE calendar;
+#mysql: SOURCE sql/calendar.sql;
+#mysql: SET PASSWORD FOR root@localhost='';
+#mysql: quit;
