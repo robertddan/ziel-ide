@@ -19,7 +19,7 @@ class Autoload {
         foreach(self::$aClasses as $sClass)
         {
             if(!require($sClass['path'])) throw_exception('autoload_custom()');
-        
+            #print '<pre>';
             #set_include_path(ROOT . 'draft');
             #var_dump($sClass);
             #spl_autoload($sClass['class']);
@@ -77,6 +77,7 @@ class Autoload {
         foreach($aaVendors as $aVendor)
         {
             $aPaths = array_diff(scandir($aVendor['path']), array('.', '..', 'autoload.php'));
+            krsort($aPaths);
             foreach ($aPaths as $sPath) {
                 if(is_dir($aVendor['path'] . $sPath)) {
                     self::$i++;

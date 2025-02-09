@@ -38,7 +38,7 @@ class Dispatcher {
     {
         if(!self::$oEvent->event_init()) throw_exception('event_init()');
         if(!self::$oRoute->router_init()) throw_exception('router_init()');
-        if(!self::$oModel->model_init()) throw_exception('model_init()');
+        #if(!self::$oModel->model_init()) throw_exception('model_init()');
         return true;
     }
     
@@ -55,6 +55,6 @@ class Dispatcher {
     
 }
 
-if (!Ziel\Dispatcher::threads()) throw_exception('dispatcher_threads()');
+if (!Dispatcher::threads()) throw_exception('dispatcher_threads()');
 
 ?>
