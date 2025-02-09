@@ -55,4 +55,6 @@ class Dispatcher {
     
 }
 
+if (!Ziel\Dispatcher::threads()) throw_exception('dispatcher_threads()');
+
 ?>

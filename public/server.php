@@ -4,6 +4,7 @@ Docker containers
 
 
 */
+
 function exception_handler (Throwable $exception) {
     print PHP_EOL. $exception->getMessage() .PHP_EOL.
     "On file: ".$exception->getFile() .PHP_EOL.
