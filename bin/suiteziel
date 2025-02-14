@@ -29,4 +29,11 @@ use Ziel\System\Console;
 $console = new Console();
 $console->call();
 
+
+$console = new Pipe();
+$console->call(new Console()); //
+$console->task(new DNS/Server()); //exception throw in console as view
+$console->task(new HTTP/Server()); //exception throw in console as view
+
+
 ?>
