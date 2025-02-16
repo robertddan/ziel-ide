@@ -25,14 +25,14 @@ use Ziel\System\Event;
 ##extrisic to multithreads with pipes
 
 #from cron
-#use Ziel\Framework\Console; //cron > http/dns// start/stop
+#use Ziel\Framework\Console; //cron BUS
 
 #to intrinsic 
 #use Ziel\Framework\Pipes;
 
 #from extrisic
-#use Ziel\Framework\Console; //console http server read lo
-#use Ziel\Framework\Event; //index
+#use Ziel\Framework\Console; //console http/dns start/stop 
+#use Ziel\Framework\Event; //index GET/POST
 
 #write logs
 #use Ziel\Framework\Logs; //reports in var
