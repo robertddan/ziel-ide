@@ -1,6 +1,7 @@
 <?php
 
 namespace Ziel\System;
+
 #todo a flag, already rendered
 class Console {
     

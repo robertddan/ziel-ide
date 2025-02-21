@@ -5,3 +5,5 @@ class Net {
         print 'Hello world';
     }
 }
+
+?>
